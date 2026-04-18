@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - CAMP</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assent/css/login-trabajador.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sección izquierda -->
+        <div class="left-section">
+            <div class="brand">
+                <div class="logo">
+                    <i class="fas fa-seedling"></i>
+                    <span>CAMP</span>
+                </div>
+                
+                <h1>¡Bienvenido de vuelta!</h1>
+                <p>Accede a tu cuenta y encuentra las mejores oportunidades laborales en el sector agrícola</p>
+                
+                <div class="benefits">
+                    <div class="benefit-item">
+                        <i class="fas fa-search"></i>
+                        <span>Busca empleos cerca de ti</span>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-heart"></i>
+                        <span>Guarda tus ofertas favoritas</span>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-bell"></i>
+                        <span>Recibe alertas personalizadas</span>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-file-alt"></i>
+                        <span>Gestiona tu CV profesional</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección derecha -->
+        <div class="right-section">
+            <div class="form-container">
+                <div class="form-header">
+                    <h2>Iniciar Sesión</h2>
+                    <p>Ingresa tus credenciales para acceder a tu cuenta</p>
+                </div>
+
+                <!-- FORMULARIO DE LOGIN -->
+                <form class="login-form" id="loginForm" action="http://localhost:5000/login.py" method="POST">
+                    <input type="hidden" name="tipo_login" value="trabajador">
+                    
+                    <!-- Campo: Email -->
+                    <div class="form-group">
+                        <div class="input-container">
+                            <i class="fas fa-envelope input-icon"></i>
+                            <input type="email" id="email" name="email" placeholder="Correo electrónico" required>
+                        </div>
+                    </div>
+
+                    <!-- Campo: Contraseña -->
+                    <div class="form-group">
+                        <div class="input-container">
+                            <i class="fas fa-lock input-icon"></i>
+                            <input type="password" id="password" name="contrasena" placeholder="Contraseña" required>
+                            <i class="fas fa-eye toggle-password" onclick="togglePassword()"></i>
+                        </div>
+                    </div>
+
+                    <!-- Opciones del formulario -->
+                    <div class="form-options">
+                        <div class="remember-me">
+                            <input type="checkbox" id="remember" name="recordar_sesion">
+                            <label for="remember">Recordarme</label>
+                        </div>
+                        <a href="javascript:void(0)" class="forgot-password" onclick="openForgotModal()">
+                            ¿Olvidaste tu contraseña?
+                        </a>
+                    </div>
+
+                    <!-- Botón de iniciar sesión -->
+                    <button type="submit" class="btn-login">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Iniciar Sesión
+                    </button>
+                    
+                    <!-- Botón de registro -->
+                    <button type="button" class="btn-register" onclick="goToRegister()">
+                        <i class="fas fa-user-plus"></i>
+                        Crear Cuenta Nueva
+                    </button>
+                </form>
+
+                <!-- Separador -->
+                <div class="social-divider">
+                    <hr>
+                    <span>O continúa con</span>
+                    <hr>
+                </div>
+
+                <!-- Botones de redes sociales -->
+                <div class="social-buttons">
+                    <button type="button" class="btn-social btn-google" onclick="continueWithGoogle()">
+                        <i class="fab fa-google"></i>
+                        <span>Continuar con Google</span>
+                    </button>
+                    <button type="button" class="btn-social btn-facebook" onclick="continueWithFacebook()">
+                        <i class="fab fa-facebook-f"></i>
+                        <span>Continuar con Facebook</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de recuperación de contraseña -->
+    <div id="forgotPasswordModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeForgotModal()">&times;</span>
+            <div class="modal-header">
+                <h3>Recuperar Contraseña</h3>
+                <p>Ingresa tu correo electrónico y te enviaremos un enlace para restablecer tu contraseña</p>
+            </div>
+            <form id="forgotPasswordForm" action="http://localhost:5000/recuperar_password.py" method="POST">
+                <div class="form-group">
+                    <div class="input-container">
+                        <i class="fas fa-envelope input-icon"></i>
+                        <input type="email" id="forgotEmail" name="email_recuperacion" 
+                               placeholder="Correo electrónico" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn-send">
+                    <i class="fas fa-paper-plane"></i>
+                    Enviar enlace
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de notificación -->
+    <div id="notification-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <i id="modal-icon" class="fas fa-check-circle"></i>
+                <h3 id="modal-title">Título</h3>
+            </div>
+            <div class="modal-body">
+                <p id="modal-message">Mensaje</p>
+            </div>
+            <div class="modal-footer">
+                <button id="modal-close" class="btn-modal">Entendido</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ESTILOS CSS -->
+    <style>
+        /* ============================================ */
+        /* DIVISOR SOCIAL */
+        /* ============================================ */
+        .social-divider {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .social-divider hr {
+            flex: 1;
+            border: none;
+            height: 1px;
+            background: #e2e8f0;
+        }
+
+        .social-divider span {
+            padding: 0 15px;
+            background: white;
+            color: #64748b;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* ============================================ */
+        /* BOTONES SOCIALES */
+        /* ============================================ */
+        .social-buttons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .btn-social {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            background: white;
+            color: #475569;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            font-family: inherit;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-social::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.6s;
+        }
+
+        .btn-social:hover::before {
+            left: 100%;
+        }
+
+        /* Botón Google */
+        .btn-google {
+            border-color: #db4437;
+            color: #db4437;
+            background: white;
+        }
+
+        .btn-google:hover {
+            background: linear-gradient(135deg, #db4437, #c23321);
+            color: white;
+            border-color: #db4437;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(219, 68, 55, 0.3);
+        }
+
+        .btn-google i {
+            font-size: 18px;
+            background: linear-gradient(45deg, #4285f4, #34a853, #fbbc05, #ea4335);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .btn-google:hover i {
+            background: white;
+            -webkit-background-clip: initial;
+            -webkit-text-fill-color: white;
+            background-clip: initial;
+            color: white;
+        }
+
+        /* Botón Facebook */
+        .btn-facebook {
+            border-color: #1877f2;
+            color: #1877f2;
+            background: white;
+        }
+
+        .btn-facebook:hover {
+            background: linear-gradient(135deg, #1877f2, #166fe5);
+            color: white;
+            border-color: #1877f2;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(24, 119, 242, 0.3);
+        }
+
+        .btn-facebook i {
+            font-size: 18px;
+            color: #1877f2;
+        }
+
+        .btn-facebook:hover i {
+            color: white;
+        }
+
+        /* ============================================ */
+        /* MODALES */
+        /* ============================================ */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal .modal-content {
+            background-color: white;
+            margin: auto;
+            padding: 20px;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .modal .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 20px;
+        }
+
+        .modal .close:hover,
+        .modal .close:focus {
+            color: #000;
+        }
+
+        .modal .modal-header {
+            padding: 10px 0 20px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .modal .modal-header h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .modal .modal-header p {
+            margin: 0;
+            color: #64748b;
+            font-size: 0.95rem;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-overlay .modal-content {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            max-width: 450px;
+            width: 90%;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-overlay .modal-header {
+            text-align: center;
+            padding: 30px 30px 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .modal-overlay .modal-header i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .modal-overlay .modal-header h3 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .modal-body {
+            padding: 20px 30px;
+            text-align: center;
+        }
+
+        .modal-body p {
+            margin: 0;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #666;
+        }
+
+        .modal-footer {
+            padding: 20px 30px 30px;
+            text-align: center;
+        }
+
+        .btn-modal {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-modal:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+        }
+
+        .modal-success { color: #4CAF50; }
+        .modal-error { color: #f44336; }
+        .modal-info { color: #2196F3; }
+
+        .btn-modal.error {
+            background: linear-gradient(135deg, #f44336, #d32f2f);
+        }
+
+        .btn-modal.error:hover {
+            box-shadow: 0 5px 15px rgba(244, 67, 54, 0.4);
+        }
+
+        /* ============================================ */
+        /* RESPONSIVE */
+        /* ============================================ */
+        @media (max-width: 480px) {
+            .social-buttons {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .btn-social {
+                width: 100%;
+                padding: 16px 20px;
+            }
+        }
+    </style>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        console.log('🚀 CAMP Login - Versión Final Inicializada');
+
+        // ================================================================
+        // FUNCIONES DE NAVEGACIÓN Y UI
+        // ================================================================
+
+        function togglePassword() {
+            const field = document.getElementById('password');
+            const icon = document.querySelector('.toggle-password');
+            
+            if (field.type === 'password') {
+                field.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                field.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+
+        function goToRegister() {
+            window.location.href = '/vista/seleccion-rol.html';
+        }
+
+        function continueWithGoogle() {
+            showNotification('Redirigiendo a Google...', 'info', 'Conectando');
+            setTimeout(() => {
+                window.location.href = '/auth/google/login';
+            }, 500);
+        }
+
+        function continueWithFacebook() {
+            showNotification('Redirigiendo a Facebook...', 'info', 'Conectando');
+            setTimeout(() => {
+                window.location.href = '/auth/facebook/login';
+            }, 500);
+        }
+
+        // ================================================================
+        // MODAL DE RECUPERACIÓN DE CONTRASEÑA
+        // ================================================================
+
+        function openForgotModal() {
+            const modal = document.getElementById('forgotPasswordModal');
+            if (modal) {
+                modal.style.display = 'flex';
+                const emailInput = document.getElementById('forgotEmail');
+                if (emailInput) {
+                    emailInput.value = '';
+                    setTimeout(() => emailInput.focus(), 100);
+                }
+            }
+        }
+
+        function closeForgotModal() {
+            const modal = document.getElementById('forgotPasswordModal');
+            if (modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // ================================================================
+        // SISTEMA DE NOTIFICACIONES
+        // ================================================================
+
+        function showNotification(message, type = 'info', title = '') {
+            const modal = document.getElementById('notification-modal');
+            const icon = document.getElementById('modal-icon');
+            const titleEl = document.getElementById('modal-title');
+            const messageEl = document.getElementById('modal-message');
+            const closeBtn = document.getElementById('modal-close');
+            
+            if (!modal || !icon || !titleEl || !messageEl || !closeBtn) {
+                console.error('❌ Elementos del modal no encontrados');
+                alert(message);
+                return;
+            }
+            
+            // Configurar según tipo
+            if (type === 'success') {
+                icon.className = 'fas fa-check-circle modal-success';
+                titleEl.textContent = title || 'Éxito';
+                closeBtn.className = 'btn-modal';
+            } else if (type === 'error') {
+                icon.className = 'fas fa-exclamation-circle modal-error';
+                titleEl.textContent = title || 'Error';
+                closeBtn.className = 'btn-modal error';
+            } else {
+                icon.className = 'fas fa-info-circle modal-info';
+                titleEl.textContent = title || 'Información';
+                closeBtn.className = 'btn-modal';
+            }
+            
+            messageEl.innerHTML = message;
+            modal.style.display = 'flex';
+            
+            // Cerrar modal
+            closeBtn.onclick = function() {
+                modal.style.display = 'none';
+            };
+            
+            // Cerrar con Escape
+            const escapeHandler = function(e) {
+                if (e.key === 'Escape') {
+                    modal.style.display = 'none';
+                    document.removeEventListener('keydown', escapeHandler);
+                }
+            };
+            document.addEventListener('keydown', escapeHandler);
+            
+            // Cerrar al hacer clic fuera
+            const clickHandler = function(e) {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                    modal.removeEventListener('click', clickHandler);
+                }
+            };
+            modal.addEventListener('click', clickHandler);
+        }
+
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        // ================================================================
+        // INICIALIZACIÓN
+        // ================================================================
+
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('✅ Sistema cargado correctamente');
+
+            // FORMULARIO DE RECUPERACIÓN
+            const forgotPasswordForm = document.getElementById('forgotPasswordForm');
+            
+            if (forgotPasswordForm) {
+                forgotPasswordForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    const emailInput = document.getElementById('forgotEmail');
+                    const email = emailInput.value.trim();
+                    
+                    console.log('📧 Solicitando recuperación para:', email);
+                    
+                    // Validaciones
+                    if (!email) {
+                        showNotification(
+                            'Por favor ingresa tu correo electrónico',
+                            'error',
+                            'Campo requerido'
+                        );
+                        return;
+                    }
+                    
+                    if (!isValidEmail(email)) {
+                        showNotification(
+                            'Por favor ingresa un correo electrónico válido',
+                            'error',
+                            'Email inválido'
+                        );
+                        return;
+                    }
+                    
+                    // Deshabilitar botón
+                    const submitButton = forgotPasswordForm.querySelector('button[type="submit"]');
+                    const originalContent = submitButton.innerHTML;
+                    submitButton.disabled = true;
+                    submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+                    
+                    try {
+                        // Enviar al backend
+                        const response = await fetch('/api/request-password-reset', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ email: email })
+                        });
+                        
+                        const data = await response.json();
+                        
+                        console.log('📨 Respuesta del servidor:', data);
+                        
+                        if (data.success) {
+                            closeForgotModal();
+                            
+                            showNotification(
+                                `<strong>¡Correo enviado!</strong><br><br>
+                                Hemos enviado un enlace de recuperación a <strong>${email}</strong>.<br><br>
+                                Por favor revisa tu bandeja de entrada y tu carpeta de spam.<br><br>
+                                <em>El enlace expirará en 30 minutos.</em>`,
+                                'success',
+                                'Revisa tu correo'
+                            );
+                            
+                            forgotPasswordForm.reset();
+                        } else {
+                            showNotification(
+                                data.message || 'Error al procesar la solicitud. Intenta nuevamente.',
+                                'error',
+                                'Error'
+                            );
+                        }
+                        
+                    } catch (error) {
+                        console.error('❌ Error:', error);
+                        showNotification(
+                            'Error de conexión con el servidor. Por favor verifica tu conexión e intenta nuevamente.',
+                            'error',
+                            'Error de conexión'
+                        );
+                    } finally {
+                        submitButton.disabled = false;
+                        submitButton.innerHTML = originalContent;
+                    }
+                });
+            }
+            
+            // Eventos de cierre de modal
+            const closeButton = document.querySelector('#forgotPasswordModal .close');
+            if (closeButton) {
+                closeButton.addEventListener('click', closeForgotModal);
+            }
+            
+            const forgotModal = document.getElementById('forgotPasswordModal');
+            if (forgotModal) {
+                forgotModal.addEventListener('click', function(e) {
+                    if (e.target === forgotModal) {
+                        closeForgotModal();
+                    }
+                });
+            }
+            
+            // Cerrar con Escape
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeForgotModal();
+                    const notifModal = document.getElementById('notification-modal');
+                    if (notifModal && notifModal.style.display === 'flex') {
+                        notifModal.style.display = 'none';
+                    }
+                }
+            });
+        });
+
+        // ================================================================
+        // MENSAJES DE URL
+        // ================================================================
+
+        window.addEventListener('load', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const message = urlParams.get('message');
+            const type = urlParams.get('type');
+            
+            if (message) {
+                const decodedMessage = decodeURIComponent(message);
+                showNotification(decodedMessage, type || 'info');
+                
+                // Limpiar URL
+                const cleanURL = window.location.pathname;
+                window.history.replaceState({}, document.title, cleanURL);
+            }
+        });
+
+        console.log('✅ Todos los scripts cargados exitosamente');
+    </script>
+</body>
+</html>

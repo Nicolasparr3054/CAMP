@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+
+# Environment
+.env
+venv/
+env/
+.venv/
+
+# Uploads (user data - not tracked)
+static/uploads/profile_photos/*
+static/uploads/documents/*
+!static/uploads/profile_photos/.gitkeep
+!static/uploads/documents/.gitkeep
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db

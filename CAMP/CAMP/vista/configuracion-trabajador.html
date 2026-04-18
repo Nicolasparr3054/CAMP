@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="page_title">Configuración - CAMP</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assent/css/configuracion-trabajador.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="../assent/img/logo-camp.png" alt="CAMP Logo" style="height:50px;">
+                </div>
+                <div class="user-info">
+                    <div class="user-avatar profile-photo">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-details">
+                        <span class="user-name" id="userName">Cargando...</span>
+                        <span class="user-role" data-i18n="user_role">Trabajador Agrícola</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="settings-container">
+                <!-- Breadcrumb -->
+                <div class="breadcrumb">
+                    <a href="/vista/index-trabajador.html"><i class="fas fa-home"></i> <span data-i18n="breadcrumb_home">Dashboard</span></a>
+                    <span><i class="fas fa-chevron-right"></i></span>
+                    <span data-i18n="breadcrumb_config">Configuración</span>
+                </div>
+
+                <h1 class="page-title">
+                    <i class="fas fa-cog"></i>
+                    <span data-i18n="main_title">Configuración de Cuenta</span>
+                </h1>
+
+                <!-- Settings Sections -->
+                <div class="settings-sections">
+                    
+                    <!-- Cambiar Idioma -->
+                    <section class="settings-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-language"></i> <span data-i18n="language_title">Cambiar Idioma</span></h2>
+                            <p data-i18n="language_desc">Selecciona tu idioma preferido para la plataforma</p>
+                        </div>
+                        <form class="settings-form" id="languageForm">
+                            <div class="language-options">
+                                <div class="language-card" data-lang="es">
+                                    <div class="language-flag">🇪🇸</div>
+                                    <div class="language-name">Español</div>
+                                    <div class="language-check"><i class="fas fa-check-circle"></i></div>
+                                </div>
+                                <div class="language-card" data-lang="en">
+                                    <div class="language-flag">🇺🇸</div>
+                                    <div class="language-name">English</div>
+                                    <div class="language-check"><i class="fas fa-check-circle"></i></div>
+                                </div>
+                                <div class="language-card" data-lang="zh">
+                                    <div class="language-flag">🇨🇳</div>
+                                    <div class="language-name">中文</div>
+                                    <div class="language-check"><i class="fas fa-check-circle"></i></div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn-primary">
+                                <i class="fas fa-save"></i>
+                                <span data-i18n="save_language">Guardar Idioma</span>
+                            </button>
+                        </form>
+                    </section>
+
+                    <!-- Gestión de Disponibilidad -->
+                    <section class="settings-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-calendar-check"></i> <span data-i18n="availability_title">Gestión de Disponibilidad</span></h2>
+                            <p data-i18n="availability_desc">Configura tus horarios y días disponibles para trabajar</p>
+                        </div>
+                        <form class="settings-form" id="availabilityForm">
+                            <!-- Estado de disponibilidad con opciones -->
+                            <div class="availability-status-extended">
+                                <div class="availability-main-status">
+                                    <div class="status-indicator">
+                                        <div class="status-light" id="statusLight"></div>
+                                        <div class="status-info">
+                                            <span id="statusText" data-i18n="status_unavailable">No disponible</span>
+                                            <span id="statusSubtext" class="status-subtext"></span>
+                                        </div>
+                                    </div>
+                                    <label class="switch">
+                                        <input type="checkbox" id="availabilityToggle">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                
+                                <!-- Opciones de visibilidad (solo visible cuando está disponible) -->
+                                <div class="visibility-options" id="visibilityOptions" style="display: none;">
+                                    <div class="visibility-card" data-visibility="visible">
+                                        <div class="visibility-icon">
+                                            <i class="fas fa-eye"></i>
+                                        </div>
+                                        <div class="visibility-info">
+                                            <h4 data-i18n="visibility_public">Perfil Público</h4>
+                                            <p data-i18n="visibility_public_desc">Los agricultores pueden ver tu disponibilidad</p>
+                                        </div>
+                                        <div class="visibility-check">
+                                            <i class="fas fa-check-circle"></i>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="visibility-card" data-visibility="paused">
+                                        <div class="visibility-icon">
+                                            <i class="fas fa-pause-circle"></i>
+                                        </div>
+                                        <div class="visibility-info">
+                                            <h4 data-i18n="visibility_paused">Pausado Temporalmente</h4>
+                                            <p data-i18n="visibility_paused_desc">Disponibilidad guardada pero oculta</p>
+                                        </div>
+                                        <div class="visibility-check">
+                                            <i class="fas fa-check-circle"></i>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="visibility-card" data-visibility="hidden">
+                                        <div class="visibility-icon">
+                                            <i class="fas fa-eye-slash"></i>
+                                        </div>
+                                        <div class="visibility-info">
+                                            <h4 data-i18n="visibility_hidden">Oculto Completamente</h4>
+                                            <p data-i18n="visibility_hidden_desc">No apareces en búsquedas</p>
+                                        </div>
+                                        <div class="visibility-check">
+                                            <i class="fas fa-check-circle"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Días disponibles -->
+                            <div class="form-group">
+                                <label data-i18n="available_days">Días Disponibles</label>
+                                <div class="days-selector">
+                                    <div class="day-card" data-day="monday">
+                                        <span data-i18n="day_mon">Lun</span>
+                                    </div>
+                                    <div class="day-card" data-day="tuesday">
+                                        <span data-i18n="day_tue">Mar</span>
+                                    </div>
+                                    <div class="day-card" data-day="wednesday">
+                                        <span data-i18n="day_wed">Mié</span>
+                                    </div>
+                                    <div class="day-card" data-day="thursday">
+                                        <span data-i18n="day_thu">Jue</span>
+                                    </div>
+                                    <div class="day-card" data-day="friday">
+                                        <span data-i18n="day_fri">Vie</span>
+                                    </div>
+                                    <div class="day-card" data-day="saturday">
+                                        <span data-i18n="day_sat">Sáb</span>
+                                    </div>
+                                    <div class="day-card" data-day="sunday">
+                                        <span data-i18n="day_sun">Dom</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Horario disponible -->
+                            <div class="time-range-group">
+                                <div class="form-group">
+                                    <label data-i18n="start_time">Hora de Inicio</label>
+                                    <input type="time" id="startTime" value="08:00">
+                                </div>
+                                <div class="form-group">
+                                    <label data-i18n="end_time">Hora de Fin</label>
+                                    <input type="time" id="endTime" value="18:00">
+                                </div>
+                            </div>
+
+                            <!-- Fechas no disponibles -->
+                            <div class="form-group">
+                                <label data-i18n="unavailable_dates">Fechas No Disponibles (opcional)</label>
+                                <input type="date" id="unavailableDate">
+                                <button type="button" class="btn-secondary" id="addUnavailableDate">
+                                    <i class="fas fa-plus"></i>
+                                    <span data-i18n="add_date">Agregar Fecha</span>
+                                </button>
+                                <div id="unavailableDatesList" class="dates-list"></div>
+                            </div>
+
+                            <button type="submit" class="btn-primary">
+                                <i class="fas fa-save"></i>
+                                <span data-i18n="save_availability">Guardar Disponibilidad</span>
+                            </button>
+                        </form>
+                    </section>
+
+                    <!-- Cambiar Contraseña -->
+                    <section class="settings-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-key"></i> <span data-i18n="password_title">Cambiar Contraseña</span></h2>
+                            <p data-i18n="password_desc">Actualiza tu contraseña para mantener tu cuenta segura</p>
+                        </div>
+                        <form class="settings-form" id="changePasswordForm">
+                            <div class="form-group">
+                                <label data-i18n="current_password">Contraseña Actual</label>
+                                <div class="password-input">
+                                    <input type="password" id="currentPassword" name="currentPassword" required>
+                                    <button type="button" class="toggle-password" onclick="togglePassword('currentPassword')">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label data-i18n="new_password">Nueva Contraseña</label>
+                                <div class="password-input">
+                                    <input type="password" id="newPassword" name="newPassword" minlength="8" required>
+                                    <button type="button" class="toggle-password" onclick="togglePassword('newPassword')">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label data-i18n="confirm_password">Confirmar Nueva Contraseña</label>
+                                <div class="password-input">
+                                    <input type="password" id="confirmPassword" name="confirmPassword" minlength="8" required>
+                                    <button type="button" class="toggle-password" onclick="togglePassword('confirmPassword')">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn-primary">
+                                <i class="fas fa-save"></i>
+                                <span data-i18n="change_password">Cambiar Contraseña</span>
+                            </button>
+                        </form>
+                    </section>
+
+                    <!-- Eliminar Cuenta -->
+                    <section class="settings-section danger-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-trash-alt"></i> <span data-i18n="delete_account_title">Eliminar Cuenta</span></h2>
+                            <p class="danger-text" data-i18n="delete_warning">Esta acción no se puede deshacer. Se eliminarán todos tus datos permanentemente.</p>
+                        </div>
+                        <div class="danger-zone">
+                            <div class="danger-warning">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                <div>
+                                    <h4 data-i18n="delete_confirm_title">¿Estás seguro?</h4>
+                                    <p data-i18n="delete_lose_text">Al eliminar tu cuenta se perderán:</p>
+                                    <ul>
+                                        <li data-i18n="delete_item1">Tu perfil y experiencia laboral</li>
+                                        <li data-i18n="delete_item2">Todas las postulaciones realizadas</li>
+                                        <li data-i18n="delete_item3">Historial de trabajos y calificaciones</li>
+                                        <li data-i18n="delete_item4">Mensajes y comunicaciones</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="delete-options">
+                                <button type="button" class="btn-danger" onclick="showDeleteConfirmation()">
+                                    <i class="fas fa-trash-alt"></i>
+                                    <span data-i18n="delete_with_password">Eliminar con contraseña</span>
+                                </button>
+                                
+                                <div class="delete-separator" id="deleteSeparator">
+                                    <span data-i18n="or_delete_using">o eliminar usando</span>
+                                </div>
+                                
+                                <div class="delete-social-buttons" id="deleteSocialContainer">
+                                    <button type="button" class="btn-delete-social btn-delete-google" onclick="deletAccountWithGoogle()" id="deleteGoogleBtn">
+                                        <i class="fab fa-google"></i>
+                                        <span data-i18n="delete_with_google">Eliminar con Google</span>
+                                    </button>
+                                    
+                                    <button type="button" class="btn-delete-social btn-delete-facebook" onclick="deleteAccountWithFacebook()" id="deleteFacebookBtn">
+                                        <i class="fab fa-facebook-f"></i>
+                                        <span data-i18n="delete_with_facebook">Eliminar con Facebook</span>
+                                    </button>
+                                </div>
+                                
+                                <div class="no-social-message" id="noSocialMessage" style="display: none;">
+                                    <p><i class="fas fa-info-circle"></i> <span data-i18n="no_social_accounts">No tienes cuentas de redes sociales asociadas</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal de Eliminación de Cuenta -->
+    <div id="deleteAccountModal" class="modal-overlay" style="display: none;">
+        <div class="modal-content danger-modal">
+            <div class="modal-header">
+                <h3><i class="fas fa-exclamation-triangle"></i> <span data-i18n="delete_account_modal">Eliminar Cuenta</span></h3>
+                <button class="modal-close" onclick="hideDeleteModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p data-i18n="delete_enter_password">Para confirmar la eliminación de tu cuenta, escribe tu contraseña actual:</p>
+                <div class="form-group">
+                    <input type="password" id="deletePassword" data-i18n-placeholder="current_password" placeholder="Contraseña actual" required>
+                </div>
+                <div class="form-group">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="confirmDelete" required>
+                        <span class="checkmark"></span>
+                        <span data-i18n="delete_understand">Entiendo que esta acción no se puede deshacer</span>
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="hideDeleteModal()" data-i18n="cancel">Cancelar</button>
+                <button class="btn-danger" onclick="deleteAccount()">
+                    <i class="fas fa-trash-alt"></i>
+                    <span data-i18n="delete_permanently">Eliminar Cuenta Permanentemente</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Eliminación con Redes Sociales -->
+    <div id="deleteSocialModal" class="modal-overlay" style="display: none;">
+        <div class="modal-content danger-modal">
+            <div class="modal-header">
+                <h3><i class="fas fa-exclamation-triangle"></i> <span data-i18n="delete_account_modal">Eliminar Cuenta</span></h3>
+                <button class="modal-close" onclick="hideSocialDeleteModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p><strong><span data-i18n="delete_social_text1">Vas a eliminar tu cuenta usando</span> <span id="socialProviderText"></span></strong></p>
+                <p data-i18n="delete_social_text2">Esta acción eliminará permanentemente:</p>
+                <ul>
+                    <li data-i18n="delete_item1">Tu perfil completo</li>
+                    <li data-i18n="delete_item2">Todas tus postulaciones</li>
+                    <li data-i18n="delete_item3">Historial de trabajos</li>
+                    <li data-i18n="delete_item4">Mensajes y comunicaciones</li>
+                </ul>
+                <div class="form-group">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="confirmSocialDelete" required>
+                        <span class="checkmark"></span>
+                        <span data-i18n="delete_understand">Entiendo que esta acción no se puede deshacer</span>
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="hideSocialDeleteModal()" data-i18n="cancel">Cancelar</button>
+                <button class="btn-danger" id="confirmSocialDeleteBtn">
+                    <i class="fas fa-trash-alt"></i>
+                    <span data-i18n="delete_permanently">Eliminar Cuenta Permanentemente</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../js/configuracion-trabajador.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            loadUserProfilePhoto();
+            checkSocialDeleteOptions();
+            loadUserLanguage();
+        });
+
+        function loadUserProfilePhoto() {
+            fetch('/get_user_session')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success && data.user) {
+                        const photoUrl = data.user.url_foto;
+                        const profileElements = document.querySelectorAll('.profile-photo, .user-avatar');
+                        
+                        profileElements.forEach(element => {
+                            if (photoUrl && photoUrl !== '' && photoUrl !== null) {
+                                element.style.backgroundImage = `url('${photoUrl}')`;
+                                element.style.backgroundSize = 'cover';
+                                element.style.backgroundPosition = 'center';
+                                element.style.borderRadius = '50%';
+                                element.innerHTML = '';
+                            } else {
+                                element.innerHTML = '<i class="fas fa-user"></i>';
+                                element.style.backgroundImage = 'none';
+                            }
+                        });
+
+                        const nameElement = document.getElementById('userName');
+                        if (nameElement && data.user.full_name) {
+                            nameElement.textContent = data.user.full_name;
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('Error cargando foto de perfil:', error);
+                });
+        }
+
+        function checkSocialDeleteOptions() {
+            fetch('/get_user_session')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success && data.user) {
+                        const redSocial = data.user.red_social;
+                        
+                        if (redSocial) {
+                            if (redSocial.includes('google:')) {
+                                document.getElementById('deleteGoogleBtn').style.display = 'flex';
+                            }
+                            if (redSocial.includes('facebook:')) {
+                                document.getElementById('deleteFacebookBtn').style.display = 'flex';
+                            }
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('Error verificando opciones sociales:', error);
+                });
+        }
+    </script>
+</body>
+</html>
