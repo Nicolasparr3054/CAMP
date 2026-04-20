@@ -1,394 +1,180 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CAMP - Comparación</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <style>
-        :root {
-            --primary-dark: #1e3a2e;
-            --primary-medium: #4a7c59;
-            --accent-light: #90EE90;
-            --background-overlay: rgba(255, 255, 255, 0.92);
-            --glass-backdrop: rgba(255, 255, 255, 0.15);
-            --shadow-primary: rgba(30, 58, 46, 0.15);
-            --gradient-primary: linear-gradient(135deg, #4a7c59, #1e3a2e);
-            --gradient-accent: linear-gradient(135deg, #90EE90, #4a7c59);
-            --glass-border: rgba(144, 238, 144, 0.3);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: var(--primary-dark);
-            background: linear-gradient(135deg, rgba(255,255,255,0.98), rgba(144,238,144,0.05));
-            min-height: 100vh;
-            padding: 2rem;
-        }
-
-        .compare-section {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 4rem 0;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 4rem;
-            animation: fadeInDown 0.8s ease;
-        }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .section-tag {
-            display: inline-block;
-            background: var(--glass-backdrop);
-            backdrop-filter: blur(15px);
-            border: 1px solid var(--glass-border);
-            border-radius: 50px;
-            padding: 0.7rem 1.8rem;
-            margin-bottom: 1.5rem;
-            font-weight: 600;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--primary-medium);
-        }
-
-        .section-title {
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            color: var(--primary-dark);
-            margin-bottom: 1rem;
-            font-weight: 900;
-            line-height: 1.2;
-        }
-
-        .section-description {
-            font-size: 1.2rem;
-            color: #666;
-            max-width: 800px;
-            margin: 0 auto;
-            line-height: 1.7;
-        }
-
-        .compare-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-            gap: 3rem;
-            margin-top: 3rem;
-        }
-
-        .compare-card {
-            background: var(--background-overlay);
-            backdrop-filter: blur(20px);
-            padding: 3rem 2.5rem;
-            border-radius: 30px;
-            border: 3px solid;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            opacity: 0;
-            transform: translateY(40px);
-            animation: fadeInUp 0.8s ease forwards;
-        }
-
-        .compare-card:nth-child(1) { animation-delay: 0.2s; }
-        .compare-card:nth-child(2) { animation-delay: 0.4s; }
-
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .compare-card.traditional {
-            border-color: rgba(150, 150, 150, 0.4);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
-        }
-
-        .compare-card.camp {
-            border-color: var(--accent-light);
-            box-shadow: 0 20px 50px rgba(74, 124, 89, 0.25);
-            background: linear-gradient(135deg, rgba(255,255,255,0.98), rgba(144,238,144,0.08));
-        }
-
-        .compare-card.camp::before {
-            content: 'NUESTRA PLATAFORMA';
-            position: absolute;
-            top: 25px;
-            right: -45px;
-            background: var(--gradient-accent);
-            color: var(--primary-dark);
-            padding: 0.5rem 3.5rem;
-            font-weight: 800;
-            font-size: 0.75rem;
-            letter-spacing: 1.5px;
-            transform: rotate(45deg);
-            box-shadow: 0 4px 15px rgba(144, 238, 144, 0.5);
-        }
-
-        .compare-card:hover {
-            transform: translateY(-15px) scale(1.02);
-        }
-
-        .compare-card.traditional:hover {
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
-        }
-
-        .compare-card.camp:hover {
-            box-shadow: 0 30px 70px rgba(74, 124, 89, 0.35);
-        }
-
-        .compare-header {
-            text-align: center;
-            margin-bottom: 2.5rem;
-            padding-bottom: 2rem;
-            border-bottom: 2px solid rgba(144, 238, 144, 0.2);
-        }
-
-        .compare-icon {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 20px;
-            font-size: 2.2rem;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-            transition: all 0.4s ease;
-        }
-
-        .compare-card.traditional .compare-icon {
-            background: linear-gradient(135deg, #888, #666);
-            color: white;
-        }
-
-        .compare-card.camp .compare-icon {
-            background: var(--gradient-primary);
-            color: white;
-        }
-
-        .compare-card:hover .compare-icon {
-            transform: scale(1.15) rotate(-5deg);
-        }
-
-        .compare-title {
-            font-size: 1.8rem;
-            font-weight: 800;
-            margin-bottom: 0.8rem;
-        }
-
-        .compare-card.traditional .compare-title {
-            color: #666;
-        }
-
-        .compare-card.camp .compare-title {
-            color: var(--primary-dark);
-        }
-
-        .compare-subtitle {
-            font-size: 1rem;
-            color: #777;
-            font-weight: 500;
-        }
-
-        .compare-features {
-            list-style: none;
-        }
-
-        .compare-features li {
-            padding: 1.2rem 0;
-            border-bottom: 1px solid rgba(144, 238, 144, 0.15);
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .compare-features li:last-child {
-            border-bottom: none;
-        }
-
-        .compare-features li:hover {
-            padding-left: 0.5rem;
-        }
-
-        .compare-features li i {
-            font-size: 1.2rem;
-            min-width: 24px;
-            margin-top: 0.2rem;
-        }
-
-        .compare-card.traditional .compare-features li i.fa-times {
-            color: #e74c3c;
-        }
-
-        .compare-card.traditional .compare-features li i.fa-check {
-            color: #95a5a6;
-        }
-
-        .compare-card.camp .compare-features li i {
-            color: var(--accent-light);
-        }
-
-        .feature-text {
-            flex: 1;
-        }
-
-        .feature-text strong {
-            color: var(--primary-dark);
-            font-weight: 700;
-        }
-
-        @media (max-width: 968px) {
-            .compare-container {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            body {
-                padding: 1rem;
-            }
-
-            .compare-card {
-                padding: 2.5rem 2rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .compare-card {
-                padding: 2rem 1.5rem;
-            }
-
-            .section-title {
-                font-size: 1.8rem;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CAMP — Compara</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,300;1,9..144,500;1,9..144,700&family=Instrument+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0E0B06;--soil:#1A1108;--bark:#4A3118;--ochre:#8B5E2D;
+  --wheat:#C9943A;--straw:#F2D98C;--cream:#FAF7F0;--fog:#F2EDE3;--mist:#E8E1D4;
+  --leaf:#1E3D16;--fern:#2E5C22;--sage:#4A7A34;--mint:#7AB05A;--dew:#B8D89F;
+  --b:rgba(74,49,24,0.1);--bm:rgba(74,49,24,0.22);
+  --fd:'Fraunces',Georgia,serif;--fb:'Instrument Sans',system-ui,sans-serif;
+  --r:10px;--rl:18px;--rx:28px;--pill:999px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;}
+body{font-family:var(--fb);background:var(--cream);color:var(--ink);overflow-x:hidden;}
+::-webkit-scrollbar{width:3px;}::-webkit-scrollbar-track{background:var(--fog);}::-webkit-scrollbar-thumb{background:var(--ochre);border-radius:3px;}
+body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+.hdr{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 48px;transition:all .4s;}
+.hdr.sc{background:rgba(250,247,240,.96);backdrop-filter:blur(20px) saturate(160%);border-bottom:1px solid var(--b);box-shadow:0 1px 24px rgba(14,11,6,.05);}
+.nav{max-width:1280px;margin:0 auto;height:100px;display:flex;align-items:center;justify-content:space-between;}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.logo img{height:130px;display:block;width:auto;}
+.nl{display:flex;list-style:none;gap:2px;}
+.nl a{text-decoration:none;padding:7px 15px;border-radius:var(--pill);font-size:.82rem;color:var(--bark);transition:all .2s;}
+.nl a:hover{color:var(--ink);background:rgba(74,49,24,.06);}
+.nl a.on{color:var(--leaf);background:rgba(74,122,52,.08);font-weight:500;}
+.ne{display:flex;gap:8px;align-items:center;}
+.bo{display:inline-flex;align-items:center;padding:8px 18px;border-radius:var(--pill);font-family:var(--fb);font-size:.82rem;text-decoration:none;border:1px solid var(--bm);color:var(--bark);background:transparent;transition:all .2s;}
+.bo:hover{border-color:rgba(74,49,24,.4);color:var(--ink);background:var(--fog);}
+.bf{display:inline-flex;align-items:center;padding:9px 20px;border-radius:var(--pill);font-family:var(--fb);font-size:.82rem;font-weight:500;text-decoration:none;border:1px solid var(--leaf);color:var(--cream);background:var(--leaf);transition:all .2s;}
+.bf:hover{background:var(--fern);transform:translateY(-1px);box-shadow:0 6px 20px rgba(30,61,22,.25);}
+.mb{display:none;background:none;border:none;cursor:pointer;padding:6px;color:var(--soil);}
+.mn{display:none;position:fixed;inset:0;z-index:99;background:rgba(250,247,240,.97);backdrop-filter:blur(24px);flex-direction:column;align-items:center;justify-content:center;gap:4px;}
+.mn.open{display:flex;}
+.mn a{text-decoration:none;padding:11px 28px;font-size:1.05rem;color:var(--bark);border-radius:var(--pill);transition:all .18s;}
+.mn a:hover{color:var(--soil);background:var(--fog);}
+.mna{display:flex;gap:10px;margin-top:14px;}
+.hero{padding:156px 48px 80px;position:relative;overflow:hidden;text-align:center;}
+.hbg{position:absolute;inset:0;background:radial-gradient(ellipse 900px 700px at 75% -10%,rgba(74,122,52,.06) 0%,transparent 55%),radial-gradient(ellipse 600px 500px at -5% 80%,rgba(201,148,58,.06) 0%,transparent 50%);}
+.hgr{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(74,49,24,.065) 1px,transparent 1px),linear-gradient(90deg,rgba(74,49,24,.065) 1px,transparent 1px);background-size:52px 52px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,rgba(0,0,0,.35) 0%,transparent 75%);}
+.hero-i{max-width:1180px;margin:0 auto;position:relative;z-index:1;}
+.stag{display:inline-flex;align-items:center;gap:7px;padding:4px 13px 4px 9px;border-radius:var(--pill);background:rgba(74,122,52,.08);border:1px solid rgba(74,122,52,.2);font-size:.68rem;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:var(--sage);margin-bottom:20px;}
+.sd{width:5px;height:5px;border-radius:50%;background:var(--sage);animation:p 2.5s ease-in-out infinite;}
+@keyframes p{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.65)}}
+.h1{font-family:var(--fd);font-size:clamp(2.8rem,4.5vw,4.2rem);font-weight:700;line-height:1.04;letter-spacing:-1px;color:var(--soil);margin-bottom:16px;}
+.h1 em{font-style:italic;font-weight:300;color:var(--fern);}
+.hp{font-size:1rem;font-weight:300;line-height:1.85;color:var(--bark);max-width:520px;margin:0 auto;}
+.div{border:none;border-top:1px solid var(--b);}
+.sec{padding:80px 48px 112px;}
+.con{max-width:1100px;margin:0 auto;}
+.cmp-wrap{display:grid;grid-template-columns:0.85fr 1.15fr;gap:24px;align-items:start;}
+.col-head{margin-bottom:14px;}
+.col-badge{display:inline-flex;align-items:center;gap:7px;padding:5px 13px;border-radius:var(--pill);font-size:.68rem;font-weight:500;letter-spacing:.8px;text-transform:uppercase;margin-bottom:12px;}
+.col-badge.trad{background:var(--mist);border:1px solid var(--bm);color:var(--ochre);}
+.col-badge.camp{background:var(--leaf);border:1px solid var(--leaf);color:var(--cream);}
+.col-badge svg{width:11px;height:11px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.col-title{font-family:var(--fd);font-size:1.4rem;font-weight:700;margin-bottom:4px;}
+.col-title.trad{color:rgba(74,49,24,.5);}
+.col-title.camp{color:var(--soil);}
+.col-sub{font-size:.78rem;font-weight:300;}
+.col-sub.trad{color:rgba(139,94,45,.6);}
+.col-sub.camp{color:var(--bark);}
+.trad-card{background:var(--fog);border:1px solid var(--b);border-radius:var(--rx);overflow:hidden;opacity:.75;}
+.trow{display:flex;align-items:flex-start;gap:12px;padding:14px 20px;border-bottom:1px solid var(--b);transition:background .2s;}
+.trow:last-child{border-bottom:none;}
+.tri{width:22px;height:22px;border-radius:6px;display:grid;place-items:center;flex-shrink:0;margin-top:1px;}
+.tri.no{background:rgba(190,50,35,.08);}
+.tri.no svg{stroke:#B83220;}
+.tri.yes{background:rgba(74,122,52,.08);}
+.tri.yes svg{stroke:var(--sage);}
+.tri svg{width:11px;height:11px;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;}
+.trow-t{font-size:.85rem;font-weight:400;color:rgba(74,49,24,.55);line-height:1.5;}
+.trow-t strong{font-weight:500;color:rgba(26,17,8,.45);display:block;font-size:.82rem;}
+.camp-card{background:var(--soil);border:1px solid rgba(74,122,52,.25);border-radius:var(--rx);overflow:hidden;box-shadow:0 20px 56px rgba(14,11,6,.22);}
+.camp-top{background:var(--leaf);padding:14px 22px;display:flex;align-items:center;justify-content:space-between;}
+.camp-top-label{font-size:.65rem;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--dew);}
+.camp-top-star{display:flex;gap:2px;}
+.camp-top-star span{color:#E8B84B;font-size:.75rem;}
+.crow{display:flex;align-items:flex-start;gap:14px;padding:16px 22px;border-bottom:1px solid rgba(255,255,255,.05);transition:background .2s;}
+.crow:last-child{border-bottom:none;}
+.crow:hover{background:rgba(255,255,255,.03);}
+.cri{width:24px;height:24px;border-radius:6px;background:rgba(122,176,90,.12);border:1px solid rgba(122,176,90,.2);display:grid;place-items:center;flex-shrink:0;margin-top:1px;}
+.cri svg{width:11px;height:11px;fill:none;stroke:var(--mint);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;}
+.crow-t{font-size:.88rem;line-height:1.55;}
+.crow-t strong{font-weight:500;color:var(--cream);display:block;font-size:.85rem;margin-bottom:1px;}
+.crow-t span{font-weight:300;color:rgba(184,216,159,.5);font-size:.81rem;}
+.cmp-arrow{display:flex;align-items:center;justify-content:center;padding-top:80px;flex-direction:column;gap:8px;opacity:.4;}
+.cmp-arrow svg{width:28px;height:28px;stroke:var(--sage);fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;}
+.cmp-vs{font-family:var(--fd);font-size:.7rem;font-weight:700;color:var(--bark);letter-spacing:2px;text-transform:uppercase;}
+.rv{opacity:0;transform:translateY(20px);transition:opacity .65s ease,transform .65s ease;}
+.rv.in{opacity:1;transform:none;}
+@media(max-width:900px){.cmp-wrap{grid-template-columns:1fr;gap:16px;}.cmp-arrow{display:none;}}
+@media(max-width:800px){.nl,.ne{display:none;}.mb{display:flex;align-items:center;}.hdr{padding:0 24px;}.sec,.hero{padding:72px 24px;}}
+</style>
 </head>
 <body>
-    <section class="compare-section">
-        <div class="section-header">
-            <div class="section-tag">
-                <i class="fas fa-balance-scale"></i>
-                Comparación
-            </div>
-            <h2 class="section-title">CAMP vs Métodos Tradicionales</h2>
-            <p class="section-description">
-                Descubre las ventajas de usar una plataforma digital especializada frente a los métodos convencionales de búsqueda de empleo
-            </p>
+<header class="hdr" id="hdr">
+  <nav class="nav">
+    <a href="/index.html" class="logo"><img src="../assent/img/Logo_CAMP.png" alt="CAMP Logo"></a>
+    <ul class="nl"><li><a href="/vista/beneficios.html">Beneficios</a></li><li><a href="/vista/compara.html" class="on">Compara</a></li><li><a href="/vista/garantias.html">Garantías</a></li></ul>
+    <div class="ne"><a href="/vista/login-trabajador.html" class="bo">Iniciar sesión</a><a href="/vista/seleccion-rol.html" class="bf">Crear cuenta</a></div>
+    <button class="mb" id="mb" aria-label="Menú"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M3 6h16M3 11h16M3 16h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+  </nav>
+</header>
+<nav class="mn" id="mn"><a href="/vista/beneficios.html">Beneficios</a><a href="/vista/compara.html">Compara</a><a href="/vista/garantias.html">Garantías</a><div class="mna"><a href="/vista/login-trabajador.html" class="bo">Iniciar sesión</a><a href="/vista/seleccion-rol.html" class="bf">Crear cuenta</a></div></nav>
+
+<section class="hero">
+  <div class="hbg" aria-hidden="true"></div>
+  <div class="hgr" aria-hidden="true"></div>
+  <div class="hero-i">
+    <div class="stag rv"><span class="sd"></span>Comparación</div>
+    <h1 class="h1 rv" style="transition-delay:.07s">CAMP vs<br><em>métodos tradicionales</em></h1>
+    <p class="hp rv" style="transition-delay:.13s">Descubre las ventajas de una plataforma digital especializada frente a los métodos convencionales de búsqueda de empleo agrícola.</p>
+  </div>
+</section>
+
+<hr class="div">
+
+<section class="sec">
+  <div class="con">
+    <div class="cmp-wrap">
+      <div class="trad-col rv">
+        <div class="col-head">
+          <div class="col-badge trad"><svg viewBox="0 0 24 24"><path d="M4 5h16M4 10h16M4 15h10"/></svg>Método Tradicional</div>
+          <div class="col-title trad">Búsqueda convencional</div>
+          <div class="col-sub trad">Periódicos, agencias, voz a voz</div>
         </div>
-
-        <div class="compare-container">
-            <div class="compare-card traditional">
-                <div class="compare-header">
-                    <div class="compare-icon">
-                        <i class="fas fa-newspaper"></i>
-                    </div>
-                    <h3 class="compare-title">Métodos Tradicionales</h3>
-                    <p class="compare-subtitle">Búsqueda convencional</p>
-                </div>
-
-                <ul class="compare-features">
-                    <li>
-                        <i class="fas fa-times"></i>
-                        <span class="feature-text"><strong>Búsqueda dispersa:</strong> Necesitas buscar en periódicos, agencias y por recomendaciones</span>
-                    </li>
-                    <li>
-                        <i class="fas fa-times"></i>
-                        <span class="feature-text"><strong>Proceso lento:</strong> Puede tomar días o semanas recibir respuesta</span>
-                    </li>
-                    <li>
-                        <i class="fas fa-times"></i>
-                        <span class="feature-text"><strong>Información limitada:</strong> Detalles incompletos sobre el puesto</span>
-                    </li>
-                    <li>
-                        <i class="fas fa-times"></i>
-                        <span class="feature-text"><strong>Sin verificación:</strong> Difícil validar la legitimidad de ofertas</span>
-                    </li>
-                    <li>
-                        <i class="fas fa-times"></i>
-                        <span class="feature-text"><strong>Alcance limitado:</strong> Solo ofertas de tu área local</span>
-                    </li>
-                    <li>
-                        <i class="fas fa-times"></i>
-                        <span class="feature-text"><strong>Múltiples aplicaciones:</strong> Llenar formularios repetitivos</span>
-                    </li>
-                    <li>
-                        <i class="fas fa-check"></i>
-                        <span class="feature-text"><strong>Contacto directo:</strong> Posibilidad de conversación cara a cara</span>
-                    </li>
-                    <li>
-                        <i class="fas fa-times"></i>
-                        <span class="feature-text"><strong>Sin seguimiento:</strong> No hay registro de postulaciones</span>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="compare-card camp">
-                <div class="compare-header">
-                    <div class="compare-icon">
-                        <i class="fas fa-laptop"></i>
-                    </div>
-                    <h3 class="compare-title">CAMP</h3>
-                    <p class="compare-subtitle">Plataforma digital especializada</p>
-                </div>
-
-                <ul class="compare-features">
-                    <li>
-                        <i class="fas fa-check"></i>
-                        <span class="feature-text"><strong>Todo en un lugar:</strong> Todas las ofertas agrícolas centralizadas</span>
-                    </li>
-                    <li>
-                        <i class="fas fa-check"></i>
-                        <span class="feature-text"><strong>Comunicación directa:</strong> Contacto rápido con empleadores</span>
-                    </li>
-                    <li>
-                        <i class="fas fa-check"></i>
-                        <span class="feature-text"><strong>Información completa:</strong> Detalles claros de cada puesto</span>
-                    </li>
-                    <li>
-                        <i class="fas fa-check"></i>
-                        <span class="feature-text"><strong>Empresas verificadas:</strong> Empleadores validados por la plataforma</span>
-                    </li>
-                    <li>
-                        <i class="fas fa-check"></i>
-                        <span class="feature-text"><strong>Alcance nacional:</strong> Oportunidades en todo Colombia</span>
-                    </li>
-                    <li>
-                        <i class="fas fa-check"></i>
-                        <span class="feature-text"><strong>Perfil único:</strong> Postula con un solo clic usando tu CV digital</span>
-                    </li>
-                    <li>
-                        <i class="fas fa-check"></i>
-                        <span class="feature-text"><strong>Acceso 24/7:</strong> Busca empleos cuando te convenga</span>
-                    </li>
-                    <li>
-                        <i class="fas fa-check"></i>
-                        <span class="feature-text"><strong>Seguimiento fácil:</strong> Historial de todas tus aplicaciones</span>
-                    </li>
-                </ul>
-            </div>
+        <div class="trad-card">
+          <div class="trow"><div class="tri no"><svg viewBox="0 0 12 12"><path d="M2 2l8 8M10 2L2 10"/></svg></div><div class="trow-t"><strong>Búsqueda dispersa</strong>Periódicos, agencias y recomendaciones</div></div>
+          <div class="trow"><div class="tri no"><svg viewBox="0 0 12 12"><path d="M2 2l8 8M10 2L2 10"/></svg></div><div class="trow-t"><strong>Proceso lento</strong>Días o semanas sin respuesta</div></div>
+          <div class="trow"><div class="tri no"><svg viewBox="0 0 12 12"><path d="M2 2l8 8M10 2L2 10"/></svg></div><div class="trow-t"><strong>Información incompleta</strong>Detalles confusos del puesto</div></div>
+          <div class="trow"><div class="tri no"><svg viewBox="0 0 12 12"><path d="M2 2l8 8M10 2L2 10"/></svg></div><div class="trow-t"><strong>Sin verificación</strong>Difícil validar legitimidad de ofertas</div></div>
+          <div class="trow"><div class="tri no"><svg viewBox="0 0 12 12"><path d="M2 2l8 8M10 2L2 10"/></svg></div><div class="trow-t"><strong>Alcance solo local</strong>Limitado a tu área inmediata</div></div>
+          <div class="trow"><div class="tri no"><svg viewBox="0 0 12 12"><path d="M2 2l8 8M10 2L2 10"/></svg></div><div class="trow-t"><strong>Formularios repetitivos</strong>Llenar datos en cada postulación</div></div>
+          <div class="trow"><div class="tri yes"><svg viewBox="0 0 12 12"><path d="M2 6l2.5 2.5 5.5-5"/></svg></div><div class="trow-t"><strong>Contacto cara a cara</strong>Conversación directa posible</div></div>
+          <div class="trow"><div class="tri no"><svg viewBox="0 0 12 12"><path d="M2 2l8 8M10 2L2 10"/></svg></div><div class="trow-t"><strong>Sin historial</strong>No hay registro de postulaciones</div></div>
         </div>
-    </section>
+      </div>
+      <div class="cmp-arrow rv" style="transition-delay:.08s">
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        <span class="cmp-vs">vs</span>
+      </div>
+      <div class="rv" style="transition-delay:.14s">
+        <div class="col-head">
+          <div class="col-badge camp"><svg viewBox="0 0 24 24"><path d="M20 2C20 2 12 2 12 11C12 13 13 15 15 16C15 16 16 15 16 13C15 13 14 12 14 11C14 7 20 2 20 2Z" fill="currentColor" stroke="none"/></svg>CAMP</div>
+          <div class="col-title camp">Plataforma digital especializada</div>
+          <div class="col-sub camp">Agrícola · Nacional · Verificada</div>
+        </div>
+        <div class="camp-card">
+          <div class="camp-top"><span class="camp-top-label">Plataforma recomendada</span><div class="camp-top-star"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div></div>
+          <div class="crow"><div class="cri"><svg viewBox="0 0 12 12"><path d="M2 6l2.5 2.5 5.5-5"/></svg></div><div class="crow-t"><strong>Todo en un lugar</strong><span>Todas las ofertas agrícolas centralizadas</span></div></div>
+          <div class="crow"><div class="cri"><svg viewBox="0 0 12 12"><path d="M2 6l2.5 2.5 5.5-5"/></svg></div><div class="crow-t"><strong>Respuesta inmediata</strong><span>Comunicación directa con empleadores</span></div></div>
+          <div class="crow"><div class="cri"><svg viewBox="0 0 12 12"><path d="M2 6l2.5 2.5 5.5-5"/></svg></div><div class="crow-t"><strong>Información completa</strong><span>Detalles claros de cada vacante</span></div></div>
+          <div class="crow"><div class="cri"><svg viewBox="0 0 12 12"><path d="M2 6l2.5 2.5 5.5-5"/></svg></div><div class="crow-t"><strong>Empresas verificadas</strong><span>Empleadores validados por la plataforma</span></div></div>
+          <div class="crow"><div class="cri"><svg viewBox="0 0 12 12"><path d="M2 6l2.5 2.5 5.5-5"/></svg></div><div class="crow-t"><strong>Alcance nacional</strong><span>Oportunidades en los 32 departamentos</span></div></div>
+          <div class="crow"><div class="cri"><svg viewBox="0 0 12 12"><path d="M2 6l2.5 2.5 5.5-5"/></svg></div><div class="crow-t"><strong>Perfil único</strong><span>Postula con un clic usando tu CV digital</span></div></div>
+          <div class="crow"><div class="cri"><svg viewBox="0 0 12 12"><path d="M2 6l2.5 2.5 5.5-5"/></svg></div><div class="crow-t"><strong>Disponible 24/7</strong><span>Busca cuando y donde quieras</span></div></div>
+          <div class="crow"><div class="cri"><svg viewBox="0 0 12 12"><path d="M2 6l2.5 2.5 5.5-5"/></svg></div><div class="crow-t"><strong>Historial completo</strong><span>Seguimiento de todas tus postulaciones</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+const hdr=document.getElementById('hdr');
+window.addEventListener('scroll',()=>hdr.classList.toggle('sc',scrollY>50),{passive:true});
+const mb=document.getElementById('mb'),mn=document.getElementById('mn');let o=false;
+mb.addEventListener('click',()=>{o=!o;mn.classList.toggle('open',o);mb.innerHTML=o?`<svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M4 4l14 14M18 4L4 18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>`:`<svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M3 6h16M3 11h16M3 16h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>`;});
+mn.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{o=false;mn.classList.remove('open');}));
+const obs=new IntersectionObserver(e=>e.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');}}),{threshold:.07,rootMargin:'0px 0px -16px 0px'});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+</script>
 </body>
 </html>

@@ -1,340 +1,163 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CAMP - Beneficios</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <style>
-        :root {
-            --primary-dark: #1e3a2e;
-            --primary-medium: #4a7c59;
-            --accent-light: #90EE90;
-            --background-overlay: rgba(255, 255, 255, 0.92);
-            --glass-backdrop: rgba(255, 255, 255, 0.15);
-            --shadow-primary: rgba(30, 58, 46, 0.15);
-            --gradient-primary: linear-gradient(135deg, #4a7c59, #1e3a2e);
-            --gradient-accent: linear-gradient(135deg, #90EE90, #4a7c59);
-            --glass-border: rgba(144, 238, 144, 0.3);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: var(--primary-dark);
-            background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(144,238,144,0.05));
-            min-height: 100vh;
-            padding: 2rem;
-        }
-
-        .benefits-section {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 4rem 0;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 4rem;
-            animation: fadeInDown 0.8s ease;
-        }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .section-tag {
-            display: inline-block;
-            background: var(--glass-backdrop);
-            backdrop-filter: blur(15px);
-            border: 1px solid var(--glass-border);
-            border-radius: 50px;
-            padding: 0.7rem 1.8rem;
-            margin-bottom: 1.5rem;
-            font-weight: 600;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--primary-medium);
-        }
-
-        .section-title {
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            color: var(--primary-dark);
-            margin-bottom: 1rem;
-            font-weight: 900;
-            line-height: 1.2;
-        }
-
-        .section-description {
-            font-size: 1.2rem;
-            color: #666;
-            max-width: 700px;
-            margin: 0 auto;
-            line-height: 1.7;
-        }
-
-        .benefits-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2.5rem;
-            margin-top: 3rem;
-        }
-
-        .benefit-card {
-            background: var(--background-overlay);
-            backdrop-filter: blur(20px);
-            padding: 2.5rem;
-            border-radius: 25px;
-            border: 2px solid var(--glass-border);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(30, 58, 46, 0.1);
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeInUp 0.6s ease forwards;
-        }
-
-        .benefit-card:nth-child(1) { animation-delay: 0.1s; }
-        .benefit-card:nth-child(2) { animation-delay: 0.2s; }
-        .benefit-card:nth-child(3) { animation-delay: 0.3s; }
-        .benefit-card:nth-child(4) { animation-delay: 0.4s; }
-        .benefit-card:nth-child(5) { animation-delay: 0.5s; }
-        .benefit-card:nth-child(6) { animation-delay: 0.6s; }
-
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .benefit-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--gradient-accent);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.4s ease;
-        }
-
-        .benefit-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 50px rgba(30, 58, 46, 0.2);
-            border-color: var(--accent-light);
-        }
-
-        .benefit-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .benefit-icon-wrapper {
-            margin-bottom: 1.5rem;
-        }
-
-        .benefit-icon {
-            width: 70px;
-            height: 70px;
-            background: var(--gradient-primary);
-            border-radius: 18px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 2rem;
-            box-shadow: 0 10px 25px rgba(74, 124, 89, 0.3);
-            transition: all 0.4s ease;
-        }
-
-        .benefit-card:hover .benefit-icon {
-            transform: scale(1.1) rotate(-5deg);
-            box-shadow: 0 15px 35px rgba(74, 124, 89, 0.5);
-        }
-
-        .benefit-card h3 {
-            color: var(--primary-dark);
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            line-height: 1.3;
-        }
-
-        .benefit-card p {
-            color: #555;
-            font-size: 1rem;
-            line-height: 1.7;
-            margin-bottom: 1.5rem;
-        }
-
-        .benefit-list {
-            list-style: none;
-            margin-top: 1rem;
-        }
-
-        .benefit-list li {
-            padding: 0.7rem 0;
-            color: #666;
-            display: flex;
-            align-items: flex-start;
-            gap: 0.8rem;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-        }
-
-        .benefit-list li:hover {
-            color: var(--primary-medium);
-            padding-left: 0.5rem;
-        }
-
-        .benefit-list li i {
-            color: var(--accent-light);
-            font-size: 1.1rem;
-            min-width: 20px;
-            margin-top: 0.2rem;
-        }
-
-        @media (max-width: 768px) {
-            body {
-                padding: 1rem;
-            }
-
-            .benefits-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-
-            .benefit-card {
-                padding: 2rem 1.5rem;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CAMP — Beneficios</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,300;1,9..144,500;1,9..144,700&family=Instrument+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0E0B06;--soil:#1A1108;--bark:#4A3118;--ochre:#8B5E2D;
+  --wheat:#C9943A;--straw:#F2D98C;--cream:#FAF7F0;--fog:#F2EDE3;--mist:#E8E1D4;
+  --leaf:#1E3D16;--fern:#2E5C22;--sage:#4A7A34;--mint:#7AB05A;--dew:#B8D89F;
+  --b:rgba(74,49,24,0.1);--bm:rgba(74,49,24,0.22);
+  --fd:'Fraunces',Georgia,serif;--fb:'Instrument Sans',system-ui,sans-serif;
+  --r:10px;--rl:18px;--rx:28px;--pill:999px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;}
+body{font-family:var(--fb);background:var(--cream);color:var(--ink);overflow-x:hidden;}
+::-webkit-scrollbar{width:3px;}::-webkit-scrollbar-track{background:var(--fog);}::-webkit-scrollbar-thumb{background:var(--ochre);border-radius:3px;}
+body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+.hdr{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 48px;transition:all .4s;}
+.hdr.sc{background:rgba(250,247,240,.96);backdrop-filter:blur(20px) saturate(160%);border-bottom:1px solid var(--b);box-shadow:0 1px 24px rgba(14,11,6,.05);}
+.nav{max-width:1280px;margin:0 auto;height:100px;display:flex;align-items:center;justify-content:space-between;}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.logo img{height:130px;display:block;width:auto;}
+.nl{display:flex;list-style:none;gap:2px;}
+.nl a{text-decoration:none;padding:7px 15px;border-radius:var(--pill);font-size:.82rem;color:var(--bark);transition:all .2s;}
+.nl a:hover{color:var(--ink);background:rgba(74,49,24,.06);}
+.nl a.on{color:var(--leaf);background:rgba(74,122,52,.08);font-weight:500;}
+.ne{display:flex;gap:8px;align-items:center;}
+.bo{display:inline-flex;align-items:center;padding:8px 18px;border-radius:var(--pill);font-family:var(--fb);font-size:.82rem;text-decoration:none;border:1px solid var(--bm);color:var(--bark);background:transparent;transition:all .2s;}
+.bo:hover{border-color:rgba(74,49,24,.4);color:var(--ink);background:var(--fog);}
+.bf{display:inline-flex;align-items:center;padding:9px 20px;border-radius:var(--pill);font-family:var(--fb);font-size:.82rem;font-weight:500;text-decoration:none;border:1px solid var(--leaf);color:var(--cream);background:var(--leaf);transition:all .2s;}
+.bf:hover{background:var(--fern);transform:translateY(-1px);box-shadow:0 6px 20px rgba(30,61,22,.25);}
+.mb{display:none;background:none;border:none;cursor:pointer;padding:6px;color:var(--soil);}
+.mn{display:none;position:fixed;inset:0;z-index:99;background:rgba(250,247,240,.97);backdrop-filter:blur(24px);flex-direction:column;align-items:center;justify-content:center;gap:4px;}
+.mn.open{display:flex;}
+.mn a{text-decoration:none;padding:11px 28px;font-size:1.05rem;color:var(--bark);border-radius:var(--pill);transition:all .18s;}
+.mn a:hover{color:var(--soil);background:var(--fog);}
+.mna{display:flex;gap:10px;margin-top:14px;}
+.hero{padding:156px 48px 80px;position:relative;overflow:hidden;}
+.hbg{position:absolute;inset:0;background:radial-gradient(ellipse 900px 700px at 75% -10%,rgba(74,122,52,.06) 0%,transparent 55%),radial-gradient(ellipse 600px 500px at -5% 80%,rgba(201,148,58,.06) 0%,transparent 50%);}
+.hgr{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(74,49,24,.065) 1px,transparent 1px),linear-gradient(90deg,rgba(74,49,24,.065) 1px,transparent 1px);background-size:52px 52px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,rgba(0,0,0,.35) 0%,transparent 75%);}
+.hero-w{max-width:1180px;margin:0 auto;position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.stag{display:inline-flex;align-items:center;gap:7px;padding:4px 13px 4px 9px;border-radius:var(--pill);background:rgba(74,122,52,.08);border:1px solid rgba(74,122,52,.2);font-size:.68rem;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:var(--sage);margin-bottom:20px;}
+.sd{width:5px;height:5px;border-radius:50%;background:var(--sage);animation:p 2.5s ease-in-out infinite;}
+@keyframes p{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.65)}}
+.h1{font-family:var(--fd);font-size:clamp(2.8rem,4.5vw,4.2rem);font-weight:700;line-height:1.04;letter-spacing:-1px;color:var(--soil);margin-bottom:16px;}
+.h1 em{font-style:italic;font-weight:300;color:var(--fern);}
+.hp{font-size:1rem;font-weight:300;line-height:1.85;color:var(--bark);max-width:440px;margin-bottom:32px;}
+.hcta{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:var(--pill);font-family:var(--fb);font-size:.92rem;font-weight:500;text-decoration:none;background:var(--leaf);color:var(--cream);border:1px solid var(--leaf);transition:all .25s;}
+.hcta:hover{background:var(--fern);transform:translateY(-2px);box-shadow:0 12px 32px rgba(30,61,22,.28);}
+.hstats{display:flex;flex-direction:column;gap:14px;}
+.hs{background:var(--fog);border:1px solid var(--bm);border-radius:var(--rl);padding:20px 22px;display:flex;align-items:center;gap:16px;transition:all .22s;}
+.hs:hover{transform:translateX(5px);border-color:rgba(74,122,52,.3);}
+.hsi{width:42px;height:42px;border-radius:10px;background:rgba(30,61,22,.08);border:1px solid rgba(74,122,52,.14);display:grid;place-items:center;flex-shrink:0;}
+.hsi svg{width:18px;height:18px;stroke:var(--sage);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
+.hsn{font-family:var(--fd);font-size:1.5rem;font-weight:700;color:var(--leaf);letter-spacing:-.5px;line-height:1;}
+.hsl{font-size:.7rem;font-weight:400;color:var(--bark);margin-top:2px;}
+.div{border:none;border-top:1px solid var(--b);}
+.sec{padding:96px 48px;}
+.con{max-width:1180px;margin:0 auto;}
+.slb{display:inline-flex;align-items:center;gap:6px;padding:3px 12px 3px 8px;border-radius:var(--pill);background:rgba(74,122,52,.07);border:1px solid rgba(74,122,52,.18);font-size:.67rem;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:var(--sage);margin-bottom:36px;}
+.sld{width:4px;height:4px;border-radius:50%;background:var(--sage);}
+.bg{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.bc{background:var(--fog);border:1px solid var(--b);border-radius:var(--rx);overflow:hidden;transition:all .3s cubic-bezier(.4,0,.2,1);}
+.bc:hover{transform:translateY(-4px);box-shadow:0 18px 44px rgba(14,11,6,.1);border-color:var(--bm);}
+.bsb{padding:22px 26px 18px;border-bottom:1px solid var(--b);}
+.bsn{font-family:var(--fd);font-size:2.5rem;font-weight:700;color:var(--leaf);letter-spacing:-1.5px;line-height:1;margin-bottom:3px;}
+.bsd{font-size:.7rem;font-weight:400;color:var(--bark);}
+.bb{padding:20px 26px 24px;}
+.bi{width:38px;height:38px;border-radius:9px;background:rgba(30,61,22,.07);border:1px solid rgba(74,122,52,.13);display:grid;place-items:center;margin-bottom:12px;transition:all .3s;}
+.bi svg{width:17px;height:17px;stroke:var(--sage);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;transition:stroke .3s;}
+.bc:hover .bi{background:var(--leaf);border-color:var(--leaf);}
+.bc:hover .bi svg{stroke:var(--cream);}
+.bc h3{font-family:var(--fd);font-size:1.08rem;font-weight:700;color:var(--soil);margin-bottom:7px;line-height:1.25;}
+.bc p{font-size:.85rem;font-weight:300;color:var(--bark);line-height:1.78;margin-bottom:14px;}
+.bl{display:flex;flex-direction:column;gap:6px;}
+.bl span{display:flex;align-items:center;gap:8px;font-size:.8rem;font-weight:300;color:var(--bark);}
+.bl span::before{content:'';width:13px;height:13px;border-radius:50%;flex-shrink:0;background:rgba(74,122,52,.1) url("data:image/svg+xml,%3Csvg viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 5l2 2 4-4' stroke='%234A7A34' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E") center/9px no-repeat;}
+.rv{opacity:0;transform:translateY(20px);transition:opacity .65s ease,transform .65s ease;}
+.rv.in{opacity:1;transform:none;}
+@media(max-width:1080px){.hero-w{grid-template-columns:1fr;gap:48px;}.hstats{flex-direction:row;flex-wrap:wrap;}.hs{flex:1;min-width:160px;}.bg{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:800px){.nl,.ne{display:none;}.mb{display:flex;align-items:center;}.hdr{padding:0 24px;}.sec,.hero{padding:80px 24px;}.bg{grid-template-columns:1fr;gap:10px;}}
+</style>
 </head>
 <body>
-    <section class="benefits-section">
-        <div class="section-header">
-            <div class="section-tag">
-                <i class="fas fa-star"></i>
-                Beneficios
-            </div>
-            <h2 class="section-title">Qué Ganas al Usar CAMP</h2>
-            <p class="section-description">
-                Una plataforma diseñada para hacer tu búsqueda de empleo agrícola más eficiente y segura
-            </p>
-        </div>
+<header class="hdr" id="hdr">
+  <nav class="nav">
+    <a href="/index.html" class="logo"><img src="../assent/img/Logo_CAMP.png" alt="CAMP Logo"></a>
+    <ul class="nl"><li><a href="/vista/beneficios.html" class="on">Beneficios</a></li><li><a href="/vista/compara.html">Compara</a></li><li><a href="/vista/garantias.html">Garantías</a></li></ul>
+    <div class="ne"><a href="/vista/login-trabajador.html" class="bo">Iniciar sesión</a><a href="/vista/seleccion-rol.html" class="bf">Crear cuenta</a></div>
+    <button class="mb" id="mb" aria-label="Menú"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M3 6h16M3 11h16M3 16h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+  </nav>
+</header>
+<nav class="mn" id="mn"><a href="/vista/beneficios.html">Beneficios</a><a href="/vista/compara.html">Compara</a><a href="/vista/garantias.html">Garantías</a><div class="mna"><a href="/vista/login-trabajador.html" class="bo">Iniciar sesión</a><a href="/vista/seleccion-rol.html" class="bf">Crear cuenta</a></div></nav>
 
-        <div class="benefits-grid">
-            <div class="benefit-card">
-                <div class="benefit-icon-wrapper">
-                    <div class="benefit-icon">
-                        <i class="fas fa-search"></i>
-                    </div>
-                </div>
-                <h3>Búsqueda Centralizada</h3>
-                <p>Encuentra todas las ofertas de empleo agrícola en un solo lugar, sin tener que visitar múltiples sitios o hacer llamadas.</p>
-                <ul class="benefit-list">
-                    <li><i class="fas fa-check-circle"></i> Ofertas verificadas y actualizadas</li>
-                    <li><i class="fas fa-check-circle"></i> Filtros por ubicación y especialidad</li>
-                    <li><i class="fas fa-check-circle"></i> Ahorra tiempo en tu búsqueda</li>
-                </ul>
-            </div>
+<section class="hero">
+  <div class="hbg" aria-hidden="true"></div>
+  <div class="hgr" aria-hidden="true"></div>
+  <div class="hero-w">
+    <div>
+      <div class="stag rv"><span class="sd"></span>Beneficios</div>
+      <h1 class="h1 rv" style="transition-delay:.07s">Qué ganas al<br><em>usar CAMP</em></h1>
+      <p class="hp rv" style="transition-delay:.13s">Una plataforma diseñada para hacer tu búsqueda de empleo agrícola más eficiente, segura y digna. Sin intermediarios, sin fricciones.</p>
+      <a href="/vista/seleccion-rol.html" class="hcta rv" style="transition-delay:.19s"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v12M1 7h12" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>Crear cuenta gratis</a>
+    </div>
+    <div class="hstats rv" style="transition-delay:.1s">
+      <div class="hs"><div class="hsi"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div><div class="hsn">5.000+</div><div class="hsl">trabajadores registrados</div></div></div>
+      <div class="hs"><div class="hsi"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></div><div><div class="hsn">997</div><div class="hsl">vacantes activas hoy</div></div></div>
+      <div class="hs"><div class="hsi"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div><div><div class="hsn">320+</div><div class="hsl">empresas verificadas</div></div></div>
+      <div class="hs"><div class="hsi"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 3"/></svg></div><div><div class="hsn">&lt;5 min</div><div class="hsl">para crear tu perfil</div></div></div>
+    </div>
+  </div>
+</section>
 
-            <div class="benefit-card">
-                <div class="benefit-icon-wrapper">
-                    <div class="benefit-icon">
-                        <i class="fas fa-user-check"></i>
-                    </div>
-                </div>
-                <h3>Perfil Profesional Digital</h3>
-                <p>Crea tu CV digital una sola vez y postula a múltiples empleos sin llenar formularios repetitivos.</p>
-                <ul class="benefit-list">
-                    <li><i class="fas fa-check-circle"></i> CV siempre disponible para empleadores</li>
-                    <li><i class="fas fa-check-circle"></i> Actualiza tu información fácilmente</li>
-                    <li><i class="fas fa-check-circle"></i> Destaca tu experiencia agrícola</li>
-                </ul>
-            </div>
+<hr class="div">
 
-            <div class="benefit-card">
-                <div class="benefit-icon-wrapper">
-                    <div class="benefit-icon">
-                        <i class="fas fa-bell"></i>
-                    </div>
-                </div>
-                <h3>Notificaciones de Oportunidades</h3>
-                <p>Recibe alertas cuando se publiquen empleos que coincidan con tu perfil y preferencias.</p>
-                <ul class="benefit-list">
-                    <li><i class="fas fa-check-circle"></i> Avisos por correo electrónico</li>
-                    <li><i class="fas fa-check-circle"></i> Personaliza tus preferencias</li>
-                    <li><i class="fas fa-check-circle"></i> No te pierdas ninguna oportunidad</li>
-                </ul>
-            </div>
+<section class="sec">
+  <div class="con">
+    <div class="slb rv"><span class="sld"></span>Todas las ventajas</div>
+    <div class="bg">
+      <div class="bc rv">
+        <div class="bsb"><div class="bsn">997</div><div class="bsd">empleos activos · actualizados diariamente</div></div>
+        <div class="bb"><div class="bi"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/><path d="M8 11h6M11 8v6" stroke-width="1.8"/></svg></div><h3>Búsqueda Centralizada</h3><p>Todas las ofertas en un solo lugar. Sin visitar múltiples sitios ni hacer llamadas.</p><div class="bl"><span>Ofertas verificadas y actualizadas</span><span>Filtros por región, cultivo y especialidad</span><span>Ahorra horas en tu búsqueda</span></div></div>
+      </div>
+      <div class="bc rv" style="transition-delay:.05s">
+        <div class="bsb"><div class="bsn">&lt;5 min</div><div class="bsd">para crear tu perfil completo</div></div>
+        <div class="bb"><div class="bi"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-2.21 3.58-4 8-4s8 1.79 8 4"/><path d="M17 13l2 2 4-4"/></svg></div><h3>Perfil Profesional Digital</h3><p>Crea tu CV una vez y postula a empleos múltiples sin llenar formularios repetitivos.</p><div class="bl"><span>CV visible para empleadores</span><span>Actualiza tu info en segundos</span><span>Destaca tu experiencia agrícola</span></div></div>
+      </div>
+      <div class="bc rv" style="transition-delay:.1s">
+        <div class="bsb"><div class="bsn">24/7</div><div class="bsd">notificaciones en tiempo real</div></div>
+        <div class="bb"><div class="bi"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div><h3>Alertas de Oportunidades</h3><p>Recibe alertas cuando se publiquen empleos que coincidan con tu perfil.</p><div class="bl"><span>Avisos personalizados por correo</span><span>Configura tus preferencias</span><span>Nunca te pierdas una vacante</span></div></div>
+      </div>
+      <div class="bc rv" style="transition-delay:.05s">
+        <div class="bsb"><div class="bsn">320+</div><div class="bsd">empresas verificadas en la plataforma</div></div>
+        <div class="bb"><div class="bi"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div><h3>Empresas Verificadas</h3><p>Todas las empresas pasan por validación antes de publicar sus ofertas.</p><div class="bl"><span>Verificación de datos empresariales</span><span>Información clara del empleador</span><span>Mayor seguridad en tu búsqueda</span></div></div>
+      </div>
+      <div class="bc rv" style="transition-delay:.1s">
+        <div class="bsb"><div class="bsn">100%</div><div class="bsd">de las ofertas con información completa</div></div>
+        <div class="bb"><div class="bi"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></div><h3>Información Detallada</h3><p>Descripciones completas antes de postular — sin letra pequeña ni sorpresas.</p><div class="bl"><span>Descripción completa del puesto</span><span>Requisitos claramente especificados</span><span>Condiciones y salario visibles</span></div></div>
+      </div>
+      <div class="bc rv" style="transition-delay:.15s">
+        <div class="bsb"><div class="bsn">32</div><div class="bsd">departamentos · cobertura nacional</div></div>
+        <div class="bb"><div class="bi"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="17" r="1" fill="currentColor" stroke="none"/></svg></div><h3>Acceso desde Cualquier Lugar</h3><p>Busca y postula desde tu celular en el campo cuando quieras.</p><div class="bl"><span>Plataforma responsive y rápida</span><span>Acceso 24/7 a todas las ofertas</span><span>Postula en cualquier momento</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-            <div class="benefit-card">
-                <div class="benefit-icon-wrapper">
-                    <div class="benefit-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                </div>
-                <h3>Empresas Verificadas</h3>
-                <p>Todas las empresas que publican ofertas son verificadas para garantizar la legitimidad de las oportunidades.</p>
-                <ul class="benefit-list">
-                    <li><i class="fas fa-check-circle"></i> Proceso de verificación empresarial</li>
-                    <li><i class="fas fa-check-circle"></i> Información clara del empleador</li>
-                    <li><i class="fas fa-check-circle"></i> Mayor seguridad en tu búsqueda</li>
-                </ul>
-            </div>
-
-            <div class="benefit-card">
-                <div class="benefit-icon-wrapper">
-                    <div class="benefit-icon">
-                        <i class="fas fa-info-circle"></i>
-                    </div>
-                </div>
-                <h3>Información Detallada</h3>
-                <p>Accede a descripciones completas de puestos, requisitos y condiciones antes de postular.</p>
-                <ul class="benefit-list">
-                    <li><i class="fas fa-check-circle"></i> Detalles del puesto de trabajo</li>
-                    <li><i class="fas fa-check-circle"></i> Requisitos claramente especificados</li>
-                    <li><i class="fas fa-check-circle"></i> Información de contacto disponible</li>
-                </ul>
-            </div>
-
-            <div class="benefit-card">
-                <div class="benefit-icon-wrapper">
-                    <div class="benefit-icon">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                </div>
-                <h3>Acceso desde Cualquier Lugar</h3>
-                <p>Busca y postula a empleos desde tu computadora, tablet o teléfono móvil cuando lo necesites.</p>
-                <ul class="benefit-list">
-                    <li><i class="fas fa-check-circle"></i> Plataforma responsive</li>
-                    <li><i class="fas fa-check-circle"></i> Acceso 24/7 a ofertas</li>
-                    <li><i class="fas fa-check-circle"></i> Postula en cualquier momento</li>
-                </ul>
-            </div>
-        </div>
-    </section>
+<script>
+const hdr=document.getElementById('hdr');
+window.addEventListener('scroll',()=>hdr.classList.toggle('sc',scrollY>50),{passive:true});
+const mb=document.getElementById('mb'),mn=document.getElementById('mn');let o=false;
+mb.addEventListener('click',()=>{o=!o;mn.classList.toggle('open',o);mb.innerHTML=o?`<svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M4 4l14 14M18 4L4 18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>`:`<svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M3 6h16M3 11h16M3 16h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>`;});
+mn.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{o=false;mn.classList.remove('open');}));
+const obs=new IntersectionObserver(e=>e.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');}}),{threshold:.07,rootMargin:'0px 0px -16px 0px'});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+</script>
 </body>
 </html>

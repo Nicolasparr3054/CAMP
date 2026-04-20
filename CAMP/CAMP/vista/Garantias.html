@@ -1,605 +1,150 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CAMP - Garantías y Seguridad</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <style>
-        :root {
-            --primary-dark: #1e3a2e;
-            --primary-medium: #4a7c59;
-            --accent-light: #90EE90;
-            --background-overlay: rgba(255, 255, 255, 0.92);
-            --glass-backdrop: rgba(255, 255, 255, 0.15);
-            --shadow-primary: rgba(30, 58, 46, 0.15);
-            --gradient-primary: linear-gradient(135deg, #4a7c59, #1e3a2e);
-            --gradient-accent: linear-gradient(135deg, #90EE90, #4a7c59);
-            --glass-border: rgba(144, 238, 144, 0.3);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: var(--primary-dark);
-            background: linear-gradient(135deg, rgba(255,255,255,0.98), rgba(144,238,144,0.05));
-            min-height: 100vh;
-            padding: 2rem;
-        }
-
-        .guarantees-section {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 4rem 0;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 4rem;
-            animation: fadeInDown 0.8s ease;
-        }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .section-tag {
-            display: inline-block;
-            background: var(--glass-backdrop);
-            backdrop-filter: blur(15px);
-            border: 1px solid var(--glass-border);
-            border-radius: 50px;
-            padding: 0.7rem 1.8rem;
-            margin-bottom: 1.5rem;
-            font-weight: 600;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--primary-medium);
-        }
-
-        .section-title {
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            color: var(--primary-dark);
-            margin-bottom: 1rem;
-            font-weight: 900;
-            line-height: 1.2;
-        }
-
-        .section-description {
-            font-size: 1.2rem;
-            color: #666;
-            max-width: 700px;
-            margin: 0 auto;
-            line-height: 1.7;
-        }
-
-        .guarantees-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2.5rem;
-            margin-top: 3rem;
-        }
-
-        .guarantee-card {
-            background: var(--background-overlay);
-            backdrop-filter: blur(20px);
-            padding: 2.5rem;
-            border-radius: 25px;
-            border: 2px solid var(--glass-border);
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(30, 58, 46, 0.1);
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeInUp 0.6s ease forwards;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .guarantee-card:nth-child(1) { animation-delay: 0.1s; }
-        .guarantee-card:nth-child(2) { animation-delay: 0.2s; }
-        .guarantee-card:nth-child(3) { animation-delay: 0.3s; }
-        .guarantee-card:nth-child(4) { animation-delay: 0.4s; }
-        .guarantee-card:nth-child(5) { animation-delay: 0.5s; }
-        .guarantee-card:nth-child(6) { animation-delay: 0.6s; }
-        .guarantee-card:nth-child(7) { animation-delay: 0.7s; }
-        .guarantee-card:nth-child(8) { animation-delay: 0.8s; }
-        .guarantee-card:nth-child(9) { animation-delay: 0.9s; }
-        .guarantee-card:nth-child(10) { animation-delay: 1s; }
-        .guarantee-card:nth-child(11) { animation-delay: 1.1s; }
-        .guarantee-card:nth-child(12) { animation-delay: 1.2s; }
-
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .guarantee-card::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--gradient-accent);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .guarantee-card:hover {
-            transform: translateY(-12px);
-            box-shadow: 0 25px 60px rgba(30, 58, 46, 0.2);
-            border-color: var(--accent-light);
-        }
-
-        .guarantee-card:hover::after {
-            transform: scaleX(1);
-        }
-
-        .guarantee-icon-box {
-            width: 70px;
-            height: 70px;
-            background: var(--gradient-primary);
-            border-radius: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.5rem;
-            color: white;
-            font-size: 2rem;
-            box-shadow: 0 10px 25px rgba(74, 124, 89, 0.3);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .guarantee-card:hover .guarantee-icon-box {
-            transform: scale(1.1) rotate(-8deg);
-            box-shadow: 0 15px 35px rgba(74, 124, 89, 0.5);
-        }
-
-        .guarantee-card h3 {
-            color: var(--primary-dark);
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            line-height: 1.3;
-        }
-
-        .guarantee-card p {
-            color: #555;
-            font-size: 1rem;
-            line-height: 1.7;
-            margin-bottom: 1.5rem;
-            flex-grow: 1;
-        }
-
-        .guarantee-features {
-            list-style: none;
-            margin: 1rem 0;
-        }
-
-        .guarantee-features li {
-            padding: 0.6rem 0;
-            color: #666;
-            display: flex;
-            align-items: flex-start;
-            gap: 0.7rem;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-        }
-
-        .guarantee-features li:hover {
-            color: var(--primary-medium);
-            padding-left: 0.5rem;
-        }
-
-        .guarantee-features li i {
-            color: var(--accent-light);
-            font-size: 1rem;
-            min-width: 18px;
-            margin-top: 0.2rem;
-        }
-
-        .guarantee-highlight {
-            background: rgba(144, 238, 144, 0.1);
-            border: 1px solid var(--glass-border);
-            border-radius: 12px;
-            padding: 1rem 1.2rem;
-            margin-top: auto;
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            transition: all 0.3s ease;
-        }
-
-        .guarantee-highlight:hover {
-            background: rgba(144, 238, 144, 0.2);
-            transform: translateX(5px);
-        }
-
-        .guarantee-highlight i {
-            color: var(--primary-medium);
-            font-size: 1.3rem;
-            min-width: 24px;
-        }
-
-        .guarantee-highlight span {
-            color: #555;
-            font-size: 0.95rem;
-            font-weight: 500;
-        }
-
-        .guarantee-highlight strong {
-            color: var(--primary-dark);
-            font-weight: 700;
-        }
-
-        .trust-banner {
-            margin-top: 4rem;
-            background: var(--gradient-primary);
-            border-radius: 25px;
-            padding: 3rem 2rem;
-            text-align: center;
-            color: white;
-            box-shadow: 0 20px 50px rgba(30, 58, 46, 0.3);
-            animation: fadeInUp 1s ease 1.3s backwards;
-        }
-
-        .trust-banner h3 {
-            font-size: 2rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-        }
-
-        .trust-banner p {
-            font-size: 1.1rem;
-            opacity: 0.95;
-            max-width: 700px;
-            margin: 0 auto 2rem;
-            line-height: 1.7;
-        }
-
-        .trust-stats {
-            display: flex;
-            justify-content: center;
-            gap: 3rem;
-            flex-wrap: wrap;
-        }
-
-        .trust-stat {
-            text-align: center;
-        }
-
-        .trust-stat-number {
-            font-size: 2.5rem;
-            font-weight: 900;
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-
-        .trust-stat-label {
-            font-size: 0.95rem;
-            opacity: 0.9;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        @media (max-width: 768px) {
-            body {
-                padding: 1rem;
-            }
-
-            .guarantees-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-
-            .guarantee-card {
-                padding: 2rem 1.5rem;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
-
-            .trust-banner {
-                padding: 2rem 1.5rem;
-            }
-
-            .trust-banner h3 {
-                font-size: 1.5rem;
-            }
-
-            .trust-stats {
-                gap: 2rem;
-            }
-
-            .trust-stat-number {
-                font-size: 2rem;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CAMP — Garantías</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,300;1,9..144,500;1,9..144,700&family=Instrument+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0E0B06;--soil:#1A1108;--bark:#4A3118;--ochre:#8B5E2D;
+  --wheat:#C9943A;--straw:#F2D98C;--cream:#FAF7F0;--fog:#F2EDE3;--mist:#E8E1D4;
+  --leaf:#1E3D16;--fern:#2E5C22;--sage:#4A7A34;--mint:#7AB05A;--dew:#B8D89F;
+  --b:rgba(74,49,24,0.1);--bm:rgba(74,49,24,0.22);
+  --fd:'Fraunces',Georgia,serif;--fb:'Instrument Sans',system-ui,sans-serif;
+  --r:10px;--rl:18px;--rx:28px;--pill:999px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;}
+body{font-family:var(--fb);background:var(--cream);color:var(--ink);overflow-x:hidden;}
+::-webkit-scrollbar{width:3px;}::-webkit-scrollbar-track{background:var(--fog);}::-webkit-scrollbar-thumb{background:var(--ochre);border-radius:3px;}
+body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+.hdr{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 48px;transition:all .4s;}
+.hdr.sc{background:rgba(250,247,240,.96);backdrop-filter:blur(20px) saturate(160%);border-bottom:1px solid var(--b);box-shadow:0 1px 24px rgba(14,11,6,.05);}
+.nav{max-width:1280px;margin:0 auto;height:100px;display:flex;align-items:center;justify-content:space-between;}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.logo img{height:130px;display:block;width:auto;}
+.nl{display:flex;list-style:none;gap:2px;}
+.nl a{text-decoration:none;padding:7px 15px;border-radius:var(--pill);font-size:.82rem;color:var(--bark);transition:all .2s;}
+.nl a:hover{color:var(--ink);background:rgba(74,49,24,.06);}
+.nl a.on{color:var(--leaf);background:rgba(74,122,52,.08);font-weight:500;}
+.ne{display:flex;gap:8px;align-items:center;}
+.bo{display:inline-flex;align-items:center;padding:8px 18px;border-radius:var(--pill);font-family:var(--fb);font-size:.82rem;text-decoration:none;border:1px solid var(--bm);color:var(--bark);background:transparent;transition:all .2s;}
+.bo:hover{border-color:rgba(74,49,24,.4);color:var(--ink);background:var(--fog);}
+.bf{display:inline-flex;align-items:center;padding:9px 20px;border-radius:var(--pill);font-family:var(--fb);font-size:.82rem;font-weight:500;text-decoration:none;border:1px solid var(--leaf);color:var(--cream);background:var(--leaf);transition:all .2s;}
+.bf:hover{background:var(--fern);transform:translateY(-1px);box-shadow:0 6px 20px rgba(30,61,22,.25);}
+.mb{display:none;background:none;border:none;cursor:pointer;padding:6px;color:var(--soil);}
+.mn{display:none;position:fixed;inset:0;z-index:99;background:rgba(250,247,240,.97);backdrop-filter:blur(24px);flex-direction:column;align-items:center;justify-content:center;gap:4px;}
+.mn.open{display:flex;}
+.mn a{text-decoration:none;padding:11px 28px;font-size:1.05rem;color:var(--bark);border-radius:var(--pill);transition:all .18s;}
+.mn a:hover{color:var(--soil);background:var(--fog);}
+.mna{display:flex;gap:10px;margin-top:14px;}
+.mission{background:var(--soil);min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding:140px 48px 72px;position:relative;overflow:hidden;}
+.m-orb1{position:absolute;top:-200px;right:-150px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(74,122,52,.07) 0%,transparent 60%);pointer-events:none;}
+.m-orb2{position:absolute;bottom:-150px;left:-100px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(201,148,58,.05) 0%,transparent 60%);pointer-events:none;}
+.m-grid{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:52px 52px;}
+.m-inner{max-width:1180px;margin:0 auto;width:100%;position:relative;z-index:1;}
+.m-tag{display:inline-flex;align-items:center;gap:7px;padding:4px 13px 4px 9px;border-radius:var(--pill);background:rgba(122,176,90,.1);border:1px solid rgba(122,176,90,.2);font-size:.68rem;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:var(--dew);margin-bottom:28px;}
+.m-dot{width:5px;height:5px;border-radius:50%;background:var(--dew);animation:p 2.5s ease-in-out infinite;}
+@keyframes p{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.65)}}
+.m-h1{font-family:var(--fd);font-size:clamp(3rem,6vw,5.5rem);font-weight:700;line-height:1.02;letter-spacing:-2px;color:var(--cream);margin-bottom:24px;}
+.m-h1 em{font-style:italic;font-weight:300;color:var(--straw);}
+.m-layout{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:end;}
+.m-p{font-size:1.02rem;font-weight:300;line-height:1.85;color:rgba(184,216,159,.55);max-width:480px;margin-bottom:36px;}
+.m-cta{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:var(--pill);font-family:var(--fb);font-size:.92rem;font-weight:500;text-decoration:none;background:var(--cream);color:var(--leaf);border:1px solid var(--cream);transition:all .25s;}
+.m-cta:hover{background:var(--straw);border-color:var(--straw);}
+.m-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.06);border-radius:var(--rl);overflow:hidden;align-self:end;}
+.mst{background:rgba(255,255,255,.03);padding:24px 20px;text-align:center;}
+.msn{font-family:var(--fd);font-size:2.2rem;font-weight:700;color:var(--cream);letter-spacing:-1px;line-height:1;margin-bottom:5px;}
+.msl{font-size:.62rem;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:rgba(184,216,159,.45);}
+.sec{padding:96px 48px;}
+.con{max-width:1180px;margin:0 auto;}
+.sec-top{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:48px;flex-wrap:wrap;gap:16px;}
+.sec-h{font-family:var(--fd);font-size:clamp(1.8rem,3vw,2.6rem);font-weight:700;color:var(--soil);letter-spacing:-.5px;line-height:1.1;}
+.sec-h em{font-style:italic;font-weight:300;color:var(--fern);}
+.sec-sub{font-size:.88rem;font-weight:300;color:var(--bark);max-width:340px;line-height:1.7;}
+.gg{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.gc{background:var(--fog);border:1px solid var(--b);border-radius:var(--rx);padding:28px 24px;display:flex;flex-direction:column;transition:all .28s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden;}
+.gc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--sage),var(--mint));transform:scaleX(0);transform-origin:left;transition:transform .35s ease;}
+.gc:hover{transform:translateY(-3px);box-shadow:0 14px 36px rgba(14,11,6,.09);border-color:var(--bm);}
+.gc:hover::before{transform:scaleX(1);}
+.gi{width:44px;height:44px;border-radius:11px;background:rgba(30,61,22,.07);border:1px solid rgba(74,122,52,.13);display:grid;place-items:center;margin-bottom:16px;transition:all .28s;}
+.gi svg{width:19px;height:19px;stroke:var(--sage);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;transition:stroke .28s;}
+.gc:hover .gi{background:var(--leaf);border-color:var(--leaf);}
+.gc:hover .gi svg{stroke:var(--cream);}
+.gc h3{font-family:var(--fd);font-size:1.08rem;font-weight:700;color:var(--soil);margin-bottom:7px;line-height:1.25;}
+.gc p{font-size:.85rem;font-weight:300;color:var(--bark);line-height:1.78;flex:1;margin-bottom:16px;}
+.gpill{display:inline-flex;align-items:center;gap:6px;padding:6px 11px;border-radius:var(--r);background:rgba(74,122,52,.07);border:1px solid rgba(74,122,52,.14);font-size:.76rem;font-weight:400;color:var(--fern);margin-top:auto;transition:all .2s;}
+.gc:hover .gpill{background:rgba(74,122,52,.12);border-color:rgba(74,122,52,.22);}
+.gpill svg{width:12px;height:12px;stroke:var(--sage);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
+.rv{opacity:0;transform:translateY(20px);transition:opacity .65s ease,transform .65s ease;}
+.rv.in{opacity:1;transform:none;}
+@media(max-width:1080px){.m-layout{grid-template-columns:1fr;gap:40px;}.gg{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:800px){.nl,.ne{display:none;}.mb{display:flex;align-items:center;}.hdr{padding:0 24px;}.sec{padding:72px 24px;}.mission{padding:120px 24px 56px;}.gg{grid-template-columns:1fr;gap:10px;}}
+@media(max-width:480px){.m-stats{grid-template-columns:1fr;}}
+</style>
 </head>
 <body>
-    <section class="guarantees-section">
-        <div class="section-header">
-            <div class="section-tag">
-                <i class="fas fa-shield-alt"></i>
-                Garantías
-            </div>
-            <h2 class="section-title">Nuestro Compromiso Contigo</h2>
-            <p class="section-description">
-                Tu seguridad y confianza son nuestra prioridad. Conoce los compromisos que asumimos para brindarte la mejor experiencia
-            </p>
-        </div>
+<header class="hdr" id="hdr">
+  <nav class="nav">
+    <a href="/index.html" class="logo"><img src="../assent/img/Logo_CAMP.png" alt="CAMP Logo"></a>
+    <ul class="nl"><li><a href="/vista/beneficios.html">Beneficios</a></li><li><a href="/vista/compara.html">Compara</a></li><li><a href="/vista/garantias.html" class="on">Garantías</a></li></ul>
+    <div class="ne"><a href="/vista/login-trabajador.html" class="bo">Iniciar sesión</a><a href="/vista/seleccion-rol.html" class="bf">Crear cuenta</a></div>
+    <button class="mb" id="mb" aria-label="Menú"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M3 6h16M3 11h16M3 16h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+  </nav>
+</header>
+<nav class="mn" id="mn"><a href="/vista/beneficios.html">Beneficios</a><a href="/vista/compara.html">Compara</a><a href="/vista/garantias.html">Garantías</a><div class="mna"><a href="/vista/login-trabajador.html" class="bo">Iniciar sesión</a><a href="/vista/seleccion-rol.html" class="bf">Crear cuenta</a></div></nav>
 
-        <div class="guarantees-grid">
-            <div class="guarantee-card">
-                <div class="guarantee-icon-box">
-                    <i class="fas fa-user-shield"></i>
-                </div>
-                <h3>Privacidad de Datos</h3>
-                <p>
-                    Tu información personal está protegida. Solo compartimos tus datos con empleadores cuando tú decides postular a una oferta específica.
-                </p>
-                <ul class="guarantee-features">
-                    <li><i class="fas fa-check"></i> Tú decides qué información compartir</li>
-                    <li><i class="fas fa-check"></i> No vendemos datos a terceros</li>
-                    <li><i class="fas fa-check"></i> Conexión segura (HTTPS)</li>
-                </ul>
-                <div class="guarantee-highlight">
-                    <i class="fas fa-lock"></i>
-                    <span>Control total sobre <strong>tu información</strong></span>
-                </div>
-            </div>
+<section class="mission">
+  <div class="m-orb1" aria-hidden="true"></div>
+  <div class="m-orb2" aria-hidden="true"></div>
+  <div class="m-grid" aria-hidden="true"></div>
+  <div class="m-inner">
+    <div class="m-tag rv"><span class="m-dot"></span>Garantías</div>
+    <div class="m-layout">
+      <div>
+        <h1 class="m-h1 rv" style="transition-delay:.07s">Tu confianza<br>es nuestro<br><em>producto.</em></h1>
+        <p class="m-p rv" style="transition-delay:.13s">No somos solo una plataforma de empleos. Somos un compromiso con la dignidad del trabajo agrícola colombiano. Estos son los pilares que sostienen ese compromiso.</p>
+        <a href="/vista/seleccion-rol.html" class="m-cta rv" style="transition-delay:.19s"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 1v11M1 6.5h11" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>Unirme gratis</a>
+      </div>
+      <div class="m-stats rv" style="transition-delay:.1s">
+        <div class="mst"><div class="msn">100%</div><div class="msl">Gratuito</div></div>
+        <div class="mst"><div class="msn">24/7</div><div class="msl">Disponible</div></div>
+        <div class="mst"><div class="msn">4.9★</div><div class="msl">Valoración</div></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-            <div class="guarantee-card">
-                <div class="guarantee-icon-box">
-                    <i class="fas fa-check-circle"></i>
-                </div>
-                <h3>Empresas Verificadas</h3>
-                <p>
-                    Validamos la información de cada empresa antes de permitirles publicar ofertas, verificando datos de registro y contacto.
-                </p>
-                <ul class="guarantee-features">
-                    <li><i class="fas fa-check"></i> Validación de datos empresariales</li>
-                    <li><i class="fas fa-check"></i> Verificación de información de contacto</li>
-                    <li><i class="fas fa-check"></i> Revisión de ofertas publicadas</li>
-                </ul>
-                <div class="guarantee-highlight">
-                    <i class="fas fa-building"></i>
-                    <span><strong>Proceso de verificación</strong> empresarial</span>
-                </div>
-            </div>
+<section class="sec">
+  <div class="con">
+    <div class="sec-top rv">
+      <h2 class="sec-h">Nuestros <em>compromisos</em></h2>
+      <p class="sec-sub">Cada garantía es un pilar real de cómo construimos CAMP, no solo palabras de marketing.</p>
+    </div>
+    <div class="gg">
+      <div class="gc rv"><div class="gi"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div><h3>Privacidad de Datos</h3><p>Tu información solo se comparte cuando tú decides postular. Nunca vendemos datos a terceros.</p><div class="gpill"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Control total de tu información</div></div>
+      <div class="gc rv" style="transition-delay:.04s"><div class="gi"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg></div><h3>Empresas Verificadas</h3><p>Validamos datos de registro y contacto de cada empresa antes de activar su perfil.</p><div class="gpill"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-4 0v2M8 7V5a2 2 0 0 0-4 0v2"/></svg>Validación empresarial rigurosa</div></div>
+      <div class="gc rv" style="transition-delay:.08s"><div class="gi"><svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><h3>Servicio Gratuito</h3><p>CAMP es 100% gratis para trabajadores. Sin registro de pago, sin comisiones ocultas.</p><div class="gpill"><svg viewBox="0 0 24 24"><path d="M20 12V22H4V12"/><path d="M22 7H2v5h20V7z"/></svg>Sin costos para trabajadores</div></div>
+      <div class="gc rv" style="transition-delay:.04s"><div class="gi"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><h3>Soporte Real</h3><p>Un equipo humano detrás. Te respondemos por correo y chat, no un bot de respuestas automáticas.</p><div class="gpill"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>Personas reales te responden</div></div>
+      <div class="gc rv" style="transition-delay:.08s"><div class="gi"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><h3>Valoraciones Reales</h3><p>Las opiniones sobre empresas vienen de trabajadores reales con experiencia verificada.</p><div class="gpill"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Solo opiniones verificadas</div></div>
+      <div class="gc rv" style="transition-delay:.12s"><div class="gi"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></div><h3>Transparencia Total</h3><p>Todas las ofertas incluyen condiciones, salario y contacto. Sin letra pequeña, sin sorpresas.</p><div class="gpill"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg>Información completa siempre</div></div>
+      <div class="gc rv"><div class="gi"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><h3>Seguimiento de Postulaciones</h3><p>Registro completo de cada vacante a la que postulaste, con estado actualizado en tu panel.</p><div class="gpill"><svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/></svg>Historial organizado y claro</div></div>
+      <div class="gc rv" style="transition-delay:.04s"><div class="gi"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="17" r="1" fill="currentColor" stroke="none"/></svg></div><h3>Acceso Multiplataforma</h3><p>Funciona en celular, tablet o computadora. Tu perfil sincronizado en todos tus dispositivos.</p><div class="gpill"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>Cualquier dispositivo, siempre</div></div>
+      <div class="gc rv" style="transition-delay:.08s"><div class="gi"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div><h3>Alertas Personalizadas</h3><p>Te avisamos cuando hay nuevas ofertas que encajan con tu perfil. Tú controlas cuándo y qué recibir.</p><div class="gpill"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>Tú decides qué recibir</div></div>
+    </div>
+  </div>
+</section>
 
-            <div class="guarantee-card">
-                <div class="guarantee-icon-box">
-                    <i class="fas fa-hand-holding-usd"></i>
-                </div>
-                <h3>Servicio Gratuito</h3>
-                <p>
-                    CAMP es completamente gratis para trabajadores. No cobramos por registrarte, buscar empleos o postular a ofertas.
-                </p>
-                <ul class="guarantee-features">
-                    <li><i class="fas fa-check"></i> Registro sin costo</li>
-                    <li><i class="fas fa-check"></i> Postulaciones ilimitadas</li>
-                    <li><i class="fas fa-check"></i> Acceso completo a la plataforma</li>
-                </ul>
-                <div class="guarantee-highlight">
-                    <i class="fas fa-gift"></i>
-                    <span><strong>Sin costos</strong> para trabajadores</span>
-                </div>
-            </div>
-
-            <div class="guarantee-card">
-                <div class="guarantee-icon-box">
-                    <i class="fas fa-headset"></i>
-                </div>
-                <h3>Soporte Disponible</h3>
-                <p>
-                    Nuestro equipo está disponible para ayudarte con dudas sobre el uso de la plataforma, tu perfil o el proceso de postulación.
-                </p>
-                <ul class="guarantee-features">
-                    <li><i class="fas fa-check"></i> Soporte por correo electrónico</li>
-                    <li><i class="fas fa-check"></i> Chat de ayuda en línea</li>
-                    <li><i class="fas fa-check"></i> Guías y tutoriales disponibles</li>
-                </ul>
-                <div class="guarantee-highlight">
-                    <i class="fas fa-envelope"></i>
-                    <span>Contacto por <strong>correo y chat</strong></span>
-                </div>
-            </div>
-
-            <div class="guarantee-card">
-                <div class="guarantee-icon-box">
-                    <i class="fas fa-star"></i>
-                </div>
-                <h3>Sistema de Valoraciones</h3>
-                <p>
-                    Los trabajadores pueden dejar opiniones sobre su experiencia con las empresas, ayudando a otros usuarios a tomar decisiones informadas.
-                </p>
-                <ul class="guarantee-features">
-                    <li><i class="fas fa-check"></i> Calificaciones de empresas</li>
-                    <li><i class="fas fa-check"></i> Comentarios de experiencias reales</li>
-                    <li><i class="fas fa-check"></i> Sistema de reporte de problemas</li>
-                </ul>
-                <div class="guarantee-highlight">
-                    <i class="fas fa-comments"></i>
-                    <span><strong>Opiniones reales</strong> de usuarios</span>
-                </div>
-            </div>
-
-            <div class="guarantee-card">
-                <div class="guarantee-icon-box">
-                    <i class="fas fa-file-contract"></i>
-                </div>
-                <h3>Información Clara</h3>
-                <p>
-                    Nos esforzamos por asegurar que todas las ofertas incluyan información completa sobre el puesto, requisitos y condiciones laborales.
-                </p>
-                <ul class="guarantee-features">
-                    <li><i class="fas fa-check"></i> Descripción detallada del puesto</li>
-                    <li><i class="fas fa-check"></i> Requisitos claramente especificados</li>
-                    <li><i class="fas fa-check"></i> Información de contacto visible</li>
-                </ul>
-                <div class="guarantee-highlight">
-                    <i class="fas fa-info-circle"></i>
-                    <span><strong>Transparencia</strong> en ofertas</span>
-                </div>
-            </div>
-
-            <div class="guarantee-card">
-                <div class="guarantee-icon-box">
-                    <i class="fas fa-history"></i>
-                </div>
-                <h3>Seguimiento de Postulaciones</h3>
-                <p>
-                    Mantén un registro completo de todas las ofertas a las que has postulado y el estado de cada aplicación en tu panel personal.
-                </p>
-                <ul class="guarantee-features">
-                    <li><i class="fas fa-check"></i> Historial de postulaciones</li>
-                    <li><i class="fas fa-check"></i> Estado de aplicaciones</li>
-                    <li><i class="fas fa-check"></i> Organización por fecha</li>
-                </ul>
-                <div class="guarantee-highlight">
-                    <i class="fas fa-list"></i>
-                    <span><strong>Gestión fácil</strong> de aplicaciones</span>
-                </div>
-            </div>
-
-            <div class="guarantee-card">
-                <div class="guarantee-icon-box">
-                    <i class="fas fa-mobile-alt"></i>
-                </div>
-                <h3>Acceso Multiplataforma</h3>
-                <p>
-                    Usa CAMP desde cualquier dispositivo: computadora, tablet o smartphone. Tu información se sincroniza automáticamente.
-                </p>
-                <ul class="guarantee-features">
-                    <li><i class="fas fa-check"></i> Diseño responsive</li>
-                    <li><i class="fas fa-check"></i> Compatible con todos los navegadores</li>
-                    <li><i class="fas fa-check"></i> Sincronización automática</li>
-                </ul>
-                <div class="guarantee-highlight">
-                    <i class="fas fa-tablet-alt"></i>
-                    <span>Acceso desde <strong>cualquier dispositivo</strong></span>
-                </div>
-            </div>
-
-            <div class="guarantee-card">
-                <div class="guarantee-icon-box">
-                    <i class="fas fa-bell"></i>
-                </div>
-                <h3>Notificaciones Personalizadas</h3>
-                <p>
-                    Recibe alertas por correo sobre nuevas ofertas que coincidan con tu perfil y actualizaciones sobre tus postulaciones.
-                </p>
-                <ul class="guarantee-features">
-                    <li><i class="fas fa-check"></i> Alertas de nuevas ofertas</li>
-                    <li><i class="fas fa-check"></i> Notificaciones de respuestas</li>
-                    <li><i class="fas fa-check"></i> Control de preferencias</li>
-                </ul>
-                <div class="guarantee-highlight">
-                    <i class="fas fa-envelope-open"></i>
-                    <span><strong>Mantente informado</strong> siempre</span>
-                </div>
-            </div>
-
-            <div class="guarantee-card">
-                <div class="guarantee-icon-box">
-                    <i class="fas fa-clock"></i>
-                </div>
-                <h3>Actualizaciones Constantes</h3>
-                <p>
-                    Mejoramos continuamente la plataforma con nuevas funciones y optimizaciones basadas en los comentarios de nuestros usuarios.
-                </p>
-                <ul class="guarantee-features">
-                    <li><i class="fas fa-check"></i> Mejoras periódicas del sistema</li>
-                    <li><i class="fas fa-check"></i> Nuevas funcionalidades</li>
-                    <li><i class="fas fa-check"></i> Escuchamos tu retroalimentación</li>
-                </ul>
-                <div class="guarantee-highlight">
-                    <i class="fas fa-sync"></i>
-                    <span><strong>Innovación continua</strong> para ti</span>
-                </div>
-            </div>
-
-            <div class="guarantee-card">
-                <div class="guarantee-icon-box">
-                    <i class="fas fa-map-marked-alt"></i>
-                </div>
-                <h3>Búsqueda Inteligente</h3>
-                <p>
-                    Encuentra oportunidades cercanas a tu ubicación y filtra por tipo de trabajo, experiencia requerida y condiciones específicas.
-                </p>
-                <ul class="guarantee-features">
-                    <li><i class="fas fa-check"></i> Filtros por ubicación</li>
-                    <li><i class="fas fa-check"></i> Búsqueda por especialidad</li>
-                    <li><i class="fas fa-check"></i> Ordenamiento personalizado</li>
-                </ul>
-                <div class="guarantee-highlight">
-                    <i class="fas fa-search-location"></i>
-                    <span><strong>Encuentra empleos</strong> cerca de ti</span>
-                </div>
-            </div>
-
-            <div class="guarantee-card">
-                <div class="guarantee-icon-box">
-                    <i class="fas fa-graduation-cap"></i>
-                </div>
-                <h3>Recursos Educativos</h3>
-                <p>
-                    Accede a guías, consejos y recursos que te ayudarán a mejorar tu perfil profesional y tener éxito en tus postulaciones.
-                </p>
-                <ul class="guarantee-features">
-                    <li><i class="fas fa-check"></i> Consejos para entrevistas</li>
-                    <li><i class="fas fa-check"></i> Cómo mejorar tu perfil</li>
-                    <li><i class="fas fa-check"></i> Guías de mejores prácticas</li>
-                </ul>
-                <div class="guarantee-highlight">
-                    <i class="fas fa-book-open"></i>
-                    <span><strong>Aprende y crece</strong> profesionalmente</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="trust-banner">
-            <h3>Nuestra Misión es Tu Confianza</h3>
-            <p>
-                Trabajamos cada día para mejorar la experiencia de búsqueda de empleo agrícola en Colombia, conectando trabajadores con oportunidades reales de forma segura y transparente.
-            </p>
-            <div class="trust-stats">
-                <div class="trust-stat">
-                    <span class="trust-stat-number">100%</span>
-                    <span class="trust-stat-label">Gratuito</span>
-                </div>
-                <div class="trust-stat">
-                    <span class="trust-stat-number">24/7</span>
-                    <span class="trust-stat-label">Disponible</span>
-                </div>
-                <div class="trust-stat">
-                    <span class="trust-stat-number">Seguro</span>
-                    <span class="trust-stat-label">Verificado</span>
-                </div>
-            </div>
-        </div>
-    </section>
+<script>
+const hdr=document.getElementById('hdr');
+window.addEventListener('scroll',()=>hdr.classList.toggle('sc',scrollY>50),{passive:true});
+const mb=document.getElementById('mb'),mn=document.getElementById('mn');let o=false;
+mb.addEventListener('click',()=>{o=!o;mn.classList.toggle('open',o);mb.innerHTML=o?`<svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M4 4l14 14M18 4L4 18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>`:`<svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M3 6h16M3 11h16M3 16h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>`;});
+mn.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{o=false;mn.classList.remove('open');}));
+const obs=new IntersectionObserver(e=>e.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');}}),{threshold:.07,rootMargin:'0px 0px -16px 0px'});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+</script>
 </body>
 </html>
