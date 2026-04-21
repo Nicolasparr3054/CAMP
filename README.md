@@ -19,6 +19,7 @@ CAMP permite publicar ofertas de trabajo, postularse a ellas, gestionar contrato
 - [Base de datos](#base-de-datos)
 - [API REST](#api-rest)
 - [Credenciales por defecto](#credenciales-por-defecto)
+- [Historial de versiones](#historial-de-versiones)
 - [Autores](#autores)
 
 ---
@@ -269,11 +270,59 @@ GET    /api/admin/reportes-pendientes        Reportes pendientes (admin)
 
 ---
 
+## Historial de versiones
+
+### v1.2 — Login rediseñado *(actual)*
+> Rediseño completo de la interfaz de inicio de sesión.
+
+- **Layout split 50/50** — panel izquierdo visual + panel derecho con formulario
+- **Imagen de fondo real** con trabajadores agrícolas colombianos, sin filtros artificiales
+- **Logo CAMP** con colores originales y sombra para visibilidad sobre cualquier fondo
+- **Tipografía Fraunces + Instrument Sans** — display serif + sans-serif moderna
+- **Titular de impacto** con `text-shadow` para legibilidad sobre imagen
+- **Badge** "Plataforma agrícola · Colombia" con fondo semitransparente
+- **Overlay inteligente** — transparente arriba (caras visibles), oscuro abajo (texto legible)
+- **Formulario limpio** con validación en tiempo real, toggle de contraseña y recordar sesión
+- **Botones sociales** Google y Facebook
+- **Responsive** — panel izquierdo se oculta en tablet/móvil
+- Eliminados: trust social, tarjetas de beneficios y estadísticas del panel izquierdo
+
+---
+
+### v1.1 — Landing page actualizada
+> Mejoras visuales y de contenido en la página de inicio.
+
+- **Sección inicio de sesión** rediseñada con nueva jerarquía visual
+- **Sección de beneficios** actualizada con íconos y descripciones más claras
+- **Sección de comparación** entre roles (Trabajador vs Agricultor) mejorada
+- **Sección de garantías** con nuevos textos e íconos representativos
+- Ajustes generales de espaciado, tipografía y paleta de colores
+
+---
+
+### v1.0 — Lanzamiento inicial
+> Primera versión funcional de la plataforma.
+
+- Registro e inicio de sesión con tres roles: Trabajador, Agricultor, Administrador
+- Publicación y gestión de ofertas de trabajo
+- Sistema de postulaciones con estados
+- Acuerdos laborales y calificaciones bidireccionales
+- Perfil completo de trabajador con habilidades y documentos
+- Búsqueda avanzada de trabajadores por habilidad y ubicación
+- Geolocalización de ofertas cercanas
+- Notificaciones dinámicas
+- Panel de administrador con estadísticas y gestión de reportes
+- Soporte OAuth (Google · Facebook)
+- Recuperación de contraseña por correo
+- Soporte multiidioma: español, inglés y chino
+
+---
+
 ## Autores
 
-Desarrollado como proyecto de etapa lectiva.
+Desarrollado por Nicolas Parra.
 
-**CAMP v1.0** — 2026
+**CAMP v1.2** — 2026
 
 ---
 
