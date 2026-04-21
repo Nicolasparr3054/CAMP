@@ -1,805 +1,503 @@
 /* ================================================================
-   ARCHIVO CSS PARA PÁGINA DE LOGIN DE CAMP - TRABAJADORES
-   ================================================================
-   Este archivo contiene todos los estilos para la página de inicio 
-   de sesión de trabajadores con animaciones y diseño responsive.
+   CAMP — Login · login-trabajador.css
+   Layout split: panel izquierdo verde oscuro + formulario derecho
    ================================================================ */
 
-/* Importar fuentes modernas desde Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,300;1,9..144,500;1,9..144,700&family=Instrument+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap');
+
+/* ── Tokens del index ── */
+:root {
+  --ink:      #0E0B06;
+  --soil:     #1A1108;
+  --earth:    #2C1C0A;
+  --bark:     #4A3118;
+  --ochre:    #8B5E2D;
+  --wheat:    #C9943A;
+  --gold:     #E8B84B;
+  --straw:    #F2D98C;
+  --cream:    #FAF7F0;
+  --fog:      #F2EDE3;
+  --mist:     #E8E1D4;
+
+  --leaf:     #1E3D16;
+  --fern:     #2E5C22;
+  --sage:     #4A7A34;
+  --mint:     #7AB05A;
+  --dew:      #B8D89F;
+  --meadow:   #D8ECC8;
+
+  --sky:      #0F2030;
+  --slate:    #243C50;
+
+  --border:     rgba(74,49,24,.10);
+  --border-md:  rgba(74,49,24,.22);
+  --border-str: rgba(74,49,24,.40);
+
+  --ff-display: 'Fraunces', Georgia, serif;
+  --ff-body:    'Instrument Sans', system-ui, sans-serif;
+
+  --r:    10px;
+  --r-lg: 18px;
+  --r-xl: 28px;
+  --pill: 999px;
+  --ease: cubic-bezier(.4,0,.2,1);
+}
+
+/* ── Reset ── */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { -webkit-font-smoothing:antialiased; height:100%; }
+body { font-family: var(--ff-body); color: var(--ink); height:100%; overflow-x:hidden; }
 
 /* ================================================================
-   RESET Y CONFIGURACIÓN BASE
+   SPLIT — contenedor principal
    ================================================================ */
-
-/* Reset de márgenes, padding y modelo de caja universal */
-* {
-    margin: 0;               /* Eliminar margen por defecto */
-    padding: 0;              /* Eliminar padding por defecto */
-    box-sizing: border-box;  /* Incluir padding y border en el ancho total */
-}
-
-/* Configuración del cuerpo principal */
-body {
-    /* Fuente principal con fallbacks para diferentes sistemas */
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    /* Gradiente de fondo verde oscuro a claro */
-    background: linear-gradient(135deg, #1e3a2e 0%, #2d5a27 35%, #4a7c59 100%);
-    min-height: 100vh;       /* Altura mínima de toda la ventana */
-    overflow-x: hidden;      /* Ocultar scroll horizontal */
-}
-
-/* Patrón de fondo sutil con pseudo-elemento */
-body::before {
-    content: '';             /* Contenido vacío para el pseudo-elemento */
-    position: fixed;         /* Posición fija para que no se mueva con scroll */
-    top: 0;                  /* Pegado al top */
-    left: 0;                 /* Pegado a la izquierda */
-    width: 100%;             /* Ancho completo */
-    height: 100%;            /* Alto completo */
-    /* Gradientes radiales superpuestos para crear patrón sutil */
-    background: 
-        radial-gradient(circle at 20% 80%, rgba(144, 238, 144, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(144, 238, 144, 0.1) 0%, transparent 50%);
-    pointer-events: none;    /* No interceptar eventos del mouse */
-    z-index: -1;             /* Enviar al fondo */
-}
-
-/* ================================================================
-   CONTENEDOR PRINCIPAL
-   ================================================================ */
-
-/* Contenedor principal con layout flexbox */
-.container {
-    display: flex;           /* Layout flexbox horizontal */
-    min-height: 100vh;       /* Altura mínima de toda la ventana */
-    position: relative;      /* Posición relativa para elementos absolutos internos */
-}
-
-/* ================================================================
-   SECCIÓN IZQUIERDA - INFORMACIÓN Y MARCA
-   ================================================================ */
-
-/* Sección izquierda con información de la marca */
-.left-section {
-    flex: 1;                 /* Tomar la mitad del espacio disponible */
-    /* Gradiente de fondo verde */
-    background: linear-gradient(135deg, #1e3a2e 0%, #2d5a27 50%, #4a7c59 100%);
-    padding: 80px 50px;      /* Espaciado interno amplio */
-    color: white;            /* Texto en blanco */
-    display: flex;           /* Layout flexbox */
-    flex-direction: column;  /* Dirección vertical */
-    justify-content: center; /* Centrar contenido verticalmente */
-    position: relative;      /* Para elementos absolutos internos */
-    overflow: hidden;        /* Ocultar contenido que se desborde */
-}
-
-/* Patrón de fondo decorativo para la sección izquierda */
-.left-section::before {
-    content: '';             /* Contenido vacío para pseudo-elemento */
-    position: absolute;      /* Posición absoluta */
-    top: 0;                  /* Pegado al top */
-    left: 0;                 /* Pegado a la izquierda */
-    width: 100%;             /* Ancho completo */
-    height: 100%;            /* Alto completo */
-    /* SVG embebido con círculos decorativos */
-    background: 
-        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="25" cy="25" r="3" fill="rgba(144,238,144,0.1)"/><circle cx="75" cy="75" r="2" fill="rgba(144,238,144,0.1)"/><circle cx="10" cy="60" r="1.5" fill="rgba(144,238,144,0.1)"/><circle cx="90" cy="30" r="2.5" fill="rgba(144,238,144,0.1)"/></svg>');
-    pointer-events: none;    /* No interceptar eventos */
-    opacity: 0.3;            /* Transparencia del patrón */
-}
-
-/* Contenedor de la marca */
-.brand {
-    max-width: 550px;        /* Ancho máximo del contenido */
-    position: relative;      /* Para que esté sobre el patrón de fondo */
-    z-index: 1;              /* Índice z superior al patrón */
-}
-
-/* Logo con icono y texto */
-.logo {
-    display: flex;           /* Layout flexbox */
-    align-items: center;     /* Centrar verticalmente */
-    gap: 18px;               /* Espacio entre icono y texto */
-    margin-bottom: 40px;     /* Margen inferior */
-    animation: fadeInUp 0.8s ease-out; /* Animación de entrada */
-}
-
-/* Icono del logo */
-.logo i {
-    font-size: 3rem;         /* Tamaño del icono */
-    color: #90EE90;          /* Color verde claro */
-    /* Sombra brillante alrededor del icono */
-    filter: drop-shadow(0 0 10px rgba(144, 238, 144, 0.3));
-}
-
-/* Texto del logo */
-.logo span {
-    font-size: 2.2rem;       /* Tamaño de fuente grande */
-    font-weight: 700;        /* Peso de fuente bold */
-    letter-spacing: -0.5px;  /* Espaciado entre letras ajustado */
-}
-
-/* Título principal de la sección izquierda */
-.left-section h1 {
-    font-size: 3rem;         /* Tamaño de fuente muy grande */
-    margin-bottom: 25px;     /* Margen inferior */
-    line-height: 1.1;        /* Altura de línea compacta */
-    font-weight: 700;        /* Peso de fuente bold */
-    letter-spacing: -1px;    /* Espaciado entre letras ajustado */
-    /* Animación de entrada con retraso */
-    animation: fadeInUp 0.8s ease-out 0.2s both;
-}
-
-/* Párrafo descriptivo */
-.left-section p {
-    font-size: 1.2rem;       /* Tamaño de fuente mediano */
-    margin-bottom: 45px;     /* Margen inferior amplio */
-    opacity: 0.9;            /* Ligeramente transparente */
-    line-height: 1.6;        /* Altura de línea cómoda para lectura */
-    font-weight: 400;        /* Peso de fuente normal */
-    /* Animación de entrada con más retraso */
-    animation: fadeInUp 0.8s ease-out 0.4s both;
-}
-
-/* Contenedor de beneficios */
-.benefits {
-    display: flex;           /* Layout flexbox */
-    flex-direction: column;  /* Dirección vertical */
-    gap: 20px;               /* Espacio entre elementos */
-    /* Animación de entrada con aún más retraso */
-    animation: fadeInUp 0.8s ease-out 0.6s both;
-}
-
-/* Cada elemento de beneficio */
-.benefit-item {
-    display: flex;           /* Layout flexbox */
-    align-items: center;     /* Centrar verticalmente */
-    gap: 20px;               /* Espacio entre icono y texto */
-    padding: 20px;           /* Espaciado interno */
-    /* Fondo semitransparente */
-    background: rgba(255, 255, 255, 0.08);
-    border-radius: 16px;     /* Bordes redondeados */
-    backdrop-filter: blur(20px); /* Efecto de desenfoque del fondo */
-    /* Borde sutil */
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    /* Transición suave para hover */
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Efecto hover en elementos de beneficio */
-.benefit-item:hover {
-    /* Fondo más opaco en hover */
-    background: rgba(255, 255, 255, 0.12);
-    transform: translateX(10px); /* Mover a la derecha */
-    /* Borde más visible */
-    border-color: rgba(144, 238, 144, 0.3);
-}
-
-/* Icono dentro de cada beneficio */
-.benefit-item i {
-    font-size: 1.8rem;       /* Tamaño del icono */
-    color: #90EE90;          /* Color verde claro */
-    min-width: 35px;         /* Ancho mínimo para alineación */
-    /* Sombra brillante */
-    filter: drop-shadow(0 0 8px rgba(144, 238, 144, 0.3));
-}
-
-/* Texto dentro de cada beneficio */
-.benefit-item span {
-    font-size: 1.1rem;       /* Tamaño de fuente */
-    font-weight: 500;        /* Peso de fuente medio */
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
 }
 
 /* ================================================================
-   SECCIÓN DERECHA - FORMULARIO DE LOGIN
+   PANEL IZQUIERDO — imagen + marca
    ================================================================ */
-
-/* Sección derecha con formulario */
-.right-section {
-    flex: 1;                 /* Tomar la mitad del espacio */
-    background: #ffffff;     /* Fondo blanco */
-    padding: 50px;           /* Espaciado interno */
-    display: flex;           /* Layout flexbox */
-    flex-direction: column;  /* Dirección vertical */
-    justify-content: center; /* Centrar verticalmente */
-    position: relative;      /* Para elementos absolutos */
-    /* Sombra lateral izquierda */
-    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+.panel-left {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: stretch;
 }
 
-/* Patrón de fondo sutil para sección derecha */
-.right-section::before {
-    content: '';             /* Contenido vacío */
-    position: absolute;      /* Posición absoluta */
-    top: 0;                  /* Pegado al top */
-    left: 0;                 /* Pegado a la izquierda */
-    width: 100%;             /* Ancho completo */
-    height: 100%;            /* Alto completo */
-    /* Gradientes radiales sutiles */
-    background: 
-        radial-gradient(circle at 90% 10%, rgba(45, 90, 39, 0.03) 0%, transparent 50%),
-        radial-gradient(circle at 10% 90%, rgba(45, 90, 39, 0.03) 0%, transparent 50%);
-    pointer-events: none;    /* No interceptar eventos */
+/* Imagen de fondo */
+.pl-img {
+  position: absolute; inset: 0;
+}
+.pl-img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  filter: none;
+  transition: transform 14s ease;
+}
+.panel-left:hover .pl-img img { transform: scale(1.04); }
+
+/* Overlay gradiente verde */
+.pl-overlay {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(to bottom,
+      rgba(0,0,0,0)    0%,
+      rgba(0,0,0,.15) 35%,
+      rgba(0,0,0,.70) 100%
+    );
 }
 
-/* Contenedor del formulario */
-.form-container {
-    max-width: 440px;        /* Ancho máximo del formulario */
-    margin: 0 auto;          /* Centrar horizontalmente */
-    width: 100%;             /* Ancho completo disponible */
-    position: relative;      /* Para que esté sobre el patrón */
-    z-index: 1;              /* Índice z superior */
+/* Grid decorativo */
+.pl-grid { display: none; }
+
+/* Contenido del panel */
+.pl-content {
+  position: relative; z-index: 2;
+  width: 100%;
+  padding: 52px 52px 52px;
+  display: flex; flex-direction: column;
+  justify-content: center;
+  gap: 32px;
 }
 
-/* Encabezado del formulario */
-.form-header {
-    text-align: center;      /* Centrar texto */
-    margin-bottom: 40px;     /* Margen inferior */
+/* Logo */
+.pl-logo { display: inline-block; }
+.pl-logo img {
+  height: 160px;
+  width: auto; display: block;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,.6));
+  opacity: 1;
+  transition: opacity .2s;
+}
+.pl-logo:hover img { opacity: 1; }
+
+/* Cuerpo central */
+.pl-body { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+
+/* Badge */
+.pl-badge {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 5px 13px 5px 8px; border-radius: var(--pill);
+  background: rgba(0,0,0,.55); border: 1px solid rgba(255,255,255,.3);
+  font-size: .66rem; font-weight: 500; letter-spacing: 1.1px; text-transform: uppercase;
+  color: #fff; margin-bottom: 26px;
+  width: fit-content;
+}
+.badge-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--mint); flex-shrink: 0;
+  animation: pulse 2.5s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.25;transform:scale(.6)} }
+
+/* Titular */
+.pl-headline {
+  font-family: var(--ff-display);
+  font-size: clamp(2.8rem, 4vw, 4.4rem);
+  font-weight: 700; line-height: 1.04; letter-spacing: -1.5px;
+  color: #fff; margin-bottom: 18px;
+  text-shadow: 0 3px 24px rgba(0,0,0,1), 0 1px 8px rgba(0,0,0,1);
+}
+.pl-headline em {
+  display: block;
+  font-style: italic; font-weight: 300; color: var(--mint);
+  letter-spacing: -.8px;
 }
 
-/* Título del formulario */
-.form-header h2 {
-    font-size: 2.5rem;       /* Tamaño de fuente grande */
-    color: #1e3a2e;          /* Color verde oscuro */
-    margin-bottom: 12px;     /* Margen inferior pequeño */
-    font-weight: 700;        /* Peso de fuente bold */
-    letter-spacing: -0.5px;  /* Espaciado entre letras ajustado */
+.pl-sub {
+  font-size: .95rem; font-weight: 300; line-height: 1.85;
+  color: #fff; max-width: 420px;
+  margin-bottom: 36px;
+  text-shadow: 0 1px 10px rgba(0,0,0,.9);
 }
 
-/* Subtítulo del formulario */
-.form-header p {
-    color: #64748b;          /* Color gris */
-    font-size: 1.1rem;       /* Tamaño de fuente mediano */
-    font-weight: 400;        /* Peso de fuente normal */
+/* Beneficios */
+.pl-benefits {
+  list-style: none; display: flex; flex-direction: column; gap: 10px;
+}
+.pl-benefits li {
+  display: flex; align-items: center; gap: 12px;
+  font-size: .87rem; font-weight: 300; color: rgba(184,216,159,.65);
+  padding: 12px 16px;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: var(--r);
+  transition: background .22s, border-color .22s;
+}
+.pl-benefits li:hover {
+  background: rgba(255,255,255,.07);
+  border-color: rgba(122,176,90,.18);
+}
+.pl-b-ico {
+  width: 34px; height: 34px; border-radius: 8px; flex-shrink: 0;
+  background: rgba(122,176,90,.1); border: 1px solid rgba(122,176,90,.18);
+  display: grid; place-items: center;
+}
+.pl-b-ico svg {
+  width: 15px; height: 15px;
+  stroke: var(--mint); fill: none;
+  stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
 }
 
-/* Formulario principal */
-.login-form {
-    display: flex;           /* Layout flexbox */
-    flex-direction: column;  /* Dirección vertical */
-    gap: 25px;               /* Espacio entre elementos */
+/* ── Trust social y stat — eliminados ── */
+.pl-trust,
+.pl-stat { display: none; }
+
+/* ================================================================
+   PANEL DERECHO — formulario
+   ================================================================ */
+.panel-right {
+  background: var(--cream);
+  position: relative; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
 }
 
-/* Grupo de campo de formulario */
-.form-group {
-    position: relative;      /* Para elementos absolutos internos */
+/* Textura de ruido sutil */
+.pr-noise {
+  position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  opacity: .03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* Contenedor de input con icono */
-.input-container {
-    position: relative;      /* Para posicionar icono */
-    display: flex;           /* Layout flexbox */
-    align-items: center;     /* Centrar verticalmente */
+/* Resplandor decorativo */
+.pr-glow {
+  position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  background:
+    radial-gradient(ellipse 600px 500px at 100% 0%,   rgba(74,122,52,.05)  0%, transparent 60%),
+    radial-gradient(ellipse 400px 400px at 0%   100%, rgba(201,148,58,.04) 0%, transparent 60%);
 }
 
-/* Icono dentro del input */
-.input-icon {
-    position: absolute;      /* Posición absoluta */
-    left: 18px;              /* Posición desde la izquierda */
-    color: #64748b;          /* Color gris */
-    font-size: 1.2rem;       /* Tamaño del icono */
-    z-index: 2;              /* Sobre el input */
-    transition: all 0.3s ease; /* Transición suave */
+/* Contenedor scrollable del formulario */
+.pr-inner {
+  position: relative; z-index: 1;
+  width: 100%; max-width: 460px;
+  padding: 60px 52px;
+  animation: fadeUp .5s var(--ease) both;
+}
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(16px); }
+  to   { opacity:1; transform:none; }
 }
 
-/* Estilo de los inputs */
-.input-container input {
-    width: 100%;             /* Ancho completo */
-    padding: 18px 18px 18px 50px; /* Padding con espacio para icono */
-    border: 2px solid #e2e8f0; /* Borde gris claro */
-    border-radius: 12px;     /* Bordes redondeados */
-    font-size: 1rem;         /* Tamaño de fuente */
-    font-weight: 400;        /* Peso de fuente normal */
-    /* Transición suave con curva de animación personalizada */
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    background: #ffffff;     /* Fondo blanco */
-    /* Sombra sutil */
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+/* Logo móvil (oculto en desktop) */
+.pr-logo-mob { display: none; margin-bottom: 32px; }
+.pr-logo-mob img { height: 72px; width: auto; }
+
+/* ── Cabecera del form ── */
+.rf-head { margin-bottom: 36px; }
+
+.rf-step {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 4px 13px 4px 9px; border-radius: var(--pill);
+  background: rgba(74,122,52,.08); border: 1px solid rgba(74,122,52,.2);
+  font-size: .65rem; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase;
+  color: var(--sage); margin-bottom: 16px;
 }
 
-/* Estado focus de los inputs */
-.input-container input:focus {
-    outline: none;           /* Quitar outline por defecto */
-    border-color: #4a7c59;   /* Borde verde en focus */
-    /* Sombra de focus personalizada */
-    box-shadow: 0 0 0 4px rgba(74, 124, 89, 0.1);
-    background: #ffffff;     /* Mantener fondo blanco */
+.rf-title {
+  font-family: var(--ff-display);
+  font-size: clamp(1.9rem, 2.8vw, 2.5rem);
+  font-weight: 700; line-height: 1.06; letter-spacing: -.4px;
+  color: var(--soil); margin-bottom: 8px;
+}
+.rf-title em { font-style: italic; font-weight: 300; color: var(--fern); }
+
+.rf-sub {
+  font-size: .9rem; font-weight: 300; color: var(--bark); line-height: 1.6;
 }
 
-/* Cambio de icono cuando input está en focus */
-.input-container input:focus + .input-icon {
-    color: #4a7c59;          /* Color verde para el icono */
-    transform: scale(1.1);   /* Escalar ligeramente */
+/* ── Campos ── */
+.rf { width: 100%; }
+.field { margin-bottom: 20px; }
+
+.field-label {
+  display: block; margin-bottom: 7px;
+  font-size: .77rem; font-weight: 500; letter-spacing: .3px; color: var(--soil);
+}
+.field-label-row {
+  display: flex; align-items: center; justify-content: space-between; margin-bottom: 7px;
+}
+.field-label-row .field-label { margin-bottom: 0; }
+
+.link-forgot {
+  font-size: .75rem; font-weight: 400; color: var(--sage);
+  text-decoration: none; transition: color .2s;
+}
+.link-forgot:hover { color: var(--fern); text-decoration: underline; }
+
+/* Input wrapper */
+.field-wrap {
+  position: relative; display: flex; align-items: center;
+}
+.field-ico {
+  position: absolute; left: 14px;
+  width: 16px; height: 16px;
+  stroke: var(--ochre); fill: none;
+  stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
+  pointer-events: none; transition: stroke .2s;
+}
+.field-wrap input {
+  width: 100%;
+  padding: 14px 46px 14px 44px;
+  border: 1.5px solid var(--border-md);
+  border-radius: var(--r);
+  font-family: var(--ff-body); font-size: .93rem; font-weight: 300;
+  color: var(--soil); background: #fff;
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
+}
+.field-wrap input::placeholder { color: var(--mist); }
+.field-wrap input:hover  { border-color: var(--border-str); }
+.field-wrap input:focus  {
+  border-color: var(--sage);
+  box-shadow: 0 0 0 3px rgba(74,122,52,.12);
+}
+.field-wrap:has(input:focus) .field-ico { stroke: var(--sage); }
+
+/* Error */
+.field.error .field-wrap input { border-color: #C0392B; }
+.field.error .field-wrap input:focus { box-shadow: 0 0 0 3px rgba(192,57,43,.1); }
+.field-err { display: block; margin-top: 5px; font-size: .72rem; color: #C0392B; min-height: 16px; }
+
+/* Toggle contraseña */
+.toggle-pw {
+  position: absolute; right: 12px;
+  background: none; border: none; cursor: pointer; padding: 4px;
+  color: var(--ochre); display: flex; align-items: center;
+  transition: color .2s;
+}
+.toggle-pw:hover { color: var(--sage); }
+.toggle-pw svg {
+  width: 16px; height: 16px; stroke: currentColor; fill: none;
+  stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
 }
 
-/* Botón para mostrar/ocultar contraseña */
-.toggle-password {
-    position: absolute;      /* Posición absoluta */
-    right: 18px;             /* Posición desde la derecha */
-    color: #64748b;          /* Color gris */
-    cursor: pointer;         /* Cursor de mano */
-    font-size: 1.2rem;       /* Tamaño del icono */
-    z-index: 2;              /* Sobre el input */
-    transition: all 0.3s ease; /* Transición suave */
+/* Checkbox */
+.field-check { margin-bottom: 24px; }
+.check-label {
+  display: inline-flex; align-items: center; gap: 10px;
+  cursor: pointer; font-size: .82rem; font-weight: 300; color: var(--bark);
+  user-select: none;
+}
+.check-label input[type="checkbox"] { display: none; }
+.check-box {
+  width: 18px; height: 18px; border-radius: 5px; flex-shrink: 0;
+  border: 1.5px solid var(--border-md); background: #fff;
+  transition: background .18s, border-color .18s; position: relative;
+}
+.check-label input:checked ~ .check-box { background: var(--leaf); border-color: var(--leaf); }
+.check-label input:checked ~ .check-box::after {
+  content: '';
+  position: absolute; top: 2px; left: 5px;
+  width: 5px; height: 9px;
+  border: 1.5px solid var(--cream); border-top: none; border-left: none;
+  transform: rotate(45deg);
 }
 
-/* Estado hover del botón toggle password */
-.toggle-password:hover {
-    color: #4a7c59;          /* Color verde en hover */
-    transform: scale(1.1);   /* Escalar ligeramente */
+/* Botón principal */
+.btn-primary {
+  width: 100%;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  padding: 15px 28px; border-radius: var(--r);
+  font-family: var(--ff-body); font-size: .93rem; font-weight: 500;
+  color: var(--cream); background: var(--leaf);
+  border: 1px solid var(--leaf); cursor: pointer;
+  box-shadow: 0 4px 16px rgba(30,61,22,.28), 0 1px 0 rgba(255,255,255,.08) inset;
+  transition: background .22s var(--ease), transform .18s var(--ease), box-shadow .22s var(--ease);
+  position: relative; overflow: hidden;
 }
-
-/* Opciones del formulario (recordar y olvidé contraseña) */
-.form-options {
-    display: flex;           /* Layout flexbox */
-    justify-content: space-between; /* Espacio entre elementos */
-    align-items: center;     /* Centrar verticalmente */
-    margin: 15px 0;          /* Margen vertical */
+.btn-primary::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to bottom, rgba(255,255,255,.06), transparent);
+  pointer-events: none;
 }
-
-/* Sección "Recordarme" */
-.remember-me {
-    display: flex;           /* Layout flexbox */
-    align-items: center;     /* Centrar verticalmente */
-    gap: 10px;               /* Espacio entre checkbox y label */
+.btn-primary:hover {
+  background: var(--fern); border-color: var(--fern);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(30,61,22,.3);
 }
-
-/* Checkbox personalizado */
-.remember-me input[type="checkbox"] {
-    width: 20px;             /* Ancho del checkbox */
-    height: 20px;            /* Alto del checkbox */
-    accent-color: #4a7c59;   /* Color del checkbox */
-    cursor: pointer;         /* Cursor de mano */
+.btn-primary:active  { transform: translateY(0); }
+.btn-primary:disabled{ opacity: .55; cursor: not-allowed; transform: none; }
+.btn-ico {
+  stroke: currentColor; fill: none; stroke-width: 1.9;
+  stroke-linecap: round; stroke-linejoin: round;
+  width: 16px; height: 16px; transition: transform .2s; flex-shrink: 0;
 }
+.btn-primary:hover .btn-ico { transform: translateX(3px); }
 
-/* Label del checkbox */
-.remember-me label {
-    font-size: 0.95rem;      /* Tamaño de fuente pequeño */
-    color: #64748b;          /* Color gris */
-    cursor: pointer;         /* Cursor de mano */
-    font-weight: 500;        /* Peso de fuente medio */
-}
-
-/* Link "Olvidé mi contraseña" */
-.forgot-password {
-    color: #4a7c59;          /* Color verde */
-    text-decoration: none;   /* Sin subrayado */
-    font-size: 0.95rem;      /* Tamaño de fuente pequeño */
-    font-weight: 500;        /* Peso de fuente medio */
-    transition: all 0.3s ease; /* Transición suave */
-}
-
-/* Estado hover del link */
-.forgot-password:hover {
-    color: #2d5a27;          /* Verde más oscuro */
-    text-decoration: underline; /* Subrayado en hover */
-}
-
-/* Botón principal de login */
-.btn-login {
-    padding: 18px 35px;      /* Espaciado interno amplio */
-    /* Gradiente de fondo verde */
-    background: linear-gradient(135deg, #4a7c59 0%, #2d5a27 100%);
-    color: white;            /* Texto blanco */
-    border: none;            /* Sin borde */
-    border-radius: 12px;     /* Bordes redondeados */
-    font-size: 1.1rem;       /* Tamaño de fuente */
-    font-weight: 600;        /* Peso de fuente semi-bold */
-    cursor: pointer;         /* Cursor de mano */
-    /* Transición suave con curva personalizada */
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    display: flex;           /* Layout flexbox */
-    align-items: center;     /* Centrar verticalmente */
-    justify-content: center; /* Centrar horizontalmente */
-    gap: 12px;               /* Espacio entre texto e icono */
-    margin-top: 15px;        /* Margen superior */
-    /* Sombra con color verde */
-    box-shadow: 0 4px 15px rgba(74, 124, 89, 0.3);
-}
-
-/* Estado hover del botón login */
-.btn-login:hover {
-    transform: translateY(-3px); /* Mover hacia arriba */
-    /* Sombra más pronunciada */
-    box-shadow: 0 8px 25px rgba(74, 124, 89, 0.4);
-    /* Gradiente más oscuro */
-    background: linear-gradient(135deg, #3d6b4a 0%, #1e3a2e 100%);
-}
-
-/* Estado active del botón login */
-.btn-login:active {
-    transform: translateY(-1px); /* Movimiento menor al presionar */
-}
-
-/* Divisor entre login normal y social */
+/* Divisor */
 .divider {
-    text-align: center;      /* Centrar texto */
-    margin: 35px 0;          /* Margen vertical amplio */
-    position: relative;      /* Para la línea de fondo */
+  display: flex; align-items: center; gap: 12px; margin: 22px 0 18px;
 }
-
-/* Línea del divisor */
-.divider::before {
-    content: '';             /* Contenido vacío */
-    position: absolute;      /* Posición absoluta */
-    top: 50%;                /* Centrar verticalmente */
-    left: 0;                 /* Desde la izquierda */
-    right: 0;                /* Hasta la derecha */
-    height: 1px;             /* Altura de línea fina */
-    /* Gradiente que se desvanece en los extremos */
-    background: linear-gradient(to right, transparent, #e2e8f0, transparent);
+.divider::before, .divider::after {
+  content: ''; flex: 1; height: 1px; background: var(--border-md);
 }
-
-/* Texto del divisor */
 .divider span {
-    background: white;       /* Fondo blanco para cubrir la línea */
-    padding: 0 20px;         /* Espaciado horizontal */
-    color: #64748b;          /* Color gris */
-    font-size: 0.9rem;       /* Tamaño de fuente pequeño */
-    font-weight: 500;        /* Peso de fuente medio */
+  font-size: .72rem; font-weight: 400; letter-spacing: .5px;
+  color: var(--ochre); white-space: nowrap;
 }
 
-/* Contenedor de botones de redes sociales */
-.social-login {
-    display: flex;           /* Layout flexbox */
-    flex-direction: column;  /* Dirección vertical */
-    gap: 15px;               /* Espacio entre botones */
+/* Botones sociales */
+.social-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.btn-social {
+  display: flex; align-items: center; justify-content: center; gap: 9px;
+  padding: 12px 10px; border-radius: var(--r);
+  font-family: var(--ff-body); font-size: .81rem; font-weight: 400;
+  color: var(--bark); background: var(--fog);
+  border: 1px solid var(--border-md); cursor: pointer;
+  transition: background .2s, border-color .2s, transform .18s, box-shadow .2s;
+}
+.btn-social:hover {
+  background: #fff; border-color: var(--border-str);
+  transform: translateY(-1px); box-shadow: 0 4px 14px rgba(14,11,6,.08);
 }
 
-/* Estilos base para botones sociales */
-.btn-google,
-.btn-facebook {
-    padding: 15px 25px;      /* Espaciado interno */
-    border: 2px solid #e2e8f0; /* Borde gris */
-    border-radius: 12px;     /* Bordes redondeados */
-    font-size: 1rem;         /* Tamaño de fuente */
-    font-weight: 500;        /* Peso de fuente medio */
-    cursor: pointer;         /* Cursor de mano */
-    /* Transición suave con curva personalizada */
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    display: flex;           /* Layout flexbox */
-    align-items: center;     /* Centrar verticalmente */
-    justify-content: center; /* Centrar horizontalmente */
-    gap: 12px;               /* Espacio entre icono y texto */
-    background: white;       /* Fondo blanco */
-    /* Sombra sutil */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+/* Link de registro */
+.rf-alt {
+  margin-top: 22px; text-align: center;
+  font-size: .82rem; font-weight: 300; color: var(--bark);
 }
-
-/* Botón específico de Google */
-.btn-google {
-    color: #db4437;          /* Color rojo de Google */
+.rf-alt-link {
+  margin-left: 4px; color: var(--fern); font-weight: 500;
+  text-decoration: none; transition: color .2s;
 }
-
-/* Estado hover del botón Google */
-.btn-google:hover {
-    background: #db4437;     /* Fondo rojo */
-    color: white;            /* Texto blanco */
-    border-color: #db4437;   /* Borde rojo */
-    transform: translateY(-2px); /* Mover hacia arriba */
-    /* Sombra roja */
-    box-shadow: 0 8px 20px rgba(219, 68, 55, 0.3);
-}
-
-/* Botón específico de Facebook */
-.btn-facebook {
-    color: #4267B2;          /* Color azul de Facebook */
-}
-
-/* Estado hover del botón Facebook */
-.btn-facebook:hover {
-    background: #4267B2;     /* Fondo azul */
-    color: white;            /* Texto blanco */
-    border-color: #4267B2;   /* Borde azul */
-    transform: translateY(-2px); /* Mover hacia arriba */
-    /* Sombra azul */
-    box-shadow: 0 8px 20px rgba(66, 103, 178, 0.3);
-}
+.rf-alt-link:hover { color: var(--leaf); text-decoration: underline; }
 
 /* ================================================================
-   MODAL DE RECUPERACIÓN DE CONTRASEÑA
+   MODALES
+   ================================================================ */
+.modal-overlay {
+  display: none;
+  position: fixed; inset: 0; z-index: 500;
+  background: rgba(14,11,6,.55);
+  backdrop-filter: blur(8px);
+  align-items: center; justify-content: center; padding: 24px;
+}
+.modal-overlay.open { display: flex; }
+
+.modal-box {
+  background: var(--cream);
+  border: 1px solid var(--border-md); border-radius: var(--r-xl);
+  padding: 48px 44px 44px;
+  width: 100%; max-width: 460px; position: relative;
+  box-shadow: 0 32px 80px rgba(14,11,6,.22), 0 8px 24px rgba(14,11,6,.1);
+  animation: modalIn .28s var(--ease) both;
+}
+@keyframes modalIn {
+  from { opacity:0; transform:scale(.97) translateY(12px); }
+  to   { opacity:1; transform:none; }
+}
+.notif-box { text-align: center; padding: 52px 44px 48px; }
+
+.modal-close {
+  position: absolute; top: 16px; right: 16px;
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--fog); border: 1px solid var(--border);
+  cursor: pointer; display: grid; place-items: center;
+  color: var(--bark); transition: background .18s, color .18s;
+}
+.modal-close:hover { background: var(--mist); color: var(--soil); }
+.modal-close svg { fill: none; stroke-linecap: round; }
+
+.modal-ico-wrap {
+  width: 56px; height: 56px; border-radius: 14px;
+  background: rgba(74,122,52,.08); border: 1px solid rgba(74,122,52,.2);
+  display: grid; place-items: center; margin-bottom: 20px; color: var(--sage);
+}
+.modal-ico-wrap svg {
+  width: 26px; height: 26px; stroke: currentColor; fill: none;
+  stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+}
+.notif-ico-wrap {
+  width: 56px; height: 56px; border-radius: 14px;
+  display: grid; place-items: center; margin: 0 auto 20px;
+}
+.notif-ico-wrap svg {
+  width: 28px; height: 28px; stroke: currentColor; fill: none;
+  stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+}
+
+.modal-title {
+  font-family: var(--ff-display);
+  font-size: 1.55rem; font-weight: 700; letter-spacing: -.3px;
+  color: var(--soil); margin-bottom: 10px;
+}
+.modal-desc {
+  font-size: .88rem; font-weight: 300; line-height: 1.8;
+  color: var(--bark); margin-bottom: 28px;
+}
+.modal-desc strong { color: var(--fern); font-weight: 500; }
+
+/* ================================================================
+   RESPONSIVE
    ================================================================ */
 
-/* Contenedor principal del modal */
-.modal {
-    display: none;           /* Oculto por defecto */
-    position: fixed;         /* Posición fija en pantalla */
-    z-index: 1000;           /* Índice z muy alto */
-    left: 0;                 /* Cubrir desde la izquierda */
-    top: 0;                  /* Cubrir desde arriba */
-    width: 100%;             /* Ancho completo */
-    height: 100%;            /* Alto completo */
-    background-color: rgba(0, 0, 0, 0.6); /* Fondo oscuro semitransparente */
-    backdrop-filter: blur(5px); /* Desenfoque del fondo */
-    animation: fadeIn 0.3s ease-out; /* Animación de aparición */
+/* Tablet: ocultar panel izquierdo */
+@media (max-width: 900px) {
+  .split { grid-template-columns: 1fr; }
+  .panel-left { display: none; }
+  .panel-right {
+    min-height: 100vh; align-items: flex-start;
+  }
+  .pr-inner { padding: 40px 36px; }
+  .pr-logo-mob { display: block; }
 }
 
-/* Contenido del modal */
-.modal-content {
-    background-color: white; /* Fondo blanco */
-    margin: 10% auto;        /* Centrar con margen superior */
-    padding: 40px;           /* Espaciado interno amplio */
-    border-radius: 20px;     /* Bordes muy redondeados */
-    width: 90%;              /* Ancho del 90% */
-    max-width: 450px;        /* Ancho máximo */
-    position: relative;      /* Para el botón de cerrar */
-    /* Sombra pronunciada */
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
-    animation: slideIn 0.3s ease-out; /* Animación de entrada */
+/* Móvil */
+@media (max-width: 520px) {
+  .pr-inner { padding: 32px 24px; }
+  .social-row { grid-template-columns: 1fr; }
+  .modal-box { padding: 40px 28px 36px; }
+  .notif-box { padding: 44px 28px 40px; }
 }
 
-/* Botón de cerrar modal */
-.close {
-    position: absolute;      /* Posición absoluta */
-    top: 20px;               /* Posición desde arriba */
-    right: 25px;             /* Posición desde la derecha */
-    color: #64748b;          /* Color gris */
-    font-size: 28px;         /* Tamaño grande */
-    font-weight: bold;       /* Peso bold */
-    cursor: pointer;         /* Cursor de mano */
-    transition: all 0.3s ease; /* Transición suave */
+/* Panel izquierdo en pantallas medianas */
+@media (max-width: 1100px) and (min-width: 901px) {
+  .pl-content { padding: 44px 40px; }
+  .pl-logo img { height: 80px; }
+  .pl-headline { font-size: 2.2rem; }
 }
-
-/* Estado hover del botón cerrar */
-.close:hover {
-    color: #e74c3c;          /* Color rojo en hover */
-    transform: scale(1.1);   /* Escalar ligeramente */
-}
-
-/* Encabezado del modal */
-.modal-header {
-    text-align: center;      /* Centrar texto */
-    margin-bottom: 30px;     /* Margen inferior */
-}
-
-/* Título del modal */
-.modal-header h3 {
-    color: #1e3a2e;          /* Color verde oscuro */
-    font-size: 1.8rem;       /* Tamaño de fuente grande */
-    font-weight: 700;        /* Peso bold */
-    margin-bottom: 15px;     /* Margen inferior */
-}
-
-/* Párrafo del modal */
-.modal-header p {
-    color: #64748b;          /* Color gris */
-    font-size: 1rem;         /* Tamaño de fuente normal */
-    line-height: 1.5;        /* Altura de línea cómoda */
-    font-weight: 400;        /* Peso normal */
-}
-
-/* Botón de enviar en el modal */
-.btn-send {
-    width: 100%;             /* Ancho completo */
-    padding: 18px;           /* Espaciado interno */
-    /* Gradiente verde */
-    background: linear-gradient(135deg, #4a7c59 0%, #2d5a27 100%);
-    color: white;            /* Texto blanco */
-    border: none;            /* Sin borde */
-    border-radius: 12px;     /* Bordes redondeados */
-    font-size: 1.1rem;       /* Tamaño de fuente */
-    font-weight: 600;        /* Peso semi-bold */
-    cursor: pointer;         /* Cursor de mano */
-    /* Transición suave con curva personalizada */
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    display: flex;           /* Layout flexbox */
-    align-items: center;     /* Centrar verticalmente */
-    justify-content: center; /* Centrar horizontalmente */
-    gap: 12px;               /* Espacio entre elementos */
-    margin-top: 20px;        /* Margen superior */
-    /* Sombra verde */
-    box-shadow: 0 4px 15px rgba(74, 124, 89, 0.3);
-}
-
-/* Estado hover del botón enviar */
-.btn-send:hover {
-    transform: translateY(-3px); /* Mover hacia arriba */
-    /* Sombra más pronunciada */
-    box-shadow: 0 8px 25px rgba(74, 124, 89, 0.4);
-}
-
-/* ================================================================
-  ANIMACIONES KEYFRAMES
-  ================================================================ */
-
-/* Animación de aparición gradual */
-@keyframes fadeIn {
-   from { opacity: 0; }     /* Desde transparente */
-   to { opacity: 1; }       /* Hasta opaco */
-}
-
-/* Animación de deslizamiento hacia abajo */
-@keyframes slideIn {
-   from { 
-       transform: translateY(-30px); /* Desde arriba */
-       opacity: 0;          /* Transparente */
-   }
-   to { 
-       transform: translateY(0);     /* Posición normal */
-       opacity: 1;          /* Completamente visible */
-   }
-}
-
-/* Animación de aparición desde abajo */
-@keyframes fadeInUp {
-   from {
-       opacity: 0;                   /* Transparente */
-       transform: translateY(30px);  /* Desde abajo */
-   }
-   to {
-       opacity: 1;                   /* Completamente visible */
-       transform: translateY(0);     /* Posición normal */
-   }
-}
-
-/* ================================================================
-  RESPONSIVE DESIGN - TABLETS
-  ================================================================ */
-@media (max-width: 1024px) {
-   /* Ajustes para la sección izquierda en tablets */
-   .left-section {
-       padding: 60px 40px;          /* Reducir padding */
-   }
-   
-   /* Ajustes para la sección derecha en tablets */
-   .right-section {
-       padding: 40px;               /* Reducir padding */
-   }
-}
-
-/* ================================================================
-  RESPONSIVE DESIGN - MÓVILES
-  ================================================================ */
-@media (max-width: 768px) {
-   /* Cambiar el layout a columna para móviles */
-   .container {
-       flex-direction: column;      /* Stack vertical */
-   }
-   
-   /* Ajustes para la sección izquierda en móviles */
-   .left-section {
-       padding: 40px 25px;          /* Padding más pequeño */
-       text-align: center;          /* Centrar texto */
-       min-height: 50vh;            /* Altura mínima */
-   }
-   
-   /* Título principal más pequeño */
-   .left-section h1 {
-       font-size: 2.5rem;           /* Reducir tamaño de fuente */
-   }
-   
-   /* Ajustes para la sección derecha en móviles */
-   .right-section {
-       padding: 40px 25px;          /* Padding reducido */
-       box-shadow: none;            /* Quitar sombra */
-   }
-   
-   /* Título del formulario más pequeño */
-   .form-header h2 {
-       font-size: 2rem;             /* Reducir tamaño de fuente */
-   }
-   
-   /* Ajustes para la sección de beneficios */
-   .benefits {
-       margin-top: 30px;            /* Reducir margen superior */
-   }
-   
-   /* Items de beneficios con padding reducido */
-   .benefit-item {
-       padding: 15px;               /* Padding más pequeño */
-   }
-   
-   /* Efecto hover más sutil en móviles */
-   .benefit-item:hover {
-       transform: translateY(-5px); /* Movimiento hacia arriba más sutil */
-   }
-   
-   /* Opciones del formulario en columna */
-   .form-options {
-       flex-direction: column;      /* Disposición vertical */
-       gap: 20px;                   /* Espacio entre elementos */
-       align-items: flex-start;     /* Alineación izquierda */
-   }
-}
-
-/* ================================================================
-  RESPONSIVE DESIGN - MÓVILES PEQUEÑOS
-  ================================================================ */
-@media (max-width: 480px) {
-   /* Sección izquierda para pantallas muy pequeñas */
-   .left-section {
-       padding: 30px 20px;          /* Padding mínimo */
-   }
-   
-   /* Título principal aún más pequeño */
-   .left-section h1 {
-       font-size: 2rem;             /* Tamaño mínimo legible */
-   }
-   
-   /* Logo más pequeño */
-   .logo span {
-       font-size: 1.8rem;           /* Reducir tamaño del logo */
-   }
-   
-   /* Sección derecha para pantallas muy pequeñas */
-   .right-section {
-       padding: 30px 20px;          /* Padding mínimo */
-   }
-   
-   /* Título del formulario más pequeño */
-   .form-header h2 {
-       font-size: 1.8rem;           /* Tamaño reducido */
-   }
-   
-   /* Contenido del modal ajustado */
-   .modal-content {
-       padding: 30px 25px;          /* Padding reducido */
-       margin: 15% auto;            /* Margen superior reducido */
-   }
-   
-   /* Inputs más compactos */
-   .input-container input {
-       padding: 15px 15px 15px 45px; /* Padding ajustado */
-   }
-   
-   /* Botones más compactos */
-   .btn-login,
-   .btn-send {
-       padding: 15px 25px;          /* Padding reducido */
-   }
-}
-
-
-/* ================================================================
-   ESTILOS PARA EL BOTÓN DE REGISTRO
-   ================================================================
-   Agregar este CSS al final del archivo login-trabajador.css
-   o en un archivo separado e importarlo.
-   ================================================================ */
-
-/* Botón de registro con paleta verde más clara */
-.btn-register {
-    padding: 18px 35px;              /* Mismo padding que btn-login */
-    /* Gradiente verde más claro que el botón de login */
-    background: linear-gradient(135deg, #90EE90 0%, #66b266 100%);
-    color: #1e3a2e;                  /* Texto verde oscuro para contraste */
-    border: none;                    /* Sin borde */
-    border-radius: 12px;             /* Bordes redondeados igual */
-    font-size: 1.1rem;               /* Mismo tamaño de fuente */
-    font-weight: 600;                /* Mismo peso de fuente */
-    cursor: pointer;                 /* Cursor de mano */
-    /* Misma transición suave */
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    display: flex;                   /* Layout flexbox */
-    align-items: center;             /* Centrar verticalmente */
-    justify-content: center;         /* Centrar horizontalmente */
-    gap: 12px;                       /* Espacio entre icono y texto */
-    margin-top: 15px;                /* Margen superior */
-    width: 100%;                     /* Ancho completo */
-    /* Sombra con color verde claro */
-    box-shadow: 0 4px 15px rgba(144, 238, 144, 0.4);
-}
-
-/* Estado hover del botón registro */
-.btn-register:hover {
-    transform: translateY(-3px);     /* Mover hacia arriba */
-    /* Gradiente verde más intenso en hover */
-    background: linear-gradient(135deg, #7dd87d 0%, #4a9c4a 100%);
-    color: #ffffff;                  /* Texto blanco en hover */
-    /* Sombra más pronunciada */
-    box-shadow: 0 8px 25px rgba(144, 238, 144, 0.5);
-}
-
-/* Estado active del botón registro */
-.btn-register:active {
-    transform: translateY(-1px);     /* Movimiento menor al presionar */
-}
-
-/* Responsive para móviles */
-@media (max-width: 480px) {
-    .btn-register {
-        padding: 15px 25px;          /* Padding reducido para móviles */
-    }
-}
-

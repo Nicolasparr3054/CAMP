@@ -1,729 +1,224 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar Sesión - CAMP</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/assent/css/login-trabajador.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iniciar Sesión — CAMP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,300;1,9..144,500;1,9..144,700&family=Instrument+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assent/css/login-trabajador.css">
 </head>
 <body>
-    <div class="container">
-        <!-- Sección izquierda -->
-        <div class="left-section">
-            <div class="brand">
-                <div class="logo">
-                    <i class="fas fa-seedling"></i>
-                    <span>CAMP</span>
-                </div>
-                
-                <h1>¡Bienvenido de vuelta!</h1>
-                <p>Accede a tu cuenta y encuentra las mejores oportunidades laborales en el sector agrícola</p>
-                
-                <div class="benefits">
-                    <div class="benefit-item">
-                        <i class="fas fa-search"></i>
-                        <span>Busca empleos cerca de ti</span>
-                    </div>
-                    <div class="benefit-item">
-                        <i class="fas fa-heart"></i>
-                        <span>Guarda tus ofertas favoritas</span>
-                    </div>
-                    <div class="benefit-item">
-                        <i class="fas fa-bell"></i>
-                        <span>Recibe alertas personalizadas</span>
-                    </div>
-                    <div class="benefit-item">
-                        <i class="fas fa-file-alt"></i>
-                        <span>Gestiona tu CV profesional</span>
-                    </div>
-                </div>
-            </div>
+
+  <!-- ══════════════════════════════════════════
+       LAYOUT SPLIT
+  ══════════════════════════════════════════════ -->
+  <div class="split">
+
+    <!-- ── PANEL IZQUIERDO ── -->
+    <aside class="panel-left">
+
+      <!-- Imagen de fondo — trabajo agrícola colombiano -->
+      <div class="pl-img" aria-hidden="true">
+        <img src="../assent/img/Imagen_login.jpg" alt="">
+      </div>
+      <!-- Overlay gradiente verde oscuro -->
+      <div class="pl-overlay" aria-hidden="true"></div>
+      <!-- Grid decorativo -->
+      <div class="pl-grid" aria-hidden="true"></div>
+
+      <!-- Contenido del panel -->
+      <div class="pl-content">
+
+        <!-- Logo -->
+        <a href="../vista/inicio-sesion.html" class="pl-logo" aria-label="CAMP">
+          <img src="../assent/img/Logo_CAMP.png" alt="CAMP">
+        </a>
+
+        <!-- Texto principal -->
+        <div class="pl-body">
+          <div class="pl-badge">
+            <span class="badge-dot" aria-hidden="true"></span>
+            Plataforma agrícola · Colombia
+          </div>
+          <h1 class="pl-headline">
+            El campo colombiano<br>merece
+            <em>talento real.</em>
+          </h1>
+          <p class="pl-sub">
+            Conectamos trabajadores especializados con empleadores comprometidos del sector agrícola colombiano. Directo, transparente y con dignidad.
+          </p>
         </div>
 
-        <!-- Sección derecha -->
-        <div class="right-section">
-            <div class="form-container">
-                <div class="form-header">
-                    <h2>Iniciar Sesión</h2>
-                    <p>Ingresa tus credenciales para acceder a tu cuenta</p>
-                </div>
 
-                <!-- FORMULARIO DE LOGIN -->
-                <form class="login-form" id="loginForm" action="http://localhost:5000/login.py" method="POST">
-                    <input type="hidden" name="tipo_login" value="trabajador">
-                    
-                    <!-- Campo: Email -->
-                    <div class="form-group">
-                        <div class="input-container">
-                            <i class="fas fa-envelope input-icon"></i>
-                            <input type="email" id="email" name="email" placeholder="Correo electrónico" required>
-                        </div>
-                    </div>
 
-                    <!-- Campo: Contraseña -->
-                    <div class="form-group">
-                        <div class="input-container">
-                            <i class="fas fa-lock input-icon"></i>
-                            <input type="password" id="password" name="contrasena" placeholder="Contraseña" required>
-                            <i class="fas fa-eye toggle-password" onclick="togglePassword()"></i>
-                        </div>
-                    </div>
+      </div>
+    </aside>
 
-                    <!-- Opciones del formulario -->
-                    <div class="form-options">
-                        <div class="remember-me">
-                            <input type="checkbox" id="remember" name="recordar_sesion">
-                            <label for="remember">Recordarme</label>
-                        </div>
-                        <a href="javascript:void(0)" class="forgot-password" onclick="openForgotModal()">
-                            ¿Olvidaste tu contraseña?
-                        </a>
-                    </div>
+    <!-- ── PANEL DERECHO — Formulario ── -->
+    <section class="panel-right">
 
-                    <!-- Botón de iniciar sesión -->
-                    <button type="submit" class="btn-login">
-                        <i class="fas fa-sign-in-alt"></i>
-                        Iniciar Sesión
-                    </button>
-                    
-                    <!-- Botón de registro -->
-                    <button type="button" class="btn-register" onclick="goToRegister()">
-                        <i class="fas fa-user-plus"></i>
-                        Crear Cuenta Nueva
-                    </button>
-                </form>
+      <!-- Ruido de textura sutil -->
+      <div class="pr-noise" aria-hidden="true"></div>
+      <div class="pr-glow"  aria-hidden="true"></div>
 
-                <!-- Separador -->
-                <div class="social-divider">
-                    <hr>
-                    <span>O continúa con</span>
-                    <hr>
-                </div>
+      <div class="pr-inner">
 
-                <!-- Botones de redes sociales -->
-                <div class="social-buttons">
-                    <button type="button" class="btn-social btn-google" onclick="continueWithGoogle()">
-                        <i class="fab fa-google"></i>
-                        <span>Continuar con Google</span>
-                    </button>
-                    <button type="button" class="btn-social btn-facebook" onclick="continueWithFacebook()">
-                        <i class="fab fa-facebook-f"></i>
-                        <span>Continuar con Facebook</span>
-                    </button>
-                </div>
-            </div>
+        <!-- Logo (solo en móvil) -->
+        <a href="../vista/inicio-sesion.html" class="pr-logo-mob" aria-label="CAMP">
+          <img src="../assent/img/Logo_CAMP.png" alt="CAMP">
+        </a>
+
+        <!-- Encabezado -->
+        <div class="rf-head">
+          <div class="rf-step">Acceso a tu cuenta</div>
+          <h2 class="rf-title">Bienvenido <em>de vuelta</em></h2>
+          <p class="rf-sub">Ingresa tus credenciales para continuar.</p>
         </div>
+
+        <!-- FORMULARIO -->
+        <form class="rf" id="loginForm" action="http://localhost:5000/login.py" method="POST" novalidate>
+          <input type="hidden" name="tipo_login" value="trabajador">
+
+          <!-- Email -->
+          <div class="field" id="field-email">
+            <label for="email" class="field-label">Correo electrónico</label>
+            <div class="field-wrap">
+              <svg class="field-ico" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+              </svg>
+              <input type="email" id="email" name="email"
+                     placeholder="tu@correo.com" autocomplete="email" required>
+            </div>
+            <span class="field-err" id="err-email" role="alert"></span>
+          </div>
+
+          <!-- Contraseña -->
+          <div class="field" id="field-password">
+            <div class="field-label-row">
+              <label for="password" class="field-label">Contraseña</label>
+              <a href="javascript:void(0)" class="link-forgot" onclick="openForgotModal()">¿Olvidaste tu contraseña?</a>
+            </div>
+            <div class="field-wrap">
+              <svg class="field-ico" viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+              <input type="password" id="password" name="contrasena"
+                     placeholder="••••••••" autocomplete="current-password" required>
+              <button type="button" class="toggle-pw" onclick="togglePassword()" aria-label="Mostrar contraseña">
+                <svg id="eye-open"   viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                <svg id="eye-closed" viewBox="0 0 24 24" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+              </button>
+            </div>
+            <span class="field-err" id="err-password" role="alert"></span>
+          </div>
+
+          <!-- Recordarme -->
+          <div class="field-check">
+            <label class="check-label">
+              <input type="checkbox" name="recordar_sesion" id="remember">
+              <span class="check-box" aria-hidden="true"></span>
+              Mantener sesión iniciada
+            </label>
+          </div>
+
+          <!-- Botón principal -->
+          <button type="submit" class="btn-primary" id="btnLogin">
+            <span class="btn-text">Iniciar sesión</span>
+            <svg viewBox="0 0 24 24" class="btn-ico" aria-hidden="true">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </button>
+
+          <!-- Divisor -->
+          <div class="divider"><span>O continúa con</span></div>
+
+          <!-- Redes sociales -->
+          <div class="social-row">
+            <button type="button" class="btn-social btn-google" onclick="continueWithGoogle()">
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
+                <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+              </svg>
+              <span>Continuar con Google</span>
+            </button>
+            <button type="button" class="btn-social btn-facebook" onclick="continueWithFacebook()">
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" fill="#1877F2"/>
+              </svg>
+              <span>Continuar con Facebook</span>
+            </button>
+          </div>
+
+        </form>
+
+        <!-- Ir a registro -->
+        <p class="rf-alt">
+          ¿Eres nuevo en CAMP?
+          <a href="/vista/seleccion-rol.html" class="rf-alt-link">Crea tu cuenta gratis →</a>
+        </p>
+
+      </div>
+    </section>
+
+  </div><!-- /split -->
+
+
+  <!-- ══════════════════════════════════════════
+       MODAL — Recuperar contraseña
+  ══════════════════════════════════════════════ -->
+  <div id="forgotModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="forgot-title">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeForgotModal()" aria-label="Cerrar">
+        <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+      <div class="modal-ico-wrap">
+        <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      </div>
+      <h2 class="modal-title" id="forgot-title">Recuperar contraseña</h2>
+      <p class="modal-desc">
+        Ingresa tu correo y te enviaremos un enlace para restablecer tu contraseña.
+        El enlace expirará en <strong>30 minutos</strong>.
+      </p>
+      <form id="forgotPasswordForm" novalidate>
+        <div class="field">
+          <label for="forgotEmail" class="field-label">Correo electrónico</label>
+          <div class="field-wrap">
+            <svg class="field-ico" viewBox="0 0 24 24">
+              <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+            <input type="email" id="forgotEmail" name="email_recuperacion"
+                   placeholder="tu@correo.com" required autocomplete="email">
+          </div>
+          <span class="field-err" id="err-forgot" role="alert"></span>
+        </div>
+        <button type="submit" class="btn-primary" id="btnForgot">
+          <span class="btn-text">Enviar enlace de recuperación</span>
+          <svg viewBox="0 0 24 24" class="btn-ico" aria-hidden="true">
+            <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+          </svg>
+        </button>
+      </form>
     </div>
+  </div>
 
-    <!-- Modal de recuperación de contraseña -->
-    <div id="forgotPasswordModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeForgotModal()">&times;</span>
-            <div class="modal-header">
-                <h3>Recuperar Contraseña</h3>
-                <p>Ingresa tu correo electrónico y te enviaremos un enlace para restablecer tu contraseña</p>
-            </div>
-            <form id="forgotPasswordForm" action="http://localhost:5000/recuperar_password.py" method="POST">
-                <div class="form-group">
-                    <div class="input-container">
-                        <i class="fas fa-envelope input-icon"></i>
-                        <input type="email" id="forgotEmail" name="email_recuperacion" 
-                               placeholder="Correo electrónico" required>
-                    </div>
-                </div>
-                <button type="submit" class="btn-send">
-                    <i class="fas fa-paper-plane"></i>
-                    Enviar enlace
-                </button>
-            </form>
-        </div>
+  <!-- ══════════════════════════════════════════
+       MODAL — Notificación
+  ══════════════════════════════════════════════ -->
+  <div id="notifModal" class="modal-overlay" role="dialog" aria-modal="true">
+    <div class="modal-box notif-box">
+      <div class="notif-ico-wrap" id="notifIco" aria-hidden="true"></div>
+      <h2 class="modal-title" id="notifTitle"></h2>
+      <p class="modal-desc" id="notifMsg"></p>
+      <button class="btn-primary" onclick="closeNotif()">
+        <span class="btn-text">Entendido</span>
+      </button>
     </div>
+  </div>
 
-    <!-- Modal de notificación -->
-    <div id="notification-modal" class="modal-overlay">
-        <div class="modal-content">
-            <div class="modal-header">
-                <i id="modal-icon" class="fas fa-check-circle"></i>
-                <h3 id="modal-title">Título</h3>
-            </div>
-            <div class="modal-body">
-                <p id="modal-message">Mensaje</p>
-            </div>
-            <div class="modal-footer">
-                <button id="modal-close" class="btn-modal">Entendido</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- ESTILOS CSS -->
-    <style>
-        /* ============================================ */
-        /* DIVISOR SOCIAL */
-        /* ============================================ */
-        .social-divider {
-            display: flex;
-            align-items: center;
-            margin: 20px 0;
-            text-align: center;
-        }
-
-        .social-divider hr {
-            flex: 1;
-            border: none;
-            height: 1px;
-            background: #e2e8f0;
-        }
-
-        .social-divider span {
-            padding: 0 15px;
-            background: white;
-            color: #64748b;
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        /* ============================================ */
-        /* BOTONES SOCIALES */
-        /* ============================================ */
-        .social-buttons {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .btn-social {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            padding: 14px 20px;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            background: white;
-            color: #475569;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            text-decoration: none;
-            font-family: inherit;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-social::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-            transition: left 0.6s;
-        }
-
-        .btn-social:hover::before {
-            left: 100%;
-        }
-
-        /* Botón Google */
-        .btn-google {
-            border-color: #db4437;
-            color: #db4437;
-            background: white;
-        }
-
-        .btn-google:hover {
-            background: linear-gradient(135deg, #db4437, #c23321);
-            color: white;
-            border-color: #db4437;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(219, 68, 55, 0.3);
-        }
-
-        .btn-google i {
-            font-size: 18px;
-            background: linear-gradient(45deg, #4285f4, #34a853, #fbbc05, #ea4335);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .btn-google:hover i {
-            background: white;
-            -webkit-background-clip: initial;
-            -webkit-text-fill-color: white;
-            background-clip: initial;
-            color: white;
-        }
-
-        /* Botón Facebook */
-        .btn-facebook {
-            border-color: #1877f2;
-            color: #1877f2;
-            background: white;
-        }
-
-        .btn-facebook:hover {
-            background: linear-gradient(135deg, #1877f2, #166fe5);
-            color: white;
-            border-color: #1877f2;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(24, 119, 242, 0.3);
-        }
-
-        .btn-facebook i {
-            font-size: 18px;
-            color: #1877f2;
-        }
-
-        .btn-facebook:hover i {
-            color: white;
-        }
-
-        /* ============================================ */
-        /* MODALES */
-        /* ============================================ */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal .modal-content {
-            background-color: white;
-            margin: auto;
-            padding: 20px;
-            border-radius: 15px;
-            max-width: 500px;
-            width: 90%;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            animation: slideIn 0.3s ease-out;
-        }
-
-        .modal .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-            line-height: 20px;
-        }
-
-        .modal .close:hover,
-        .modal .close:focus {
-            color: #000;
-        }
-
-        .modal .modal-header {
-            padding: 10px 0 20px 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        .modal .modal-header h3 {
-            margin: 0 0 10px 0;
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: #1e293b;
-        }
-
-        .modal .modal-header p {
-            margin: 0;
-            color: #64748b;
-            font-size: 0.95rem;
-        }
-
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .modal-overlay .modal-content {
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            max-width: 450px;
-            width: 90%;
-            animation: slideIn 0.3s ease-out;
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateY(-50px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .modal-overlay .modal-header {
-            text-align: center;
-            padding: 30px 30px 20px;
-            border-bottom: 1px solid #eee;
-        }
-
-        .modal-overlay .modal-header i {
-            font-size: 3rem;
-            margin-bottom: 15px;
-            display: block;
-        }
-
-        .modal-overlay .modal-header h3 {
-            margin: 0;
-            font-size: 1.5rem;
-            font-weight: 600;
-        }
-
-        .modal-body {
-            padding: 20px 30px;
-            text-align: center;
-        }
-
-        .modal-body p {
-            margin: 0;
-            font-size: 1rem;
-            line-height: 1.5;
-            color: #666;
-        }
-
-        .modal-footer {
-            padding: 20px 30px 30px;
-            text-align: center;
-        }
-
-        .btn-modal {
-            background: linear-gradient(135deg, #4CAF50, #45a049);
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 25px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .btn-modal:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
-        }
-
-        .modal-success { color: #4CAF50; }
-        .modal-error { color: #f44336; }
-        .modal-info { color: #2196F3; }
-
-        .btn-modal.error {
-            background: linear-gradient(135deg, #f44336, #d32f2f);
-        }
-
-        .btn-modal.error:hover {
-            box-shadow: 0 5px 15px rgba(244, 67, 54, 0.4);
-        }
-
-        /* ============================================ */
-        /* RESPONSIVE */
-        /* ============================================ */
-        @media (max-width: 480px) {
-            .social-buttons {
-                flex-direction: column;
-                gap: 12px;
-            }
-
-            .btn-social {
-                width: 100%;
-                padding: 16px 20px;
-            }
-        }
-    </style>
-
-    <!-- JAVASCRIPT -->
-    <script>
-        console.log('🚀 CAMP Login - Versión Final Inicializada');
-
-        // ================================================================
-        // FUNCIONES DE NAVEGACIÓN Y UI
-        // ================================================================
-
-        function togglePassword() {
-            const field = document.getElementById('password');
-            const icon = document.querySelector('.toggle-password');
-            
-            if (field.type === 'password') {
-                field.type = 'text';
-                icon.classList.remove('fa-eye');
-                icon.classList.add('fa-eye-slash');
-            } else {
-                field.type = 'password';
-                icon.classList.remove('fa-eye-slash');
-                icon.classList.add('fa-eye');
-            }
-        }
-
-        function goToRegister() {
-            window.location.href = '/vista/seleccion-rol.html';
-        }
-
-        function continueWithGoogle() {
-            showNotification('Redirigiendo a Google...', 'info', 'Conectando');
-            setTimeout(() => {
-                window.location.href = '/auth/google/login';
-            }, 500);
-        }
-
-        function continueWithFacebook() {
-            showNotification('Redirigiendo a Facebook...', 'info', 'Conectando');
-            setTimeout(() => {
-                window.location.href = '/auth/facebook/login';
-            }, 500);
-        }
-
-        // ================================================================
-        // MODAL DE RECUPERACIÓN DE CONTRASEÑA
-        // ================================================================
-
-        function openForgotModal() {
-            const modal = document.getElementById('forgotPasswordModal');
-            if (modal) {
-                modal.style.display = 'flex';
-                const emailInput = document.getElementById('forgotEmail');
-                if (emailInput) {
-                    emailInput.value = '';
-                    setTimeout(() => emailInput.focus(), 100);
-                }
-            }
-        }
-
-        function closeForgotModal() {
-            const modal = document.getElementById('forgotPasswordModal');
-            if (modal) {
-                modal.style.display = 'none';
-            }
-        }
-
-        // ================================================================
-        // SISTEMA DE NOTIFICACIONES
-        // ================================================================
-
-        function showNotification(message, type = 'info', title = '') {
-            const modal = document.getElementById('notification-modal');
-            const icon = document.getElementById('modal-icon');
-            const titleEl = document.getElementById('modal-title');
-            const messageEl = document.getElementById('modal-message');
-            const closeBtn = document.getElementById('modal-close');
-            
-            if (!modal || !icon || !titleEl || !messageEl || !closeBtn) {
-                console.error('❌ Elementos del modal no encontrados');
-                alert(message);
-                return;
-            }
-            
-            // Configurar según tipo
-            if (type === 'success') {
-                icon.className = 'fas fa-check-circle modal-success';
-                titleEl.textContent = title || 'Éxito';
-                closeBtn.className = 'btn-modal';
-            } else if (type === 'error') {
-                icon.className = 'fas fa-exclamation-circle modal-error';
-                titleEl.textContent = title || 'Error';
-                closeBtn.className = 'btn-modal error';
-            } else {
-                icon.className = 'fas fa-info-circle modal-info';
-                titleEl.textContent = title || 'Información';
-                closeBtn.className = 'btn-modal';
-            }
-            
-            messageEl.innerHTML = message;
-            modal.style.display = 'flex';
-            
-            // Cerrar modal
-            closeBtn.onclick = function() {
-                modal.style.display = 'none';
-            };
-            
-            // Cerrar con Escape
-            const escapeHandler = function(e) {
-                if (e.key === 'Escape') {
-                    modal.style.display = 'none';
-                    document.removeEventListener('keydown', escapeHandler);
-                }
-            };
-            document.addEventListener('keydown', escapeHandler);
-            
-            // Cerrar al hacer clic fuera
-            const clickHandler = function(e) {
-                if (e.target === modal) {
-                    modal.style.display = 'none';
-                    modal.removeEventListener('click', clickHandler);
-                }
-            };
-            modal.addEventListener('click', clickHandler);
-        }
-
-        function isValidEmail(email) {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return emailRegex.test(email);
-        }
-
-        // ================================================================
-        // INICIALIZACIÓN
-        // ================================================================
-
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('✅ Sistema cargado correctamente');
-
-            // FORMULARIO DE RECUPERACIÓN
-            const forgotPasswordForm = document.getElementById('forgotPasswordForm');
-            
-            if (forgotPasswordForm) {
-                forgotPasswordForm.addEventListener('submit', async function(e) {
-                    e.preventDefault();
-                    
-                    const emailInput = document.getElementById('forgotEmail');
-                    const email = emailInput.value.trim();
-                    
-                    console.log('📧 Solicitando recuperación para:', email);
-                    
-                    // Validaciones
-                    if (!email) {
-                        showNotification(
-                            'Por favor ingresa tu correo electrónico',
-                            'error',
-                            'Campo requerido'
-                        );
-                        return;
-                    }
-                    
-                    if (!isValidEmail(email)) {
-                        showNotification(
-                            'Por favor ingresa un correo electrónico válido',
-                            'error',
-                            'Email inválido'
-                        );
-                        return;
-                    }
-                    
-                    // Deshabilitar botón
-                    const submitButton = forgotPasswordForm.querySelector('button[type="submit"]');
-                    const originalContent = submitButton.innerHTML;
-                    submitButton.disabled = true;
-                    submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
-                    
-                    try {
-                        // Enviar al backend
-                        const response = await fetch('/api/request-password-reset', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({ email: email })
-                        });
-                        
-                        const data = await response.json();
-                        
-                        console.log('📨 Respuesta del servidor:', data);
-                        
-                        if (data.success) {
-                            closeForgotModal();
-                            
-                            showNotification(
-                                `<strong>¡Correo enviado!</strong><br><br>
-                                Hemos enviado un enlace de recuperación a <strong>${email}</strong>.<br><br>
-                                Por favor revisa tu bandeja de entrada y tu carpeta de spam.<br><br>
-                                <em>El enlace expirará en 30 minutos.</em>`,
-                                'success',
-                                'Revisa tu correo'
-                            );
-                            
-                            forgotPasswordForm.reset();
-                        } else {
-                            showNotification(
-                                data.message || 'Error al procesar la solicitud. Intenta nuevamente.',
-                                'error',
-                                'Error'
-                            );
-                        }
-                        
-                    } catch (error) {
-                        console.error('❌ Error:', error);
-                        showNotification(
-                            'Error de conexión con el servidor. Por favor verifica tu conexión e intenta nuevamente.',
-                            'error',
-                            'Error de conexión'
-                        );
-                    } finally {
-                        submitButton.disabled = false;
-                        submitButton.innerHTML = originalContent;
-                    }
-                });
-            }
-            
-            // Eventos de cierre de modal
-            const closeButton = document.querySelector('#forgotPasswordModal .close');
-            if (closeButton) {
-                closeButton.addEventListener('click', closeForgotModal);
-            }
-            
-            const forgotModal = document.getElementById('forgotPasswordModal');
-            if (forgotModal) {
-                forgotModal.addEventListener('click', function(e) {
-                    if (e.target === forgotModal) {
-                        closeForgotModal();
-                    }
-                });
-            }
-            
-            // Cerrar con Escape
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') {
-                    closeForgotModal();
-                    const notifModal = document.getElementById('notification-modal');
-                    if (notifModal && notifModal.style.display === 'flex') {
-                        notifModal.style.display = 'none';
-                    }
-                }
-            });
-        });
-
-        // ================================================================
-        // MENSAJES DE URL
-        // ================================================================
-
-        window.addEventListener('load', function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const message = urlParams.get('message');
-            const type = urlParams.get('type');
-            
-            if (message) {
-                const decodedMessage = decodeURIComponent(message);
-                showNotification(decodedMessage, type || 'info');
-                
-                // Limpiar URL
-                const cleanURL = window.location.pathname;
-                window.history.replaceState({}, document.title, cleanURL);
-            }
-        });
-
-        console.log('✅ Todos los scripts cargados exitosamente');
-    </script>
+  <script src="../js/login-trabajador.js"></script>
 </body>
 </html>
