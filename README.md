@@ -86,9 +86,22 @@ CAMP/
 │       ├── mapa.py             # Geolocalización
 │       └── estatico.py         # Servir archivos HTML, CSS, JS
 ├── vista/                      # Páginas HTML
+│   ├── inicio-sesion.html      # Landing page principal
+│   ├── login-trabajador.html   # Login de trabajadores
+│   ├── registro.html           # Registro unificado (trabajador y agricultor)
+│   ├── index-trabajador.html
+│   ├── index-agricultor.html
+│   ├── index-administrador.html
+│   └── ...                     # Resto de vistas
 ├── assent/
 │   └── css/                    # Hojas de estilo por vista
+│       ├── inicio-sesion.css
+│       ├── login-trabajador.css
+│       ├── registro.css        # Estilos del registro unificado
+│       └── ...
 ├── js/                         # Scripts JavaScript
+│   ├── registro.js             # Lógica del registro unificado
+│   └── ...
 ├── static/
 │   └── uploads/                # Archivos subidos por usuarios
 ├── camp_database.sql           # Script de creación de la base de datos
@@ -111,7 +124,7 @@ CAMP/
 ### 1. Clonar el repositorio
 
 ```bash
-git clone https://github.com/tu-usuario/CAMP.git
+git clone https://github.com/Nicolasparr3054/CAMP.git
 cd CAMP
 ```
 
@@ -178,10 +191,9 @@ Una vez iniciado el servidor, accede desde el navegador a:
 
 | Vista | URL |
 |---|---|
-| Inicio / Selección de rol | `http://localhost:5000` |
+| Inicio / Landing page | `http://localhost:5000` |
 | Login trabajador | `http://localhost:5000/vista/login-trabajador.html` |
-| Registro trabajador | `http://localhost:5000/vista/registro-trabajador.html` |
-| Registro agricultor | `http://localhost:5000/vista/registro-agricultor.html` |
+| Registro (unificado) | `http://localhost:5000/vista/registro.html` |
 
 ---
 
@@ -272,7 +284,19 @@ GET    /api/admin/reportes-pendientes        Reportes pendientes (admin)
 
 ## Historial de versiones
 
-### v1.2 — Login rediseñado *(actual)*
+### v1.3 — Registro unificado *(actual)*
+> Simplificación del flujo de registro con una sola interfaz para todos los roles.
+
+- **Registro unificado** — una sola vista `registro.html` reemplaza las interfaces separadas
+- **Selector de rol integrado** directamente en el formulario de registro
+- **Nuevo `registro.css`** con estilos propios para la vista unificada
+- **Nuevo `registro.js`** con lógica de validación y envío del formulario
+- Eliminadas: `seleccion-rol.html`, `registro-trabajador.html`, `registro-agricultor.html` y sus CSS/JS correspondientes
+- Simplificación del flujo de onboarding para nuevos usuarios
+
+---
+
+### v1.2 — Login rediseñado
 > Rediseño completo de la interfaz de inicio de sesión.
 
 - **Layout split 50/50** — panel izquierdo visual + panel derecho con formulario
@@ -285,7 +309,6 @@ GET    /api/admin/reportes-pendientes        Reportes pendientes (admin)
 - **Formulario limpio** con validación en tiempo real, toggle de contraseña y recordar sesión
 - **Botones sociales** Google y Facebook
 - **Responsive** — panel izquierdo se oculta en tablet/móvil
-- Eliminados: trust social, tarjetas de beneficios y estadísticas del panel izquierdo
 
 ---
 
@@ -322,7 +345,7 @@ GET    /api/admin/reportes-pendientes        Reportes pendientes (admin)
 
 Desarrollado por Nicolas Parra.
 
-**CAMP v1.2** — 2026
+**CAMP v1.3** — 2026
 
 ---
 
