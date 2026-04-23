@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crear cuenta — CAMP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assent/css/registro.css">
+</head>
+<body>
+
+<!-- ═══ LEFT PANEL ═══ -->
+<aside class="left">
+  <div class="left-texture"></div>
+  <div class="left-dots"></div>
+  <div class="left-lines"></div>
+
+  <div class="left-inner">
+
+    <!-- Logo sobre fondo oscuro → filtro blanco -->
+    <a href="/vista/login-trabajador.html" class="logo">
+      <img src="../assent/img/Logo_CAMP.png" alt="CAMP">
+    </a>
+
+    <div class="left-hero">
+      <div class="season-tag">
+        <span class="season-dot"></span>
+        Plataforma agrícola · Colombia
+      </div>
+
+      <h1 class="left-h1">
+        El campo<br>colombiano,
+        <em>conectado.</em>
+      </h1>
+
+      <p class="left-desc">
+        Crea tu cuenta y empieza a conectar con agricultores y trabajadores del campo colombiano.
+      </p>
+
+      <div class="left-stats">
+        <div class="stat-item">
+          <div class="stat-ico-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </div>
+          <div class="stat-text">
+            <div class="stat-label">Conexión directa</div>
+            <div class="stat-sub">Agricultores y trabajadores sin intermediarios</div>
+          </div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-ico-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+          </div>
+          <div class="stat-text">
+            <div class="stat-label">Proceso rápido</div>
+            <div class="stat-sub">Registro en menos de 2 minutos</div>
+          </div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-ico-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+          </div>
+          <div class="stat-text">
+            <div class="stat-label">Datos protegidos</div>
+            <div class="stat-sub">Tu información siempre segura y privada</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="left-foot">
+      © 2026 <strong>CAMP</strong> — Plataforma agrícola colombiana · Todos los derechos reservados
+    </div>
+
+  </div>
+</aside>
+
+<!-- ═══ RIGHT PANEL ═══ -->
+<main class="right">
+  <div class="form-wrap">
+
+    <div class="form-head">
+      <!-- Logo sobre fondo claro → colores originales -->
+      <a href="/vista/login-trabajador.html" class="form-logo">
+        <img src="../assent/img/Logo_CAMP.png" alt="CAMP">
+      </a>
+
+      <h2 class="form-h2">Únete al <em>campo.</em></h2>
+      <p class="form-sub">Completa tu información y empieza a conectar con oportunidades reales.</p>
+    </div>
+
+    <form id="registerForm" action="http://localhost:5000/registro.py" method="POST" novalidate>
+      <input type="hidden" name="rol" id="hiddenRol" value="">
+
+      <!-- ROL -->
+      <div class="field" id="field-rol">
+        <label class="role-label">¿Cómo vas a usar CAMP?</label>
+        <div class="role-grid">
+
+          <button type="button" class="role-card" id="btnTrabajador" onclick="selectRole('Trabajador')" aria-pressed="false">
+            <div class="role-ico-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="7" width="20" height="14" rx="2"/>
+                <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
+              </svg>
+            </div>
+            <span class="role-n">Trabajador</span>
+            <span class="role-d">Busco empleo en el campo</span>
+            <span class="role-pill">
+              <span class="role-pill-dot"></span>
+              Elegir
+            </span>
+          </button>
+
+          <button type="button" class="role-card" id="btnAgricultor" onclick="selectRole('Agricultor')" aria-pressed="false">
+            <div class="role-ico-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                <polyline points="9 22 9 12 15 12 15 22"/>
+              </svg>
+            </div>
+            <span class="role-n">Agricultor</span>
+            <span class="role-d">Publico ofertas en mi finca</span>
+            <span class="role-pill">
+              <span class="role-pill-dot"></span>
+              Elegir
+            </span>
+          </button>
+
+        </div>
+        <span class="field-err" id="err-rol" role="alert"></span>
+      </div>
+
+      <div class="section-divider"><span class="section-label">Datos personales</span></div>
+
+      <!-- Nombre + Apellido -->
+      <div class="field-row">
+        <div class="field" id="field-nombre">
+          <label for="nombre" class="field-label">Nombre</label>
+          <div class="input-wrap">
+            <svg class="input-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
+            <input type="text" id="nombre" name="nombre" placeholder="Juan" autocomplete="given-name" required>
+          </div>
+          <span class="field-err" id="err-nombre" role="alert"></span>
+        </div>
+        <div class="field" id="field-apellido">
+          <label for="apellido" class="field-label">Apellido</label>
+          <div class="input-wrap">
+            <svg class="input-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
+            <input type="text" id="apellido" name="apellido" placeholder="García" autocomplete="family-name" required>
+          </div>
+          <span class="field-err" id="err-apellido" role="alert"></span>
+        </div>
+      </div>
+
+      <!-- Correo -->
+      <div class="field" id="field-correo">
+        <label for="correo" class="field-label">Correo electrónico</label>
+        <div class="input-wrap">
+          <svg class="input-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+          <input type="email" id="correo" name="correo" placeholder="tu@correo.com" autocomplete="email" required>
+        </div>
+        <span class="field-err" id="err-correo" role="alert"></span>
+      </div>
+
+      <!-- Teléfono -->
+      <div class="field" id="field-telefono">
+        <label for="telefono" class="field-label">
+          Teléfono <span class="opt">(opcional)</span>
+        </label>
+        <div class="input-wrap">
+          <svg class="input-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a2 2 0 012-2h3a2 2 0 012 2 12.6 12.6 0 00.57 3.57 2 2 0 01-.45 2.11L8.91 9.91a16 16 0 006.29 6.29l1.23-1.23a2 2 0 012.11-.45 12.6 12.6 0 003.57.57 2 2 0 012 2z"/>
+          </svg>
+          <input type="tel" id="telefono" name="telefono" placeholder="3001234567" autocomplete="tel">
+        </div>
+      </div>
+
+      <!-- Contraseñas -->
+      <div class="field-row">
+        <div class="field" id="field-password">
+          <label for="password" class="field-label">Contraseña</label>
+          <div class="input-wrap">
+            <svg class="input-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="11" width="18" height="11" rx="2"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+            <input type="password" id="password" name="password" placeholder="Mín. 8 caracteres" autocomplete="new-password" required>
+            <button type="button" class="pwd-toggle" onclick="togglePwd('password','eye1-o','eye1-c')" aria-label="Mostrar contraseña">
+              <svg id="eye1-o" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              <svg id="eye1-c" style="display:none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+            </button>
+          </div>
+          <span class="field-err" id="err-password" role="alert"></span>
+        </div>
+        <div class="field" id="field-confirm">
+          <label for="confirm_password" class="field-label">Confirmar</label>
+          <div class="input-wrap">
+            <svg class="input-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="11" width="18" height="11" rx="2"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+            <input type="password" id="confirm_password" name="confirm_password" placeholder="Repite tu contraseña" autocomplete="new-password" required>
+            <button type="button" class="pwd-toggle" onclick="togglePwd('confirm_password','eye2-o','eye2-c')" aria-label="Mostrar contraseña">
+              <svg id="eye2-o" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              <svg id="eye2-c" style="display:none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+            </button>
+          </div>
+          <span class="field-err" id="err-confirm" role="alert"></span>
+        </div>
+      </div>
+
+      <!-- Términos -->
+      <label class="check-wrap">
+        <input type="checkbox" name="terminos" id="terminos" required>
+        <span class="check-ui"></span>
+        <span class="check-text">Acepto los <a href="/vista/terminos-condiciones.html" target="_blank" class="check-link">términos y condiciones</a></span>
+      </label>
+      <span class="field-err-check" id="err-terminos" role="alert"></span>
+
+      <button type="submit" class="btn-submit" id="btnRegister">
+        <span class="btn-text">Crear cuenta</span>
+        <svg class="btn-arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </button>
+
+      <div class="or-row"><span class="or-text">O regístrate con</span></div>
+
+      <div class="social-row">
+        <button type="button" class="btn-social" id="btnGoogle">
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+          Google
+        </button>
+        <button type="button" class="btn-social" id="btnFacebook">
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" fill="#1877F2"/></svg>
+          Facebook
+        </button>
+      </div>
+    </form>
+
+    <p class="alt-link">¿Ya tienes cuenta? <a href="/vista/login-trabajador.html">Inicia sesión →</a></p>
+  </div>
+</main>
+
+<!-- ═══ MODAL ═══ -->
+<div id="notifModal" class="modal-overlay" role="dialog" aria-modal="true">
+  <div class="modal-box">
+    <div class="modal-ico" id="notifIco"></div>
+    <h2 class="modal-title" id="notifTitle"></h2>
+    <p class="modal-msg" id="notifMsg"></p>
+    <button class="btn-submit" onclick="closeNotif()" style="max-width:200px;margin:0 auto;">
+      <span class="btn-text">Entendido</span>
+    </button>
+  </div>
+</div>
+
+<script src="../js/registro.js"></script>
+</body>
+</html>
