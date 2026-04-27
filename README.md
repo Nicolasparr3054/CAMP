@@ -284,7 +284,17 @@ GET    /api/admin/reportes-pendientes        Reportes pendientes (admin)
 
 ## Historial de versiones
 
-### v1.3 — Registro unificado *(actual)*
+### v1.4 — Rediseño del dashboard del trabajador *(actual)*
+> Rediseño completo de la interfaz principal del trabajador.
+
+- **`index-trabajador.html`** rediseñado con nueva estructura y componentes
+- **`index-trabajador.css`** reescrito con nuevos estilos y layout actualizado
+- **`index-trabajador.js`** actualizado con nueva lógica de interacción
+- Mejoras generales de experiencia de usuario en el panel del trabajador
+
+---
+
+### v1.3 — Registro unificado
 > Simplificación del flujo de registro con una sola interfaz para todos los roles.
 
 - **Registro unificado** — una sola vista `registro.html` reemplaza las interfaces separadas
@@ -345,7 +355,7 @@ GET    /api/admin/reportes-pendientes        Reportes pendientes (admin)
 
 Desarrollado por Nicolas Parra.
 
-**CAMP v1.3** — 2026
+**CAMP v1.4** — 2026
 
 ---
 

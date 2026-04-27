@@ -1085,7 +1085,63 @@ function showMessage(message, type = 'info') {
 }
 
 function showNotifications() {
-    showMessage('Centro de Notificaciones: 1 nuevo trabajo disponible, 1 recordatorio de trabajo', 'info');
+    // Abrir un pequeño panel flotante junto a la campana
+    const existente = document.getElementById('notifDropdown');
+    if (existente) { existente.remove(); return; }
+
+    const bell = document.querySelector('.notification-icon');
+    const rect  = bell ? bell.getBoundingClientRect() : { bottom: 80, right: 40 };
+
+    const panel = document.createElement('div');
+    panel.id = 'notifDropdown';
+    panel.style.cssText = `
+        position: fixed;
+        top:  ${rect.bottom + 10}px;
+        right: ${window.innerWidth - rect.right}px;
+        width: 320px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--r-xl);
+        box-shadow: var(--s4);
+        z-index: 10002;
+        overflow: hidden;
+        animation: modalIn .25s var(--bounce);
+    `;
+
+    // Rellena con las notificaciones ya cargadas o con el contenido del sidebar
+    const srcHtml = document.getElementById('notificationsList')?.innerHTML || '';
+    panel.innerHTML = `
+        <div style="
+            background: linear-gradient(135deg, var(--g800), var(--g500));
+            padding: 14px 18px;
+            display: flex; align-items: center; justify-content: space-between;
+        ">
+            <span style="color:#fff; font-family:var(--ff-display); font-size:.92rem; font-weight:600;">
+                <i class="fas fa-bell" style="margin-right:8px;"></i>Notificaciones
+            </span>
+            <button onclick="document.getElementById('notifDropdown')?.remove()"
+                style="background:rgba(255,255,255,.15); border:none; color:#fff;
+                       width:26px; height:26px; border-radius:6px; cursor:pointer;
+                       font-size:11px; display:flex; align-items:center; justify-content:center;">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div style="max-height:340px; overflow-y:auto; padding:8px;">
+            ${srcHtml || `<p style="text-align:center;padding:24px;color:var(--n400);font-size:.80rem;">Sin notificaciones nuevas</p>`}
+        </div>
+    `;
+
+    document.body.appendChild(panel);
+
+    // Cierra al hacer clic fuera
+    setTimeout(() => {
+        document.addEventListener('click', function handler(e) {
+            if (!panel.contains(e.target) && !bell?.contains(e.target)) {
+                panel.remove();
+                document.removeEventListener('click', handler);
+            }
+        });
+    }, 50);
 }
 
 function handleNotification(element) {
@@ -1222,7 +1278,6 @@ function usarUbicacionPorDefecto() {
     cargarOfertasCercanas(defaultLat, defaultLng, 100);
 }
 
-// ...existing code...
 function agregarMarcadorUsuario(lat, lng) {
     try {
         console.log('🧭 agregarMarcadorUsuario llamado con:', lat, lng);
@@ -1232,7 +1287,6 @@ function agregarMarcadorUsuario(lat, lng) {
             return;
         }
 
-        // eliminar marcador anterior si existe
         try {
             if (userMarker && map.hasLayer(userMarker)) {
                 map.removeLayer(userMarker);
@@ -1258,14 +1312,12 @@ function agregarMarcadorUsuario(lat, lng) {
             iconAnchor: [17, 17]
         });
 
-        // crear marcador con zIndex alto para asegurarlo por encima de otros marcadores
         userMarker = L.marker([lat, lng], {
             icon: userIcon,
             zIndexOffset: 2000,
             riseOnHover: true
         }).addTo(map);
 
-        // bind popup y asegurarlo visible en front
         userMarker.bindPopup(`
             <div style="text-align:center; padding:6px;">
                 <strong style="color:#dc2626">📍 Tú</strong><br>
@@ -1273,7 +1325,6 @@ function agregarMarcadorUsuario(lat, lng) {
             </div>
         `);
 
-        // forzar que el marcador quede al frente
         try { 
             if (userMarker.bringToFront) userMarker.bringToFront();
         } catch(e) { /* no crítico */ }
@@ -1282,7 +1333,6 @@ function agregarMarcadorUsuario(lat, lng) {
     } catch (error) {
         console.error('❌ Error en agregarMarcadorUsuario:', error);
     }
-
 }
 
 async function cargarOfertasCercanas(lat, lng, radius = 50) {
@@ -1835,25 +1885,13 @@ document.addEventListener('keydown', function(e) {
 const styleNotif = document.createElement('style');
 styleNotif.textContent = `
     @keyframes slideInRight {
-        from {
-            transform: translateX(100%);
-            opacity: 0;
-        }
-        to {
-            transform: translateX(0);
-            opacity: 1;
-        }
+        from { transform: translateX(100%); opacity: 0; }
+        to   { transform: translateX(0);    opacity: 1; }
     }
     
     @keyframes slideOutRight {
-        from {
-            transform: translateX(0);
-            opacity: 1;
-        }
-        to {
-            transform: translateX(100%);
-            opacity: 0;
-        }
+        from { transform: translateX(0);    opacity: 1; }
+        to   { transform: translateX(100%); opacity: 0; }
     }
     
     .notification-item {
@@ -1865,13 +1903,9 @@ styleNotif.textContent = `
         transition: all 0.3s ease;
     }
     
-    .notification-item:hover {
-        background: #f8f9fa;
-    }
+    .notification-item:hover { background: #f8f9fa; }
     
-    .notification-item.unread {
-        background: #e7f5ff;
-    }
+    .notification-item.unread { background: #e7f5ff; }
     
     .notification-icon {
         width: 40px;
@@ -1883,9 +1917,7 @@ styleNotif.textContent = `
         flex-shrink: 0;
     }
     
-    .notification-content {
-        flex: 1;
-    }
+    .notification-content { flex: 1; }
     
     .notification-title {
         font-weight: 700;
@@ -1914,23 +1946,121 @@ styleNotif.textContent = `
         margin: 15px 0;
     }
     
-    .rating i {
-        color: #ffc107;
-        font-size: 16px;
-    }
+    .rating i { color: #ffc107; font-size: 16px; }
     
-    .rating-value {
-        font-weight: 700;
-        color: #1e3a2e;
-        margin-left: 5px;
-    }
+    .rating-value { font-weight: 700; color: #1e3a2e; margin-left: 5px; }
     
-    .rating-count {
-        color: #6c757d;
-        font-size: 12px;
-    }
+    .rating-count { color: #6c757d; font-size: 12px; }
 `;
 
 document.head.appendChild(styleNotif);
+
+// ===================================================================
+// PAGINACIÓN Y NAVEGACIÓN A RECOMENDACIONES
+// (anteriormente inline en index-trabajador.html)
+// ===================================================================
+
+/* ── Redirigir a la página de recomendaciones ── */
+function showRecomendaciones() {
+    window.location.href = '/vista/recomendaciones.html';
+}
+
+/** Número de página actual (empieza en 1) */
+let currentPageNum = 1;
+
+/** Cuántas tarjetas mostrar por página */
+const jobsPerPage = 3;
+
+/** Copia de todos los trabajos cargados (para paginar sin refetch) */
+let allJobsData = [];
+
+/**
+ * Avanza o retrocede una página y actualiza la vista.
+ * @param {'prev'|'next'} direction
+ */
+function changePage(direction) {
+    const totalPages = Math.ceil(allJobsData.length / jobsPerPage);
+
+    if (direction === 'prev' && currentPageNum > 1) {
+        currentPageNum--;
+    } else if (direction === 'next' && currentPageNum < totalPages) {
+        currentPageNum++;
+    }
+
+    displayJobsPage();
+}
+
+/**
+ * Renderiza las tarjetas correspondientes a la página actual.
+ */
+function displayJobsPage() {
+    const startIndex = (currentPageNum - 1) * jobsPerPage;
+    const endIndex   = startIndex + jobsPerPage;
+    const jobsToShow = allJobsData.slice(startIndex, endIndex);
+
+    const jobsList = document.getElementById('jobsList');
+    if (jobsList) {
+        jobsList.innerHTML = '';
+        jobsToShow.forEach(job => {
+            jobsList.appendChild(createJobCard(job));
+        });
+    }
+
+    setTimeout(() => cargarFavoritos(), 500);
+    updatePaginationUI();
+}
+
+/**
+ * Actualiza los controles de paginación.
+ * Oculta el componente si solo hay una página.
+ */
+function updatePaginationUI() {
+    const totalPages    = Math.ceil(allJobsData.length / jobsPerPage);
+    const container     = document.getElementById('paginationContainer');
+    const currentPageEl = document.getElementById('currentPage');
+    const totalPagesEl  = document.getElementById('totalPages');
+    const prevBtn       = document.getElementById('prevPageBtn');
+    const nextBtn       = document.getElementById('nextPageBtn');
+
+    if (totalPages <= 1) {
+        if (container) container.style.display = 'none';
+        return;
+    }
+
+    if (container)     container.style.display  = 'flex';
+    if (currentPageEl) currentPageEl.textContent = currentPageNum;
+    if (totalPagesEl)  totalPagesEl.textContent  = totalPages;
+
+    if (prevBtn) {
+        prevBtn.disabled      = currentPageNum === 1;
+        prevBtn.style.opacity = currentPageNum === 1 ? '0.5' : '1';
+    }
+
+    if (nextBtn) {
+        nextBtn.disabled      = currentPageNum === totalPages;
+        nextBtn.style.opacity = currentPageNum === totalPages ? '0.5' : '1';
+    }
+}
+
+/**
+ * Sobreescribe displayJobs() para aplicar paginación.
+ * @param {Array} jobs
+ */
+window.displayJobs = function(jobs) {
+    allJobsData    = jobs;
+    currentPageNum = 1;
+
+    const noJobsMessage  = document.getElementById('noJobsMessage');
+    const paginationCont = document.getElementById('paginationContainer');
+
+    if (jobs.length === 0) {
+        if (typeof showNoJobsMessage === 'function') showNoJobsMessage();
+        if (paginationCont) paginationCont.style.display = 'none';
+        return;
+    }
+
+    if (noJobsMessage) noJobsMessage.style.display = 'none';
+    displayJobsPage();
+};
 
 console.log('✅ JavaScript del trabajador cargado correctamente');
