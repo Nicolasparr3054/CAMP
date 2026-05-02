@@ -13,14 +13,13 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
 <body>
-    <!-- Overlay para cerrar dropdown -->
     <div class="overlay" id="overlay"></div>
     
     <div class="container">
-        <!-- Header -->
         <div class="header">
             <div class="logo">
-                <img src="../assent/img/Logo_CAMP.png" alt="CAMP Logo" style="height:40px;">
+                <!-- LOGO: sin inline style para que el CSS lo controle -->
+                <img src="../assent/img/Logo_CAMP.png" alt="CAMP Logo">
             </div>
             <div class="header-actions">
                 <button class="btn btn-primary" onclick="window.location.href='/vista/buscar-trabajadores.html'">
@@ -33,7 +32,6 @@
                     <i class="fas fa-bell"></i>
                     <span class="notification-badge" id="notificationBadge">0</span>
                 </div>
-                
                 <div class="user-menu-container">
                     <button class="profile-menu" onclick="toggleProfileMenu()" id="profileMenuBtn">
                         <i class="fas fa-user"></i>
@@ -42,7 +40,6 @@
             </div>
         </div>
 
-        <!-- Dashboard -->
         <div class="dashboard">
             <div class="main-panel">
                 <button class="create-offer-btn" onclick="createNewOffer()">
@@ -70,10 +67,8 @@
                     </div>
                 </div>
 
-                <!-- Contenedor de ofertas -->
                 <div id="ofertasContainer" class="ofertas-container"></div>
                 
-                <!-- Paginación -->
                 <div class="pagination-container" id="paginationContainer" style="display: none;">
                     <button class="pagination-btn" id="prevPageBtn" onclick="cambiarPaginaOfertas('prev')" disabled>
                         <i class="fas fa-chevron-left"></i>
@@ -90,7 +85,6 @@
             </div>
 
             <div class="side-panel">
-                <!-- Perfil del Agricultor -->
                 <div class="profile-card">
                     <div class="profile-avatar-large" id="sidebarProfileAvatar">
                         <i class="fas fa-user"></i>
@@ -114,14 +108,14 @@
                     <i class="fas fa-map-marked-alt"></i>
                     <span data-i18n="location_map">Mapa de Ubicación</span>
                 </div>
-                <div id="map" style="height: 300px; border-radius: 15px; overflow: hidden; border: 2px solid #4a7c59; margin-bottom: 20px;"></div>
+                <!-- Mapa: sin inline style para que el CSS lo controle -->
+                <div id="map"></div>
 
                 <div class="notifications">
                     <div class="section-title">
                         <i class="fas fa-bell"></i>
                         <span data-i18n="recent_notifications">Notificaciones Recientes</span>
                     </div>
-                    
                     <div class="notification-item" onclick="handleNotification(this)">
                         <div class="notification-icon-wrapper">
                             <i class="fas fa-info-circle"></i>
@@ -148,7 +142,6 @@
                     <i class="fas fa-times"></i>
                 </button>
             </div>
-            
             <div class="modal-body">
                 <form id="formCrearOferta" onsubmit="crearOferta(event)">
                     <div class="form-group">
@@ -156,66 +149,41 @@
                             <i class="fas fa-tag"></i>
                             <span data-i18n="offer_title">Título de la Oferta</span>
                         </label>
-                        <input 
-                            type="text" 
-                            id="tituloOferta" 
-                            name="titulo"
-                            class="form-input" 
+                        <input type="text" id="tituloOferta" name="titulo" class="form-input"
                             data-i18n-placeholder="offer_title_example"
                             placeholder="Ej: Cosecha de Café - Finca El Paraíso"
-                            required
-                            maxlength="200">
+                            required maxlength="200">
                     </div>
-
                     <div class="form-group">
                         <label for="descripcionOferta" class="form-label">
                             <i class="fas fa-align-left"></i>
                             <span data-i18n="job_description">Descripción del Trabajo</span>
                         </label>
-                        <textarea 
-                            id="descripcionOferta" 
-                            name="descripcion"
-                            class="form-textarea" 
+                        <textarea id="descripcionOferta" name="descripcion" class="form-textarea"
                             data-i18n-placeholder="job_description_placeholder"
                             placeholder="Describe detalladamente el trabajo a realizar, requisitos, horarios, ubicación, etc."
-                            required
-                            maxlength="1000"></textarea>
+                            required maxlength="1000"></textarea>
                     </div>
-
                     <div class="form-group">
                         <label for="pagoOferta" class="form-label">
                             <i class="fas fa-dollar-sign"></i>
                             <span data-i18n="offered_pay">Pago Ofrecido (COP por día)</span>
                         </label>
-                        <input 
-                            type="number" 
-                            id="pagoOferta" 
-                            name="pago"
-                            class="form-input" 
-                            placeholder="50000"
-                            required
-                            min="10000"
-                            step="1000">
+                        <input type="number" id="pagoOferta" name="pago" class="form-input"
+                            placeholder="50000" required min="10000" step="1000">
                     </div>
-
                     <div class="form-group">
                         <label for="ubicacionOferta" class="form-label">
                             <i class="fas fa-map-marker-alt"></i>
                             <span data-i18n="job_location">Ubicación del Trabajo</span>
                         </label>
-                        <input 
-                            type="text" 
-                            id="ubicacionOferta" 
-                            name="ubicacion"
-                            class="form-input" 
+                        <input type="text" id="ubicacionOferta" name="ubicacion" class="form-input"
                             data-i18n-placeholder="location_example"
                             placeholder="Ej: Vereda El Paraíso, Chinchiná, Caldas"
-                            required
-                            maxlength="255">
+                            required maxlength="255">
                     </div>
                 </form>
             </div>
-
             <div class="modal-actions">
                 <button type="button" class="btn-modal btn-cancelar" onclick="cerrarModalOferta()">
                     <i class="fas fa-times"></i>
@@ -241,69 +209,43 @@
                     <i class="fas fa-times"></i>
                 </button>
             </div>
-            
             <div class="modal-body">
                 <form id="formEditarOferta" onsubmit="guardarEdicion(event)">
                     <input type="hidden" id="editOfertaId" name="ofertaId">
-                    
                     <div class="form-group">
                         <label for="editTituloOferta" class="form-label">
                             <i class="fas fa-tag"></i>
                             <span data-i18n="offer_title">Título de la Oferta</span>
                         </label>
-                        <input 
-                            type="text" 
-                            id="editTituloOferta" 
-                            name="titulo"
-                            class="form-input" 
-                            required
-                            maxlength="200">
+                        <input type="text" id="editTituloOferta" name="titulo" class="form-input"
+                            required maxlength="200">
                     </div>
-
                     <div class="form-group">
                         <label for="editDescripcionOferta" class="form-label">
                             <i class="fas fa-align-left"></i>
                             <span data-i18n="job_description">Descripción del Trabajo</span>
                         </label>
-                        <textarea 
-                            id="editDescripcionOferta" 
-                            name="descripcion"
-                            class="form-textarea" 
-                            required
-                            maxlength="1000"></textarea>
+                        <textarea id="editDescripcionOferta" name="descripcion" class="form-textarea"
+                            required maxlength="1000"></textarea>
                     </div>
-
                     <div class="form-group">
                         <label for="editPagoOferta" class="form-label">
                             <i class="fas fa-dollar-sign"></i>
                             <span data-i18n="offered_pay">Pago Ofrecido (COP por día)</span>
                         </label>
-                        <input 
-                            type="number" 
-                            id="editPagoOferta" 
-                            name="pago"
-                            class="form-input" 
-                            required
-                            min="10000"
-                            step="1000">
+                        <input type="number" id="editPagoOferta" name="pago" class="form-input"
+                            required min="10000" step="1000">
                     </div>
-
                     <div class="form-group">
                         <label for="editUbicacionOferta" class="form-label">
                             <i class="fas fa-map-marker-alt"></i>
                             <span data-i18n="job_location">Ubicación del Trabajo</span>
                         </label>
-                        <input 
-                            type="text" 
-                            id="editUbicacionOferta" 
-                            name="ubicacion"
-                            class="form-input" 
-                            required
-                            maxlength="255">
+                        <input type="text" id="editUbicacionOferta" name="ubicacion" class="form-input"
+                            required maxlength="255">
                     </div>
                 </form>
             </div>
-
             <div class="modal-actions">
                 <button type="button" class="btn-modal btn-cancelar" onclick="cerrarModalEditar()">
                     <i class="fas fa-times"></i>
@@ -317,7 +259,7 @@
         </div>
     </div>
 
-    <!-- MODALES DE POSTULACIONES -->
+    <!-- MODAL POSTULACIONES -->
     <div class="modal" id="applicationsModal" style="display: none;">
         <div class="modal-content applications-modal">
             <div class="modal-header">
@@ -332,6 +274,7 @@
         </div>
     </div>
 
+    <!-- MODAL PERFIL TRABAJADOR -->
     <div class="modal" id="workerProfileModal" style="display: none;">
         <div class="modal-content worker-profile-modal">
             <div class="modal-header">
@@ -346,87 +289,6 @@
         </div>
     </div>
 
-    <script src="../js/language-manager.js"></script>
     <script src="../js/index-agricultor.js"></script>
-    
-    <!-- Script de paginación -->
-    <script>
-        // Variables de paginación para ofertas
-        let ofertasPaginaActual = 1;
-        const ofertasPorPagina = 3;
-        let todasLasOfertas = [];
-
-        // Función para cambiar de página
-        window.cambiarPaginaOfertas = function(direccion) {
-            const totalPaginas = Math.ceil(todasLasOfertas.length / ofertasPorPagina);
-            
-            if (direccion === 'prev' && ofertasPaginaActual > 1) {
-                ofertasPaginaActual--;
-            } else if (direccion === 'next' && ofertasPaginaActual < totalPaginas) {
-                ofertasPaginaActual++;
-            }
-            
-            mostrarOfertasPaginadas();
-        };
-
-        // Sobrescribir mostrarOfertasEnDashboard para usar paginación
-        const originalMostrarOfertas = window.mostrarOfertasEnDashboard;
-        window.mostrarOfertasEnDashboard = function(ofertas) {
-            todasLasOfertas = ofertas;
-            ofertasPaginaActual = 1;
-            
-            if (ofertas.length === 0) {
-                // Llamar a la función original si no hay ofertas
-                if (originalMostrarOfertas) {
-                    originalMostrarOfertas(ofertas);
-                }
-                const paginationContainer = document.getElementById('paginationContainer');
-                if (paginationContainer) paginationContainer.style.display = 'none';
-                return;
-            }
-            
-            mostrarOfertasPaginadas();
-        };
-
-        function mostrarOfertasPaginadas() {
-            const container = document.getElementById('ofertasContainer');
-            const paginationContainer = document.getElementById('paginationContainer');
-            
-            if (!container) return;
-            
-            const inicio = (ofertasPaginaActual - 1) * ofertasPorPagina;
-            const fin = inicio + ofertasPorPagina;
-            const ofertasPagina = todasLasOfertas.slice(inicio, fin);
-            
-            container.innerHTML = `
-                <div class="section-title" style="margin: 30px 0 20px 0;">
-                    <i class="fas fa-clipboard-list"></i>
-                    Mis Ofertas Publicadas (${todasLasOfertas.length})
-                </div>
-            `;
-            
-            ofertasPagina.forEach(oferta => {
-                const ofertaCard = crearTarjetaOferta(oferta);
-                container.appendChild(ofertaCard);
-            });
-            
-            // Actualizar paginación
-            const totalPaginas = Math.ceil(todasLasOfertas.length / ofertasPorPagina);
-            
-            if (totalPaginas > 1) {
-                paginationContainer.style.display = 'flex';
-                document.getElementById('currentPageNum').textContent = ofertasPaginaActual;
-                document.getElementById('totalPagesNum').textContent = totalPaginas;
-                
-                const prevBtn = document.getElementById('prevPageBtn');
-                const nextBtn = document.getElementById('nextPageBtn');
-                
-                prevBtn.disabled = ofertasPaginaActual === 1;
-                nextBtn.disabled = ofertasPaginaActual === totalPaginas;
-            } else {
-                paginationContainer.style.display = 'none';
-            }
-        }
-    </script>
 </body>
 </html>

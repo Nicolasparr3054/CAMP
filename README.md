@@ -284,7 +284,17 @@ GET    /api/admin/reportes-pendientes        Reportes pendientes (admin)
 
 ## Historial de versiones
 
-### v1.4 — Rediseño del dashboard del trabajador *(actual)*
+### v1.5 — Rediseño del dashboard del agricultor *(actual)*
+> Rediseño completo de la interfaz principal del agricultor.
+
+- **`index-agricultor.html`** rediseñado con nueva estructura y componentes
+- **`index-agricultor.css`** reescrito con nuevos estilos y layout actualizado
+- **`index-agricultor.js`** actualizado con nueva lógica de interacción
+- Mejoras generales de experiencia de usuario en el panel del agricultor
+
+---
+
+### v1.4 — Rediseño del dashboard del trabajador
 > Rediseño completo de la interfaz principal del trabajador.
 
 - **`index-trabajador.html`** rediseñado con nueva estructura y componentes
@@ -355,7 +365,7 @@ GET    /api/admin/reportes-pendientes        Reportes pendientes (admin)
 
 Desarrollado por Nicolas Parra.
 
-**CAMP v1.4** — 2026
+**CAMP v1.5** — 2026
 
 ---
 
