@@ -368,5 +368,5 @@ Desarrollado por Nicolas Parra.
 **CAMP v1.5** — 2026
 
 ---
-
+ 
 > *Conectando el campo colombiano, una oferta a la vez.* 🌱
