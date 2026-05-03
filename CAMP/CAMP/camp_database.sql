@@ -1,15 +1,14 @@
 -- ============================================
 -- BASE DE DATOS: CAMP
--- Plataforma de conexión agricultores-trabajadores
 -- ============================================
-CREATE DATABASE IF NOT EXISTS camp CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE DATABASE camp;
 USE camp;
 
 -- ============================================
 -- TABLAS
 -- ============================================
 
--- Tabla Usuario
+-- Tabla Usuario: Almacena información de usuarios del sistema (Agricultores, Trabajadores, Administradores)
 CREATE TABLE Usuario (
     ID_Usuario INT PRIMARY KEY AUTO_INCREMENT,
     Nombre VARCHAR(100) NOT NULL,
@@ -21,13 +20,10 @@ CREATE TABLE Usuario (
     Red_Social VARCHAR(255),
     Rol ENUM('Agricultor', 'Trabajador', 'Administrador') NOT NULL,
     Estado ENUM('Activo', 'Inactivo') DEFAULT 'Activo',
-    Fecha_Registro DATETIME DEFAULT CURRENT_TIMESTAMP,
-    Configuraciones JSON,
-    Fecha_Actualizacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    Idioma VARCHAR(5) DEFAULT 'es'
+    Fecha_Registro DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
--- Tabla Predio
+-- Tabla Predio: Almacena información de las fincas/predios de los agricultores
 CREATE TABLE Predio (
     ID_Predio INT AUTO_INCREMENT PRIMARY KEY,
     ID_Usuario INT NOT NULL,
@@ -38,7 +34,7 @@ CREATE TABLE Predio (
     FOREIGN KEY (ID_Usuario) REFERENCES Usuario(ID_Usuario)
 );
 
--- Tabla Experiencia
+-- Tabla Experiencia: Registra la experiencia laboral de los trabajadores
 CREATE TABLE Experiencia (
     ID_Experiencia INT PRIMARY KEY AUTO_INCREMENT,
     ID_Trabajador INT NOT NULL,
@@ -52,7 +48,7 @@ CREATE TABLE Experiencia (
     FOREIGN KEY (ID_Trabajador) REFERENCES Usuario(ID_Usuario)
 );
 
--- Tabla Habilidad
+-- Tabla Habilidad: Registra las habilidades y competencias de los trabajadores
 CREATE TABLE Habilidad (
     ID_Habilidad INT PRIMARY KEY AUTO_INCREMENT,
     ID_Trabajador INT NOT NULL,
@@ -69,12 +65,10 @@ CREATE TABLE Habilidad (
         'Preparación de suelo',
         'Transporte y distribución'
     ) NOT NULL,
-    Nivel ENUM('Básico', 'Intermedio', 'Avanzado', 'Experto') DEFAULT 'Intermedio',
-    Anos_Experiencia INT DEFAULT 0,
     FOREIGN KEY (ID_Trabajador) REFERENCES Usuario(ID_Usuario)
 );
 
--- Tabla Oferta_Trabajo
+-- Tabla Oferta_Trabajo: Almacena las ofertas de trabajo publicadas por agricultores
 CREATE TABLE Oferta_Trabajo (
     ID_Oferta INT PRIMARY KEY AUTO_INCREMENT,
     ID_Agricultor INT NOT NULL,
@@ -86,7 +80,7 @@ CREATE TABLE Oferta_Trabajo (
     FOREIGN KEY (ID_Agricultor) REFERENCES Usuario(ID_Usuario)
 );
 
--- Tabla Postulacion
+-- Tabla Postulacion: Registra las postulaciones de trabajadores a ofertas de trabajo
 CREATE TABLE Postulacion (
     ID_Postulacion INT PRIMARY KEY AUTO_INCREMENT,
     ID_Oferta INT NOT NULL,
@@ -97,7 +91,7 @@ CREATE TABLE Postulacion (
     FOREIGN KEY (ID_Trabajador) REFERENCES Usuario(ID_Usuario)
 );
 
--- Tabla Acuerdo_Laboral
+-- Tabla Acuerdo_Laboral: Almacena los acuerdos laborales formalizados entre agricultor y trabajador
 CREATE TABLE Acuerdo_Laboral (
     ID_Acuerdo INT PRIMARY KEY AUTO_INCREMENT,
     ID_Oferta INT NOT NULL,
@@ -110,7 +104,7 @@ CREATE TABLE Acuerdo_Laboral (
     FOREIGN KEY (ID_Trabajador) REFERENCES Usuario(ID_Usuario)
 );
 
--- Tabla Calificacion
+-- Tabla Calificacion: Registra las calificaciones entre usuarios después de un acuerdo laboral
 CREATE TABLE Calificacion (
     ID_Calificacion INT PRIMARY KEY AUTO_INCREMENT,
     ID_Acuerdo INT NOT NULL,
@@ -124,7 +118,7 @@ CREATE TABLE Calificacion (
     FOREIGN KEY (ID_Usuario_Receptor) REFERENCES Usuario(ID_Usuario)
 );
 
--- Tabla Anexo
+-- Tabla Anexo: Almacena archivos adjuntos de los usuarios (certificados, documentos, imágenes)
 CREATE TABLE Anexo (
     ID_Anexo INT PRIMARY KEY AUTO_INCREMENT,
     ID_Usuario INT NOT NULL,
@@ -135,7 +129,7 @@ CREATE TABLE Anexo (
     FOREIGN KEY (ID_Usuario) REFERENCES Usuario(ID_Usuario)
 );
 
--- Tabla disponibilidad_trabajador
+-- Tabla disponibilidad_trabajador: Gestiona la disponibilidad y visibilidad de los trabajadores
 CREATE TABLE disponibilidad_trabajador (
     ID_Disponibilidad INT AUTO_INCREMENT PRIMARY KEY,
     ID_Usuario INT NOT NULL,
@@ -150,7 +144,7 @@ CREATE TABLE disponibilidad_trabajador (
     UNIQUE KEY (ID_Usuario)
 );
 
--- Tabla Reportes
+-- Tabla Reportes: Registra reportes de usuarios sobre otros usuarios
 CREATE TABLE Reportes (
     ID_Reporte INT PRIMARY KEY AUTO_INCREMENT,
     ID_Usuario_Reportante INT NOT NULL,
@@ -163,19 +157,69 @@ CREATE TABLE Reportes (
 );
 
 -- ============================================
--- ÍNDICES
+-- MODIFICACIONES A TABLAS EXISTENTES
 -- ============================================
+
+-- Agregar columnas adicionales a la tabla Usuario
+ALTER TABLE Usuario 
+ADD COLUMN Configuraciones JSON,
+ADD COLUMN Fecha_Actualizacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+ADD COLUMN Idioma VARCHAR(5) DEFAULT 'es';
+
+-- Agregar columnas de nivel y experiencia a la tabla Habilidad
+ALTER TABLE Habilidad 
+ADD COLUMN Nivel ENUM('Básico', 'Intermedio', 'Avanzado', 'Experto') DEFAULT 'Intermedio' AFTER Clasificacion,
+ADD COLUMN Anos_Experiencia INT DEFAULT 0 AFTER Nivel;
+
+-- Modificar campo Estado de Oferta_Trabajo (confirmar estructura)
+ALTER TABLE Oferta_Trabajo 
+MODIFY COLUMN Estado ENUM('Abierta', 'Cerrada', 'En Proceso') DEFAULT 'Abierta';
+
+-- Modificar campo Estado de Postulacion (confirmar estructura)
+ALTER TABLE Postulacion 
+MODIFY COLUMN Estado ENUM('Pendiente', 'Aceptada', 'Rechazada', 'Favorito') DEFAULT 'Pendiente';
+
+-- ============================================
+-- ÍNDICES PARA OPTIMIZACIÓN
+-- ============================================
+
+-- Índices para tabla disponibilidad_trabajador
+
+-- Índice para búsquedas por disponibilidad (consultas que filtran trabajadores disponibles/no disponibles)
 CREATE INDEX idx_disponible ON disponibilidad_trabajador(Disponible);
+
+-- Índice para búsquedas por visibilidad (consultas que filtran por estado de visibilidad: visible, paused, hidden)
 CREATE INDEX idx_visibilidad ON disponibilidad_trabajador(Visibilidad);
+
+-- Índice compuesto para búsquedas por usuario y disponibilidad (optimiza consultas que buscan la disponibilidad de un usuario específico)
 CREATE INDEX idx_usuario_disponible ON disponibilidad_trabajador(ID_Usuario, Disponible);
+
+-- Índices para tabla Reportes
+
+-- Índice para búsquedas por estado del reporte (consultas que filtran reportes por: Pendiente, Revisado, Resuelto)
 CREATE INDEX idx_estado_reporte ON Reportes(Estado);
+
+-- Índice para búsquedas y ordenamientos por fecha de reporte (optimiza consultas que ordenan o filtran por fecha)
 CREATE INDEX idx_fecha_reporte ON Reportes(Fecha_Reporte);
+
+-- Índice para búsquedas de reportes realizados por un usuario específico (consultas que buscan todos los reportes que hizo un usuario)
 CREATE INDEX idx_reportante ON Reportes(ID_Usuario_Reportante);
+
+-- Índice para búsquedas de reportes recibidos por un usuario específico (consultas que buscan todos los reportes que recibió un usuario)
 CREATE INDEX idx_reportado ON Reportes(ID_Usuario_Reportado);
 
 -- ============================================
 -- DATOS INICIALES
--- Contraseña: admin123 (cambiar después del primer login)
 -- ============================================
+
+-- Insertar usuario administrador principal
 INSERT INTO Usuario (Nombre, Apellido, Correo, Contrasena, Rol, Estado) 
-VALUES ('Admin', 'Principal', 'admin@camp.com', '$2b$12$KIXv0gOMZOUfhEAWN6B7mOyKL6.7ZJfYHGrMJOZHGBJOz8y4kJa8K', 'Administrador', 'Activo');
+VALUES ('Admin', 'Principal', 'admin@agriwork.com', '$2b$12$encrypted_password_here', 'Administrador', 'Activo');
+
+-- Insertar segundo usuario administrador
+INSERT INTO Usuario (Nombre, Apellido, Correo, Contrasena, Rol, Estado) 
+VALUES ('Admin', 'Principal', 'admin@agromatch.com', '$2b$12$KIXv0gOMZOUfhEAWN6B7mOyKL6.7ZJfYHGrMJOZHGBJOz8y4kJa8K', 'Administrador', 'Activo');
+
+UPDATE camp.Usuario 
+SET Contrasena = '$2b$12$JsUFfeNNuR.FuRLdzBrX6uKDykEYLhFg2DTUO1fxREQAz0mTPjUpK'
+WHERE ID_Usuario = 1;

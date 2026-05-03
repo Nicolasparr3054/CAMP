@@ -6,66 +6,93 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <title>Panel de Administrador - AgroMach</title>
+    <title>Panel de Administrador — CAMP</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assent/css/index-administrador.css">
 </head>
 <body>
     <div class="container">
         <!-- Sidebar Navigation -->
         <nav class="sidebar" id="sidebar">
+
+            <!-- Logo CAMP -->
             <div class="logo">
-                <h1><i class="fas fa-seedling"></i> AgroMach</h1>
-                <p>Panel de Administrador</p>
+                <div class="logo-mark">
+                    <img src="../assent/img/Logo_CAMP.png" alt="CAMP Logo"
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+                    <!-- Fallback SVG si la imagen no carga -->
+                    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:none;">
+                        <path d="M24 6 C14 6, 8 14, 8 24 C8 34, 14 42, 24 42" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+                        <path d="M24 6 C34 6, 40 14, 40 24 C40 34, 34 42, 24 42" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+                        <line x1="24" y1="8" x2="24" y2="42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M24 20 L18 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M24 26 L30 20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M24 32 L18 26" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    <h1>CAMP</h1>
+                    <p>Panel Administrativo</p>
+                </div>
             </div>
-            
+
+            <!-- Divider -->
+            <div class="sidebar-divider"></div>
+
+            <!-- Nav -->
             <ul class="nav-menu">
                 <li class="nav-item active" data-section="dashboard">
                     <a href="#" class="nav-link">
-                        <i class="fas fa-tachometer-alt"></i>
-                        <span>Dashboard</span>
+                        <span class="nav-icon"><i class="fas fa-tachometer-alt"></i></span>
+                        <span class="nav-label">Dashboard</span>
                     </a>
                 </li>
                 <li class="nav-item" data-section="usuarios">
                     <a href="#" class="nav-link">
-                        <i class="fas fa-users"></i>
-                        <span>Gestión de Usuarios</span>
+                        <span class="nav-icon"><i class="fas fa-users"></i></span>
+                        <span class="nav-label">Usuarios</span>
                     </a>
                 </li>
                 <li class="nav-item" data-section="publicaciones">
                     <a href="#" class="nav-link">
-                        <i class="fas fa-briefcase"></i>
-                        <span>Gestión de Publicaciones</span>
+                        <span class="nav-icon"><i class="fas fa-briefcase"></i></span>
+                        <span class="nav-label">Publicaciones</span>
                     </a>
                 </li>
                 <li class="nav-item" data-section="estadisticas">
                     <a href="#" class="nav-link">
-                        <i class="fas fa-chart-bar"></i>
-                        <span>Estadísticas</span>
+                        <span class="nav-icon"><i class="fas fa-chart-bar"></i></span>
+                        <span class="nav-label">Estadísticas</span>
                     </a>
                 </li>
                 <li class="nav-item" data-section="reportes">
                     <a href="#" class="nav-link">
-                        <i class="fas fa-file-alt"></i>
-                        <span>Reportes</span>
+                        <span class="nav-icon"><i class="fas fa-file-alt"></i></span>
+                        <span class="nav-label">Reportes</span>
                     </a>
                 </li>
-                <li class="nav-item" data-section="reportes-usuarios">
+                <li class="nav-item nav-item--alert" data-section="reportes-usuarios">
                     <a href="#" class="nav-link">
-                        <i class="fas fa-flag"></i>
-                        <span>Reportes de Usuarios</span>
+                        <span class="nav-icon"><i class="fas fa-flag"></i></span>
+                        <span class="nav-label">Alertas</span>
                         <span class="badge-count" id="reportes-count">0</span>
                     </a>
                 </li>
             </ul>
-            
+
+            <!-- Admin Info -->
             <div class="admin-info">
                 <div class="admin-avatar">
                     <i class="fas fa-user-shield"></i>
+                    <div class="admin-status-dot"></div>
                 </div>
-                <p class="admin-name">Admin Principal</p>
-                <button class="logout-btn" onclick="logout()">
-                    <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                <div class="admin-details">
+                    <p class="admin-name">Admin Principal</p>
+                    <p class="admin-role">Superadministrador</p>
+                </div>
+                <button class="logout-btn" onclick="logout()" title="Cerrar Sesión">
+                    <i class="fas fa-sign-out-alt"></i>
                 </button>
             </div>
         </nav>
@@ -77,10 +104,14 @@
 
         <!-- Main Content -->
         <main class="main-content">
-            <!-- Dashboard Section -->
+
+            <!-- ===== DASHBOARD ===== -->
             <section id="dashboard-section" class="content-section active">
                 <header class="content-header">
-                    <h1>Dashboard Principal</h1>
+                    <div class="header-left">
+                        <span class="section-eyebrow">Bienvenido de nuevo</span>
+                        <h1>Dashboard</h1>
+                    </div>
                     <div class="header-actions">
                         <div class="search-box">
                             <i class="fas fa-search"></i>
@@ -89,7 +120,6 @@
                     </div>
                 </header>
 
-                <!-- Quick Stats Cards -->
                 <div class="stats-overview">
                     <div class="stats-card">
                         <div class="stats-icon users">
@@ -101,7 +131,6 @@
                             <span class="stats-change positive">+12%</span>
                         </div>
                     </div>
-
                     <div class="stats-card">
                         <div class="stats-icon jobs">
                             <i class="fas fa-briefcase"></i>
@@ -112,7 +141,6 @@
                             <span class="stats-change positive">+8%</span>
                         </div>
                     </div>
-
                     <div class="stats-card">
                         <div class="stats-icon applications">
                             <i class="fas fa-file-alt"></i>
@@ -123,7 +151,6 @@
                             <span class="stats-change positive">+15%</span>
                         </div>
                     </div>
-
                     <div class="stats-card">
                         <div class="stats-icon success">
                             <i class="fas fa-handshake"></i>
@@ -136,15 +163,11 @@
                     </div>
                 </div>
 
-                <!-- Dashboard Grid -->
                 <div class="dashboard-grid">
                     <div class="dashboard-card">
                         <h3><i class="fas fa-clock"></i> Actividad Reciente</h3>
-                        <div class="activity-list" id="activityList">
-                            <!-- Activities will be loaded by JavaScript -->
-                        </div>
+                        <div class="activity-list" id="activityList"></div>
                     </div>
-
                     <div class="dashboard-card">
                         <h3><i class="fas fa-tasks"></i> Acciones Rápidas</h3>
                         <div class="quick-actions">
@@ -162,27 +185,27 @@
                             </button>
                             <button class="action-btn warning" onclick="showPendingReports()">
                                 <i class="fas fa-flag"></i>
-                                Ver Reportes Pendientes
+                                Ver Alertas
                             </button>
                         </div>
                     </div>
                 </div>
 
-                <!-- System Status -->
                 <div class="system-status">
                     <div class="status-card">
                         <h3><i class="fas fa-server"></i> Estado del Sistema</h3>
-                        <div class="status-grid" id="systemStatus">
-                            <!-- System status will be loaded by JavaScript -->
-                        </div>
+                        <div class="status-grid" id="systemStatus"></div>
                     </div>
                 </div>
             </section>
 
-            <!-- Usuarios Section -->
+            <!-- ===== USUARIOS ===== -->
             <section id="usuarios-section" class="content-section">
                 <header class="content-header">
-                    <h1>Gestión de Usuarios</h1>
+                    <div class="header-left">
+                        <span class="section-eyebrow">Gestión</span>
+                        <h1>Usuarios</h1>
+                    </div>
                     <div class="header-actions">
                         <button class="btn btn-primary" onclick="showAddUserModal()">
                             <i class="fas fa-plus"></i> Agregar Usuario
@@ -190,7 +213,6 @@
                     </div>
                 </header>
 
-                <!-- User Filters -->
                 <div class="filters-section">
                     <div class="filters-grid">
                         <div class="filter-group">
@@ -226,7 +248,6 @@
                     </div>
                 </div>
 
-                <!-- Users Table -->
                 <div class="table-container">
                     <div class="table-header">
                         <h3>Lista de Usuarios</h3>
@@ -251,18 +272,19 @@
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
-                            <tbody id="usersTableBody">
-                                <!-- Users will be loaded by JavaScript -->
-                            </tbody>
+                            <tbody id="usersTableBody"></tbody>
                         </table>
                     </div>
                 </div>
             </section>
 
-            <!-- SECCIÓN DE PUBLICACIONES -->
+            <!-- ===== PUBLICACIONES ===== -->
             <section id="publicaciones-section" class="content-section">
                 <header class="content-header">
-                    <h1><i class="fas fa-briefcase"></i> Gestión de Publicaciones</h1>
+                    <div class="header-left">
+                        <span class="section-eyebrow">Gestión</span>
+                        <h1>Publicaciones</h1>
+                    </div>
                     <div class="header-actions">
                         <button class="btn btn-primary" onclick="applyPublicacionesFilters()">
                             <i class="fas fa-filter"></i> Aplicar Filtros
@@ -273,7 +295,6 @@
                     </div>
                 </header>
 
-                <!-- Filtros -->
                 <div class="filters-section">
                     <div class="filters-grid">
                         <div class="filter-group">
@@ -300,10 +321,9 @@
                     </div>
                 </div>
 
-                <!-- Estadísticas Rápidas -->
                 <div class="stats-overview">
                     <div class="stats-card">
-                        <div class="stats-icon" style="background: linear-gradient(135deg, #28a745, #20c997);">
+                        <div class="stats-icon" style="background: linear-gradient(145deg, #2a4e2e, #0d1f10);">
                             <i class="fas fa-folder-open"></i>
                         </div>
                         <div class="stats-content">
@@ -311,9 +331,8 @@
                             <p>Ofertas Abiertas</p>
                         </div>
                     </div>
-
                     <div class="stats-card">
-                        <div class="stats-icon" style="background: linear-gradient(135deg, #6c757d, #495057);">
+                        <div class="stats-icon" style="background: linear-gradient(145deg, #6b4a2a, #3d2c1a);">
                             <i class="fas fa-folder"></i>
                         </div>
                         <div class="stats-content">
@@ -321,9 +340,8 @@
                             <p>Ofertas Cerradas</p>
                         </div>
                     </div>
-
                     <div class="stats-card">
-                        <div class="stats-icon" style="background: linear-gradient(135deg, #ffc107, #ff9800);">
+                        <div class="stats-icon" style="background: linear-gradient(145deg, #c87800, #8a5200);">
                             <i class="fas fa-sync-alt"></i>
                         </div>
                         <div class="stats-content">
@@ -331,9 +349,8 @@
                             <p>En Proceso</p>
                         </div>
                     </div>
-
                     <div class="stats-card">
-                        <div class="stats-icon" style="background: linear-gradient(135deg, #17a2b8, #138496);">
+                        <div class="stats-icon" style="background: linear-gradient(145deg, #2a6070, #1a3a48);">
                             <i class="fas fa-users"></i>
                         </div>
                         <div class="stats-content">
@@ -343,7 +360,6 @@
                     </div>
                 </div>
 
-                <!-- Tabla de Publicaciones -->
                 <div class="table-container">
                     <div class="table-header">
                         <h3>Todas las Publicaciones</h3>
@@ -364,11 +380,9 @@
                             </thead>
                             <tbody id="publicacionesTableBody">
                                 <tr>
-                                    <td colspan="8" style="text-align: center; padding: 2rem;">
-                                        <div class="spinner-border" role="status">
-                                            <span class="sr-only">Cargando...</span>
-                                        </div>
-                                        <p style="margin-top: 1rem;">Cargando publicaciones...</p>
+                                    <td colspan="8" style="text-align: center; padding: 3rem;">
+                                        <div class="spinner-border" role="status"></div>
+                                        <p style="margin-top: 1rem; color: var(--text-muted);">Cargando publicaciones...</p>
                                     </td>
                                 </tr>
                             </tbody>
@@ -377,10 +391,13 @@
                 </div>
             </section>
 
-            <!-- SECCIÓN DE ESTADÍSTICAS -->
+            <!-- ===== ESTADÍSTICAS ===== -->
             <section id="estadisticas-section" class="content-section">
                 <header class="content-header">
-                    <h1><i class="fas fa-chart-bar"></i> Estadísticas del Sistema</h1>
+                    <div class="header-left">
+                        <span class="section-eyebrow">Análisis</span>
+                        <h1>Estadísticas</h1>
+                    </div>
                     <div class="header-actions">
                         <button class="btn btn-primary" onclick="loadEstadisticas()">
                             <i class="fas fa-sync-alt"></i> Actualizar
@@ -388,53 +405,43 @@
                     </div>
                 </header>
 
-                <!-- Estadísticas Generales -->
                 <div id="estadisticasGenerales">
-                    <div style="text-align: center; padding: 3rem;">
-                        <div class="spinner-border" role="status">
-                            <span class="sr-only">Cargando...</span>
-                        </div>
-                        <p style="margin-top: 1rem;">Cargando estadísticas...</p>
+                    <div style="text-align: center; padding: 4rem;">
+                        <div class="spinner-border" role="status"></div>
+                        <p style="margin-top: 1rem; color: var(--text-muted);">Cargando estadísticas...</p>
                     </div>
                 </div>
 
-                <!-- Gráficos -->
                 <div class="dashboard-grid" style="margin-top: 2rem;">
                     <div class="dashboard-card">
                         <h3><i class="fas fa-chart-line"></i> Usuarios Registrados</h3>
                         <canvas id="chartUsuariosMes" height="300"></canvas>
                     </div>
-
                     <div class="dashboard-card">
                         <h3><i class="fas fa-chart-bar"></i> Ofertas Publicadas</h3>
                         <canvas id="chartOfertasMes" height="300"></canvas>
                     </div>
-
                     <div class="dashboard-card">
                         <h3><i class="fas fa-chart-pie"></i> Estado de Postulaciones</h3>
                         <canvas id="chartPostulacionesEstado" height="300"></canvas>
                     </div>
-
                     <div class="dashboard-card">
                         <h3><i class="fas fa-chart-pie"></i> Distribución de Pagos</h3>
                         <canvas id="chartDistribucionPagos" height="300"></canvas>
                     </div>
                 </div>
 
-                <!-- Top Lists -->
                 <div class="dashboard-grid" style="margin-top: 2rem;">
                     <div class="dashboard-card" id="topTrabajadores">
                         <h4><i class="fas fa-trophy"></i> Top Trabajadores</h4>
-                        <p>Cargando...</p>
+                        <p style="color: var(--text-muted);">Cargando...</p>
                     </div>
-
                     <div class="dashboard-card" id="topAgricultores">
                         <h4><i class="fas fa-trophy"></i> Top Agricultores</h4>
-                        <p>Cargando...</p>
+                        <p style="color: var(--text-muted);">Cargando...</p>
                     </div>
                 </div>
 
-                <!-- Métricas en Tiempo Real -->
                 <div class="system-status" style="margin-top: 2rem;">
                     <div class="status-card">
                         <h3><i class="fas fa-clock"></i> Métricas en Tiempo Real</h3>
@@ -472,26 +479,29 @@
                 </div>
             </section>
 
-            <!-- SECCIÓN DE REPORTES -->
+            <!-- ===== REPORTES ===== -->
             <section id="reportes-section" class="content-section">
                 <header class="content-header">
-                    <h1><i class="fas fa-file-alt"></i> Reportes y Exportaciones</h1>
+                    <div class="header-left">
+                        <span class="section-eyebrow">Datos</span>
+                        <h1>Reportes</h1>
+                    </div>
                 </header>
-
                 <div id="reportesContainer">
-                    <div style="text-align: center; padding: 3rem;">
-                        <div class="spinner-border" role="status">
-                            <span class="sr-only">Cargando...</span>
-                        </div>
-                        <p style="margin-top: 1rem;">Cargando opciones de reportes...</p>
+                    <div style="text-align: center; padding: 4rem;">
+                        <div class="spinner-border" role="status"></div>
+                        <p style="margin-top: 1rem; color: var(--text-muted);">Cargando opciones de reportes...</p>
                     </div>
                 </div>
             </section>
 
-            <!-- SECCIÓN DE REPORTES DE USUARIOS -->
+            <!-- ===== REPORTES USUARIOS ===== -->
             <section id="reportes-usuarios-section" class="content-section">
                 <header class="content-header">
-                    <h1><i class="fas fa-flag"></i> Reportes de Usuarios</h1>
+                    <div class="header-left">
+                        <span class="section-eyebrow">Moderación</span>
+                        <h1>Alertas de Usuarios</h1>
+                    </div>
                     <div class="header-actions">
                         <button class="btn btn-primary" onclick="loadReportesUsuarios()">
                             <i class="fas fa-sync-alt"></i> Actualizar
@@ -504,10 +514,9 @@
                     </div>
                 </header>
 
-                <!-- Estadísticas de Reportes -->
                 <div class="stats-overview">
                     <div class="stats-card">
-                        <div class="stats-icon" style="background: linear-gradient(135deg, #dc3545, #c82333);">
+                        <div class="stats-icon" style="background: linear-gradient(145deg, #b02828, #7a1010);">
                             <i class="fas fa-exclamation-circle"></i>
                         </div>
                         <div class="stats-content">
@@ -515,9 +524,8 @@
                             <p>Reportes Pendientes</p>
                         </div>
                     </div>
-
                     <div class="stats-card">
-                        <div class="stats-icon" style="background: linear-gradient(135deg, #ffc107, #ff9800);">
+                        <div class="stats-icon" style="background: linear-gradient(145deg, #c87800, #8a5200);">
                             <i class="fas fa-eye"></i>
                         </div>
                         <div class="stats-content">
@@ -525,9 +533,8 @@
                             <p>Revisados</p>
                         </div>
                     </div>
-
                     <div class="stats-card">
-                        <div class="stats-icon" style="background: linear-gradient(135deg, #28a745, #20c997);">
+                        <div class="stats-icon" style="background: linear-gradient(145deg, #2a4e2e, #0d1f10);">
                             <i class="fas fa-check-circle"></i>
                         </div>
                         <div class="stats-content">
@@ -535,9 +542,8 @@
                             <p>Resueltos</p>
                         </div>
                     </div>
-
                     <div class="stats-card">
-                        <div class="stats-icon" style="background: linear-gradient(135deg, #17a2b8, #138496);">
+                        <div class="stats-icon" style="background: linear-gradient(145deg, #2a6070, #1a3a48);">
                             <i class="fas fa-list"></i>
                         </div>
                         <div class="stats-content">
@@ -547,29 +553,25 @@
                     </div>
                 </div>
 
-                <!-- Lista de Reportes -->
                 <div id="reportesUsuariosContainer">
-                    <div style="text-align: center; padding: 3rem;">
-                        <div class="spinner-border" role="status">
-                            <span class="sr-only">Cargando...</span>
-                        </div>
-                        <p style="margin-top: 1rem;">Cargando reportes...</p>
+                    <div style="text-align: center; padding: 4rem;">
+                        <div class="spinner-border" role="status"></div>
+                        <p style="margin-top: 1rem; color: var(--text-muted);">Cargando reportes...</p>
                     </div>
                 </div>
             </section>
+
         </main>
     </div>
 
-    <!-- Modals -->
+    <!-- Modal -->
     <div id="userModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 id="modalTitle">Detalles del Usuario</h3>
+                <h3 id="modalTitle">Detalles</h3>
                 <span class="close" onclick="closeModal()">&times;</span>
             </div>
-            <div class="modal-body" id="modalBody">
-                <!-- Modal content will be loaded by JavaScript -->
-            </div>
+            <div class="modal-body" id="modalBody"></div>
         </div>
     </div>
 

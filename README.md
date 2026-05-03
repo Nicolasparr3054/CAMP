@@ -144,6 +144,8 @@ mysql -u root -p < camp_database.sql
 
 O desde MySQL Workbench: abre y ejecuta el archivo `camp_database.sql`.
 
+> ℹ️ El archivo `camp_database.sql` ya incluye la contraseña del administrador correctamente hasheada con bcrypt. No es necesario ejecutar ningún paso adicional para que el acceso funcione.
+
 ### 4. Configurar la conexión a la base de datos
 
 Edita el archivo `conexion_refactor/blueprints/helpers.py` con tus credenciales:
@@ -275,16 +277,34 @@ GET    /api/admin/reportes-pendientes        Reportes pendientes (admin)
 
 | Campo | Valor |
 |---|---|
-| Correo | `admin@camp.com` |
+| Correo | `admin@agriwork.com` |
 | Contraseña | `admin123` |
 
 > ⚠️ Cambia la contraseña del administrador después del primer inicio de sesión.
+
+> ℹ️ La contraseña ya se encuentra almacenada con hash bcrypt en `camp_database.sql`. Si en algún momento necesitas restablecerla manualmente, ejecuta el siguiente SQL en MySQL Workbench:
+>
+> ```sql
+> UPDATE camp.Usuario
+> SET Contrasena = '$2b$12$JsUFfeNNuR.FuRLdzBrX6uKDykEYLhFg2DTUO1fxREQAz0mTPjUpK'
+> WHERE ID_Usuario = 1;
+> ```
 
 ---
 
 ## Historial de versiones
 
-### v1.5 — Rediseño del dashboard del agricultor *(actual)*
+### v1.6 — Rediseño del dashboard del administrador *(actual)*
+> Rediseño completo de la interfaz principal del administrador.
+
+- **`index-administrador.html`** rediseñado con nueva estructura y componentes
+- **`index-administrador.css`** reescrito con nuevos estilos y layout actualizado
+- **`camp_database.sql`** actualizado con la contraseña del administrador correctamente hasheada con bcrypt
+- Corrección del acceso al panel: la contraseña del usuario `admin@agriwork.com` fue corregida y aplicada directamente en la base de datos
+
+---
+
+### v1.5 — Rediseño del dashboard del agricultor
 > Rediseño completo de la interfaz principal del agricultor.
 
 - **`index-agricultor.html`** rediseñado con nueva estructura y componentes
@@ -365,8 +385,8 @@ GET    /api/admin/reportes-pendientes        Reportes pendientes (admin)
 
 Desarrollado por Nicolas Parra.
 
-**CAMP v1.5** — 2026
+**CAMP v1.6** — 2026
 
 ---
- 
+
 > *Conectando el campo colombiano, una oferta a la vez.* 🌱
